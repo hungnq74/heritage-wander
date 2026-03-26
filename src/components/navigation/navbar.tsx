@@ -3,15 +3,14 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { Map, Shield, User, Wallet, Search, Menu } from "lucide-react";
+import { Compass, LayoutGrid, PlusCircle, User, Menu } from "lucide-react";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 const navItems = [
-  { name: "Scout", href: "/scout", icon: User },
-  { name: "Map", href: "/map", icon: Map },
-  { name: "Verifier", href: "/admin", icon: Shield },
-  { name: "Market", href: "/marketplace", icon: Search },
-  { name: "Wallet", href: "/wallet", icon: Wallet },
+  { name: "Explore", href: "/explore", icon: Compass },
+  { name: "Museum", href: "/museum", icon: LayoutGrid },
+  { name: "Create", href: "/create", icon: PlusCircle },
+  { name: "Profile", href: "/profile/me", icon: User },
 ];
 
 export function Navbar() {
@@ -22,16 +21,16 @@ export function Navbar() {
       {/* Logo */}
       <Link href="/" className="flex items-center gap-2.5 mr-8 shrink-0">
         <div className="size-7 rounded-lg bg-primary flex items-center justify-center">
-          <span className="text-primary-foreground font-bold text-sm leading-none">A</span>
+          <Compass className="size-4 text-primary-foreground" />
         </div>
-        <span className="font-semibold text-base tracking-tight text-foreground">Living Almanac</span>
+        <span className="font-semibold text-base tracking-tight text-foreground">Heritage Wander</span>
       </Link>
 
       {/* Desktop nav */}
       <div className="hidden md:flex items-center gap-1 flex-1">
         {navItems.map((item) => {
           const Icon = item.icon;
-          const isActive = pathname.startsWith(item.href);
+          const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
           return (
             <Link
               key={item.href}
@@ -50,7 +49,7 @@ export function Navbar() {
         })}
       </div>
 
-      {/* Mobile nav */}
+      {/* Mobile: only show hamburger for extra nav (desktop items handled by bottom bar) */}
       <div className="md:hidden ml-auto">
         <Sheet>
           <SheetTrigger
@@ -63,7 +62,7 @@ export function Navbar() {
             <div className="flex flex-col gap-1 p-4 pt-14">
               {navItems.map((item) => {
                 const Icon = item.icon;
-                const isActive = pathname.startsWith(item.href);
+                const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
                 return (
                   <Link
                     key={item.href}

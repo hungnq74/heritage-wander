@@ -1,85 +1,171 @@
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Map, ArrowRight, Sparkles, Globe, ShieldCheck } from "lucide-react";
-import Link from "next/link";
+import { Compass, Star, Users, MapPin } from "lucide-react";
+import { HERITAGE_NODES, TOTAL_ITEMS } from "@/lib/mock-data";
 
 export default function Home() {
   return (
-    <div className="flex flex-col items-center overflow-hidden bg-background px-4">
+    <div className="flex flex-col">
       {/* Hero */}
-      <section className="flex flex-col items-center text-center pt-20 pb-24 max-w-3xl w-full">
-        <Badge variant="outline" className="mb-8 px-3 py-1 text-xs font-medium border-border text-muted-foreground">
-          <Sparkles className="mr-1.5 size-3 text-accent" />
-          Now Scouting in Southeast Asia
-        </Badge>
+      <section className="relative overflow-hidden min-h-[90vh] flex flex-col items-center justify-center px-5 py-16 text-center">
+        {/* Background mosaic of node images */}
+        <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-5 gap-1 opacity-15 pointer-events-none">
+          {HERITAGE_NODES.flatMap((n) => n.items).slice(0, 15).map((item) => (
+            // eslint-disable-next-line @next/next/no-img-element
+            <img key={item.id} src={item.image} alt="" className="w-full h-40 object-cover" />
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
 
-        <h1 className="text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl leading-tight">
-          The Living{" "}
-          <span className="text-primary">Almanac</span>
-        </h1>
+        {/* Content */}
+        <div className="relative z-10 max-w-xl mx-auto">
+          <Badge className="mb-6 bg-primary/10 text-primary border-primary/20 px-4 py-1.5 text-xs font-black uppercase tracking-widest">
+            <Compass className="size-3 mr-1.5" />
+            Heritage Wander — Field Edition
+          </Badge>
 
-        <p className="mt-6 max-w-xl text-base text-muted-foreground md:text-lg leading-relaxed">
-          An AI-native sanctuary for community-owned cultural intelligence.
-          Where youth scouts bridge generations to preserve the future.
-        </p>
+          <h1 className="text-5xl md:text-6xl font-black leading-tight mb-4">
+            Khám phá.{" "}
+            <span className="text-primary italic">Mở khóa.</span>{" "}
+            Sưu tầm.
+          </h1>
+          <p className="text-lg text-muted-foreground mb-2 leading-relaxed">
+            Chạm đến di sản văn hóa thực sự. Đến làng nghề Huế, mở khóa địa điểm, gặp nghệ nhân AI, và nhận vật phẩm văn hóa hiếm.
+          </p>
+          <p className="text-sm text-muted-foreground/70 italic mb-10">
+            Touch real cultural heritage. Go to Hue craft villages, unlock locations, meet AI artisans, and earn rare cultural collectibles.
+          </p>
 
-        <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-          <Button size="lg" className="h-11 rounded-lg px-6 text-sm font-semibold" asChild>
-            <Link href="/scout">
-              Become a Scout <ArrowRight className="ml-1.5 size-4" />
-            </Link>
-          </Button>
-          <Button size="lg" variant="outline" className="h-11 rounded-lg px-6 text-sm font-semibold" asChild>
-            <Link href="/map">
-              Explore the Map <Globe className="ml-1.5 size-4" />
-            </Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <Button size="lg" className="h-14 px-8 rounded-full text-base font-black shadow-xl shadow-primary/20" asChild>
+              <Link href="/explore">
+                <Compass className="size-5 mr-2" />
+                Bắt đầu khám phá
+              </Link>
+            </Button>
+            <Button variant="outline" size="lg" className="h-14 px-8 rounded-full text-base font-bold" asChild>
+              <Link href="/create">Chia sẻ làng nghề</Link>
+            </Button>
+          </div>
         </div>
       </section>
 
-      <div className="w-full max-w-4xl border-t border-border" />
-
-      {/* Feature cards */}
-      <section className="grid w-full max-w-4xl grid-cols-1 gap-5 py-20 md:grid-cols-3">
-        {[
-          {
-            title: "Guided Capture",
-            desc: "AI-assisted interviews that make documenting folklore as easy as chatting.",
-            icon: Sparkles,
-            color: "text-primary bg-primary/10"
-          },
-          {
-            title: "Provenance Proof",
-            desc: "Every entry is verified and linked to its community of origin with radical transparency.",
-            icon: ShieldCheck,
-            color: "text-accent bg-accent/10"
-          },
-          {
-            title: "Fair Royalties",
-            desc: "Automated splits ensure elders and scouts are compensated for their cultural contributions.",
-            icon: Map,
-            color: "text-primary bg-primary/10"
-          }
-        ].map((feature, idx) => (
-          <div key={idx} className="flex flex-col gap-4 rounded-xl border border-border bg-card p-6 shadow-sm">
-            <div className={`flex size-10 items-center justify-center rounded-lg ${feature.color}`}>
-              <feature.icon className="size-5" />
-            </div>
-            <div>
-              <h3 className="mb-1.5 text-sm font-semibold text-foreground">{feature.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {feature.desc}
-              </p>
-            </div>
-          </div>
-        ))}
+      {/* Stats */}
+      <section className="px-5 pb-12">
+        <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4">
+          {[
+            { value: `${HERITAGE_NODES.length}`, label: "Làng nghề", icon: MapPin },
+            { value: `${TOTAL_ITEMS}`, label: "Vật phẩm", icon: Star },
+            { value: "∞", label: "Hành trình", icon: Users },
+          ].map((stat) => {
+            const Icon = stat.icon;
+            return (
+              <div key={stat.label} className="flex flex-col items-center p-5 rounded-2xl bg-secondary/50 border border-border/50">
+                <Icon className="size-5 text-muted-foreground mb-2" />
+                <span className="text-3xl font-black text-primary">{stat.value}</span>
+                <span className="text-xs text-muted-foreground font-medium mt-0.5">{stat.label}</span>
+              </div>
+            );
+          })}
+        </div>
       </section>
 
-      <div className="w-full max-w-4xl border-t border-border" />
+      {/* How it works */}
+      <section className="px-5 pb-16 max-w-4xl mx-auto w-full">
+        <h2 className="text-2xl font-black mb-8 text-center">
+          Cách <span className="text-primary italic">hoạt động</span>
+        </h2>
+        <div className="grid md:grid-cols-3 gap-5">
+          {[
+            {
+              step: "01",
+              emoji: "🗺️",
+              title: "Đến địa điểm",
+              titleEn: "Go to the Location",
+              desc: "Mở bản đồ, chạm vào nút sương mù, di chuyển đến làng nghề gần bạn.",
+            },
+            {
+              step: "02",
+              emoji: "🔓",
+              title: "Mở khóa & Khám phá",
+              titleEn: "Unlock & Discover",
+              desc: "GPS xác nhận vị trí → xem video → chat với nghệ nhân AI → chụp ảnh thực địa.",
+            },
+            {
+              step: "03",
+              emoji: "🏆",
+              title: "Nhận vật phẩm",
+              titleEn: "Earn Collectibles",
+              desc: "Nhận 1–3 vật phẩm văn hóa với độ hiếm khác nhau. Xây dựng bảo tàng cá nhân.",
+            },
+          ].map((item) => (
+            <div key={item.step} className="flex flex-col p-6 rounded-2xl bg-card border border-border/50">
+              <div className="flex items-center gap-3 mb-4">
+                <span className="text-3xl">{item.emoji}</span>
+                <Badge variant="outline" className="text-[10px] font-black text-muted-foreground border-border">
+                  Bước {item.step}
+                </Badge>
+              </div>
+              <h3 className="font-black text-base mb-1">{item.title}</h3>
+              <p className="text-xs text-muted-foreground italic mb-2">{item.titleEn}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
-      <footer className="py-10 text-xs text-muted-foreground uppercase tracking-widest font-medium">
-        Preserving Heritage · Empowering Communities
-      </footer>
+      {/* Heritage nodes preview */}
+      <section className="px-5 pb-16 max-w-4xl mx-auto w-full">
+        <div className="flex items-baseline justify-between mb-6">
+          <h2 className="text-2xl font-black">
+            Làng nghề <span className="text-primary italic">Huế</span>
+          </h2>
+          <Link href="/explore" className="text-sm text-primary font-bold hover:underline">
+            Xem tất cả →
+          </Link>
+        </div>
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
+          {HERITAGE_NODES.map((node) => (
+            <Link
+              key={node.id}
+              href={`/explore/node/${node.id}`}
+              className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-md"
+            >
+              <div className="aspect-video overflow-hidden">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={node.coverImage}
+                  alt={node.name}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
+              </div>
+              <div className="absolute bottom-0 left-0 right-0 p-3">
+                <p className="text-white font-black text-sm leading-tight">{node.name}</p>
+                <p className="text-white/60 text-xs">{node.items.length} vật phẩm</p>
+              </div>
+              <Badge className="absolute top-2 right-2 text-[9px] bg-background/80 backdrop-blur-sm text-foreground border-0 font-bold">
+                Tier {node.tier}
+              </Badge>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Creator CTA */}
+      <section className="px-5 pb-16 max-w-4xl mx-auto w-full">
+        <div className="flex flex-col md:flex-row items-center gap-6 p-8 rounded-3xl bg-primary/8 border border-primary/20">
+          <div className="flex-1 text-center md:text-left">
+            <h3 className="text-2xl font-black mb-2">Bạn là nghệ nhân?</h3>
+            <p className="text-sm text-muted-foreground mb-1">Đăng ký làng nghề của bạn và tiếp cận hàng nghìn người trẻ Gen Z đang khám phá di sản.</p>
+            <p className="text-xs text-muted-foreground italic">Are you an artisan? Register your craft village and reach thousands of GenZ heritage explorers.</p>
+          </div>
+          <Button size="lg" className="h-14 px-8 rounded-full text-base font-black shrink-0" asChild>
+            <Link href="/create">Bắt đầu ngay →</Link>
+          </Button>
+        </div>
+      </section>
     </div>
   );
 }
