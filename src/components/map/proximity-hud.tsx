@@ -4,16 +4,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { HeritageNode } from "@/lib/types";
+import { getDomainEmoji, getDomainLabel, getProvinceLabel } from "@/lib/ich-utils";
 import { MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
-
-const craftEmoji: Record<string, string> = {
-  carpentry: "🪵",
-  incense: "🕯️",
-  silk: "🧵",
-  pottery: "🏺",
-  "hat-making": "👒",
-};
 
 interface ProximityHudProps {
   node: HeritageNode | null;
@@ -31,7 +24,7 @@ export function ProximityHud({ node, distance, onDismiss }: ProximityHudProps) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: "100%", opacity: 0 }}
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
-          className="fixed bottom-0 left-0 right-0 z-50 px-4 pb-[calc(1rem+env(safe-area-inset-bottom))] md:max-w-md md:mx-auto md:left-0 md:right-0"
+          className="fixed bottom-16 left-0 right-0 z-50 px-4 pb-2 md:bottom-4 md:pb-4 md:max-w-md md:mx-auto md:left-0 md:right-0"
         >
           <div className="bg-background/95 backdrop-blur-md rounded-3xl border border-border shadow-2xl p-5">
             {/* Node info */}
@@ -43,14 +36,22 @@ export function ProximityHud({ node, distance, onDismiss }: ProximityHudProps) {
                 className="size-14 rounded-2xl object-cover shrink-0"
               />
               <div className="flex-1 min-w-0">
-                <div className="flex items-center gap-1.5 mb-0.5">
-                  <span className="text-lg">{craftEmoji[node.craftCategory]}</span>
+                <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
+                  <span className="text-lg">{getDomainEmoji(node.ichDomain)}</span>
                   <Badge variant="outline" className="text-[10px] border-primary/30 text-primary font-bold">
                     Tier {node.tier}
                   </Badge>
+                  {node.unescoStatus === "inscribed" && (
+                    <Badge className="text-[10px] bg-amber-500/10 text-amber-600 border-amber-500/20 font-bold">
+                      ⭐ UNESCO
+                    </Badge>
+                  )}
+                  <Badge variant="outline" className="text-[10px] text-muted-foreground font-medium">
+                    {getProvinceLabel(node.province)}
+                  </Badge>
                 </div>
                 <h3 className="font-black text-base leading-tight">{node.name}</h3>
-                <p className="text-xs text-muted-foreground truncate">{node.nameEn}</p>
+                <p className="text-xs text-muted-foreground truncate">{getDomainLabel(node.ichDomain).en}</p>
               </div>
 
               {/* Distance */}

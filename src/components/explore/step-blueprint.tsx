@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import type { HeritageNode } from "@/lib/types";
+import { getElementsLabel, getKnowledgeHolderLabel } from "@/lib/ich-utils";
 import { Play, User, Package } from "lucide-react";
 
 interface StepBlueprintProps {
@@ -12,6 +13,9 @@ interface StepBlueprintProps {
 }
 
 export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
+  const elementsLabel = getElementsLabel(node.ichDomain);
+  const holderLabel = getKnowledgeHolderLabel(node.ichDomain);
+
   return (
     <div className="flex flex-col min-h-screen bg-background max-w-2xl mx-auto">
       {/* Video area */}
@@ -39,10 +43,20 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
         {/* Title */}
         <div>
           <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-1">
-            Khám phá làng nghề
+            Khám phá di sản
           </p>
           <h2 className="text-2xl font-black">{node.name}</h2>
           <p className="text-sm text-muted-foreground italic mt-0.5">{node.nameEn}</p>
+          {node.unescoStatus === "inscribed" && (
+            <Badge className="mt-1.5 bg-amber-500/10 text-amber-600 border-amber-500/20 text-[10px] font-bold">
+              ⭐ UNESCO Intangible Heritage
+            </Badge>
+          )}
+          {node.ethnicGroup && (
+            <Badge className="mt-1.5 ml-1.5 bg-secondary text-muted-foreground border-0 text-[10px] font-bold">
+              {node.ethnicGroup}
+            </Badge>
+          )}
         </div>
 
         {/* Knowledge summary */}
@@ -55,36 +69,36 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
           </CardContent>
         </Card>
 
-        {/* Materials */}
+        {/* Elements */}
         <div>
           <div className="flex items-center gap-2 mb-2">
             <Package className="size-4 text-muted-foreground" />
             <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
-              Nguyên liệu / Materials
+              {elementsLabel.vi} / {elementsLabel.en}
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
-            {node.materials.map((m) => (
-              <Badge key={m} className="bg-secondary text-primary font-bold border-0 text-xs">
-                {m}
+            {node.elements.map((e) => (
+              <Badge key={e} className="bg-secondary text-primary font-bold border-0 text-xs">
+                {e}
               </Badge>
             ))}
           </div>
         </div>
 
-        {/* Artisan */}
+        {/* Knowledge holder */}
         <div className="flex items-center gap-3 p-3 rounded-2xl bg-secondary/40 border border-border/50">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={node.artisanAvatar}
-            alt={node.artisanName}
+            src={node.knowledgeHolder.avatar}
+            alt={node.knowledgeHolder.name}
             className="size-10 rounded-full object-cover"
           />
           <div className="flex-1">
-            <p className="text-sm font-bold">{node.artisanName}</p>
+            <p className="text-sm font-bold">{node.knowledgeHolder.name}</p>
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
               <User className="size-3" />
-              <span>Nghệ nhân · Tier {node.tier}</span>
+              <span>{node.knowledgeHolder.roleEn} · Tier {node.tier}</span>
             </div>
           </div>
           <Badge variant="outline" className="text-xs border-primary/30 text-primary">
@@ -128,7 +142,7 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
           className="w-full h-14 rounded-full text-base font-black"
           onClick={onNext}
         >
-          Gặp nghệ nhân →
+          {holderLabel.vi} →
         </Button>
       </div>
     </div>

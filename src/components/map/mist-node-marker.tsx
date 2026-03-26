@@ -2,25 +2,21 @@
 
 import { motion } from "framer-motion";
 import type { HeritageNode } from "@/lib/types";
+import { getDomainEmoji } from "@/lib/ich-utils";
 import { cn } from "@/lib/utils";
-
-const craftEmoji: Record<string, string> = {
-  carpentry: "🪵",
-  incense: "🕯️",
-  silk: "🧵",
-  pottery: "🏺",
-  "hat-making": "👒",
-};
 
 interface MistNodeMarkerProps {
   node: HeritageNode;
   isUnlocked: boolean;
   isHovered: boolean;
-  distance?: number; // meters (simulated)
+  distance?: number;
   onClick: () => void;
 }
 
 export function MistNodeMarker({ node, isUnlocked, isHovered, distance, onClick }: MistNodeMarkerProps) {
+  const emoji = getDomainEmoji(node.ichDomain);
+  const isUNESCO = node.unescoStatus === "inscribed";
+
   return (
     <button
       onClick={onClick}
@@ -53,11 +49,18 @@ export function MistNodeMarker({ node, isUnlocked, isHovered, distance, onClick 
         )}
       >
         {isUnlocked ? (
-          <span>{craftEmoji[node.craftCategory]}</span>
+          <span>{emoji}</span>
         ) : (
-          <span className="text-white/70">{craftEmoji[node.craftCategory]}</span>
+          <span className="text-white/70">{emoji}</span>
         )}
       </div>
+
+      {/* UNESCO gold badge */}
+      {isUNESCO && (
+        <div className="absolute -top-1 -right-1 size-5 rounded-full bg-amber-400 flex items-center justify-center text-[9px] shadow-sm border border-amber-300">
+          ⭐
+        </div>
+      )}
 
       {/* Label */}
       <div

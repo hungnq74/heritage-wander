@@ -31,10 +31,10 @@ export default function Home() {
             Sưu tầm.
           </h1>
           <p className="text-lg text-muted-foreground mb-2 leading-relaxed">
-            Chạm đến di sản văn hóa thực sự. Đến làng nghề Huế, mở khóa địa điểm, gặp nghệ nhân AI, và nhận vật phẩm văn hóa hiếm.
+            Khám phá di sản văn hóa phi vật thể Việt Nam. Đến làng nghề, lễ hội, làn điệu dân ca, và tri thức dân gian — mở khóa địa điểm, gặp người giữ di sản AI, và nhận vật phẩm văn hóa hiếm.
           </p>
           <p className="text-sm text-muted-foreground/70 italic mb-10">
-            Touch real cultural heritage. Go to Hue craft villages, unlock locations, meet AI artisans, and earn rare cultural collectibles.
+            Explore Vietnam's intangible cultural heritage. Discover craft villages, ceremonies, folk music, and traditional knowledge — unlock locations, meet AI heritage keepers, and earn rare cultural collectibles.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -45,7 +45,7 @@ export default function Home() {
               </Link>
             </Button>
             <Button variant="outline" size="lg" className="h-14 px-8 rounded-full text-base font-bold" asChild>
-              <Link href="/create">Chia sẻ làng nghề</Link>
+              <Link href="/create">Chia sẻ di sản</Link>
             </Button>
           </div>
         </div>
@@ -55,7 +55,7 @@ export default function Home() {
       <section className="px-5 pb-12">
         <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4">
           {[
-            { value: `${HERITAGE_NODES.length}`, label: "Làng nghề", icon: MapPin },
+            { value: `${HERITAGE_NODES.length}`, label: "Địa điểm di sản", icon: MapPin },
             { value: `${TOTAL_ITEMS}`, label: "Vật phẩm", icon: Star },
             { value: "∞", label: "Hành trình", icon: Users },
           ].map((stat) => {
@@ -119,7 +119,7 @@ export default function Home() {
       <section className="px-5 pb-16 max-w-4xl mx-auto w-full">
         <div className="flex items-baseline justify-between mb-6">
           <h2 className="text-2xl font-black">
-            Làng nghề <span className="text-primary italic">Huế</span>
+            Di sản <span className="text-primary italic">khắp Việt Nam</span>
           </h2>
           <Link href="/explore" className="text-sm text-primary font-bold hover:underline">
             Xem tất cả →
@@ -157,9 +157,9 @@ export default function Home() {
       <section className="px-5 pb-16 max-w-4xl mx-auto w-full">
         <div className="flex flex-col md:flex-row items-center gap-6 p-8 rounded-3xl bg-primary/8 border border-primary/20">
           <div className="flex-1 text-center md:text-left">
-            <h3 className="text-2xl font-black mb-2">Bạn là nghệ nhân?</h3>
-            <p className="text-sm text-muted-foreground mb-1">Đăng ký làng nghề của bạn và tiếp cận hàng nghìn người trẻ Gen Z đang khám phá di sản.</p>
-            <p className="text-xs text-muted-foreground italic">Are you an artisan? Register your craft village and reach thousands of GenZ heritage explorers.</p>
+            <h3 className="text-2xl font-black mb-2">Bạn là người giữ di sản?</h3>
+            <p className="text-sm text-muted-foreground mb-1">Nghệ nhân, nghệ sĩ, người cao tuổi, người kể chuyện — đăng ký địa điểm và tiếp cận hàng nghìn người trẻ đang khám phá di sản.</p>
+            <p className="text-xs text-muted-foreground italic">Artisan, performer, elder, storyteller — register your heritage site and reach thousands of GenZ explorers.</p>
           </div>
           <Button size="lg" className="h-14 px-8 rounded-full text-base font-black shrink-0" asChild>
             <Link href="/create">Bắt đầu ngay →</Link>

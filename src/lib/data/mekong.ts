@@ -1,0 +1,113 @@
+import type { HeritageNode } from "../types";
+
+export const MEKONG_NODES: HeritageNode[] = [
+  {
+    id: "don-ca-tai-tu-cantho",
+    name: "Đờn Ca Tài Tử Nam Bộ",
+    nameEn: "Don Ca Tai Tu Southern Vietnamese Chamber Music",
+    ichDomain: "performing-arts",
+    province: "can-tho",
+    unescoStatus: "inscribed",
+    coordinates: [105.7469, 10.0452],
+    coverImage: "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=800&q=80",
+    tier: 1,
+    knowledgeHolder: {
+      name: "Ông Nguyễn Văn Hải",
+      nameEn: "Mr. Nguyen Van Hai",
+      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80",
+      role: "performer",
+      roleEn: "Đờn Ca Tài Tử Musician",
+    },
+    knowledgeSummary:
+      "Du khách Cần Thơ chen nhau chụp ảnh chợ nổi Cái Răng từ 5 giờ sáng. Ít ai biết rằng vào buổi tối, trong các căn nhà ven kênh, người dân tự tụ tập đàn hát Đờn Ca Tài Tử — thể loại âm nhạc thính phòng UNESCO 2013 được chơi không chính thức, không sân khấu, không vé vào cửa. Đây là âm nhạc của cuộc sống thường nhật — không phải biểu diễn.",
+    knowledgeSummaryEn:
+      "Can Tho tourists jostle to photograph Cai Rang floating market from 5am. Few know that in the evening, in riverside homes, locals gather spontaneously to play Đờn Ca Tài Tử — a UNESCO 2013 chamber music tradition performed informally, without stage, without tickets. This is music of daily life — not performance.",
+    elements: ["Đàn kìm", "Đàn cò", "Đàn tranh", "20 bài bản tổ", "Đàn guitar phím lõm"],
+    videoUrl: undefined,
+    npcScript: [
+      {
+        order: 1,
+        question: "Đờn Ca Tài Tử khác cải lương thế nào?",
+        answer:
+          "Cải lương có sân khấu, diễn viên, trang phục — đó là nghệ thuật biểu diễn chuyên nghiệp. Đờn Ca Tài Tử là âm nhạc thính phòng — chơi trong nhà, trong vườn, trên thuyền, trong đám giỗ. Không có khán giả và diễn viên — tất cả đều vừa chơi vừa nghe. Tài Tử nghĩa là 'người chơi nghiệp dư yêu âm nhạc', không phải nghệ sĩ chuyên nghiệp.",
+      },
+      {
+        order: 2,
+        question: "20 bài bản tổ là gì?",
+        answer:
+          "20 bài bản tổ là 20 bài nhạc gốc — xương sống của Đờn Ca Tài Tử. Mỗi bài có cấu trúc riêng và tình cảm riêng: có bài vui, bài buồn, bài oán, bài trang nghiêm. Nhạc sĩ giỏi phải thuộc cả 20 bài và biết ứng tấu trên nền đó. Giống như jazz standards của Mỹ — bạn phải biết các bài chuẩn trước khi ứng tấu.",
+      },
+      {
+        order: 3,
+        question: "Guitar phím lõm là sáng tạo gì của người Nam Bộ?",
+        answer:
+          "Người Nam Bộ lấy guitar Tây Ban Nha, khoét phím xuống sâu hơn — để ngón tay kéo dây lên xuống tạo tiếng 'rung' đặc trưng của nhạc truyền thống Việt. Đây là ví dụ tuyệt vời của sáng tạo địa phương: tiếp nhận nhạc cụ ngoại rồi biến đổi thành nhạc cụ mang hồn Việt. Không Trung Quốc, không Nhật Bản, không ai khác làm điều này với guitar.",
+      },
+    ],
+    photoChallenge: {
+      prompt: "Chụp ảnh buổi đờn ca tài tử tự phát bên kênh rạch",
+      promptEn: "Photograph an informal Đờn Ca Tài Tử session beside a canal",
+      referenceImages: [
+        "https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?w=400&q=70",
+      ],
+    },
+    items: [
+      {
+        id: "dcts-001",
+        name: "Dây đàn kìm",
+        nameEn: "Đàn Kìm Moon Lute String",
+        ichDomain: "performing-arts",
+        sourceNodeId: "don-ca-tai-tu-cantho",
+        sourceNodeName: "Đờn Ca Tài Tử Nam Bộ",
+        knowledgeHolderName: "Ông Nguyễn Văn Hải",
+        image: "https://images.unsplash.com/photo-1507838153414-b4b713384a76?w=400&q=80",
+        rarity: "Common",
+        description: "Dây đàn kìm làm từ tơ tằm — nhạc cụ chủ đạo trong Đờn Ca Tài Tử, có âm thanh ấm và ngân dài.",
+        descriptionEn: "Silk đàn kìm moon lute string — the lead instrument in Đờn Ca Tài Tử, warm tone and long resonance.",
+        dropRate: 0.6,
+      },
+      {
+        id: "dcts-002",
+        name: "Tờ nhạc Vọng Cổ",
+        nameEn: "Vọng Cổ Sheet Music",
+        ichDomain: "performing-arts",
+        sourceNodeId: "don-ca-tai-tu-cantho",
+        sourceNodeName: "Đờn Ca Tài Tử Nam Bộ",
+        knowledgeHolderName: "Ông Nguyễn Văn Hải",
+        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80",
+        rarity: "Rare",
+        description: "Tờ nhạc bài Vọng Cổ — bài bản tổ phổ biến nhất trong Đờn Ca Tài Tử, với ký hiệu ứng tấu truyền thống.",
+        descriptionEn: "Sheet music for Vọng Cổ — the most beloved of the 20 canonical pieces, with traditional improvisation notations.",
+        dropRate: 0.28,
+      },
+      {
+        id: "dcts-003",
+        name: "Chương trình hòa nhạc trên thuyền",
+        nameEn: "Floating Concert Programme",
+        ichDomain: "performing-arts",
+        sourceNodeId: "don-ca-tai-tu-cantho",
+        sourceNodeName: "Đờn Ca Tài Tử Nam Bộ",
+        knowledgeHolderName: "Ông Nguyễn Văn Hải",
+        image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80",
+        rarity: "Epic",
+        description: "Chương trình buổi hòa nhạc Đờn Ca Tài Tử trên thuyền rạch Cần Thơ — sự kiện hiếm hoi mỗi năm một lần.",
+        descriptionEn: "Programme of a Đờn Ca Tài Tử boat concert on Can Tho's canals — a rare annual event.",
+        dropRate: 0.08,
+      },
+      {
+        id: "dcts-004",
+        name: "Bản nhạc tổ chép tay của thầy",
+        nameEn: "Master's Handwritten Bài Bản Tổ",
+        ichDomain: "performing-arts",
+        sourceNodeId: "don-ca-tai-tu-cantho",
+        sourceNodeName: "Đờn Ca Tài Tử Nam Bộ",
+        knowledgeHolderName: "Ông Nguyễn Văn Hải",
+        image: "https://images.unsplash.com/photo-1519683109079-d5f539e1542f?w=400&q=80",
+        rarity: "Legendary",
+        description: "Bản nhạc tổ chép tay của nhạc sư Nguyễn Văn Hải — ghi chú ứng tấu bằng ký hiệu riêng của thầy, không ai khác đọc được.",
+        descriptionEn: "Handwritten bài bản tổ by master Nguyen Van Hai — with personal improvisation notations that only the master can read.",
+        dropRate: 0.02,
+      },
+    ],
+  },
+];

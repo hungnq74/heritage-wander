@@ -1,0 +1,114 @@
+import type { HeritageNode } from "../types";
+
+export const SAPA_NODES: HeritageNode[] = [
+  {
+    id: "hmong-then-sapa",
+    name: "Thổ Cẩm H'Mông & Then Tày",
+    nameEn: "H'Mong Brocade & Tay Then Ritual Music",
+    ichDomain: "ethnic-minority",
+    province: "lao-cai",
+    unescoStatus: "inscribed",
+    ethnicGroup: "H'Mông / Tày",
+    coordinates: [103.8442, 22.3364],
+    coverImage: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80",
+    tier: 1,
+    knowledgeHolder: {
+      name: "Bà Lý Thị Chúa",
+      nameEn: "Ms. Ly Thi Chua",
+      avatar: "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=200&q=80",
+      role: "ritual-master",
+      roleEn: "Then Ritual Singer & Brocade Keeper",
+    },
+    knowledgeSummary:
+      "Du khách đổ lên Sapa để chụp ảnh ruộng bậc thang và cáp treo Fansipan. Nhưng ngay ở chợ thị trấn, hàng chục quầy hàng bán thổ cẩm H'Mông copy giá rẻ — trong khi các bà H'Mông ở bản Cát Cát vẫn đang dùng sáp ong vẽ hoa văn bằng tay lên vải chàm theo kỹ thuật batik 300 năm. Then Tày — bài hát nghi lễ được UNESCO công nhận 2019 — đang mất dần vì thanh niên Tày không học đàn tính nữa.",
+    knowledgeSummaryEn:
+      "Tourists flood Sapa for rice terrace photos and the Fansipan cable car. But right at the town market, dozens of stalls sell cheap H'Mong brocade copies — while H'Mong women in Cat Cat village still draw beeswax patterns by hand on indigo fabric using a 300-year-old batik technique. Tay Then — a ritual song inscribed by UNESCO in 2019 — is fading as young Tay people no longer learn the Tinh lute.",
+    elements: ["Đàn tính", "Xóc nhạc", "Vải thổ cẩm H'Mông", "Sáp ong vẽ batik", "Màu chàm tự nhiên"],
+    videoUrl: undefined,
+    npcScript: [
+      {
+        order: 1,
+        question: "Phân biệt thổ cẩm H'Mông thật và hàng copy như thế nào?",
+        answer:
+          "Thổ cẩm thật nặng tay — vải chàm tự nhuộm dày và cứng hơn vải cotton công nghiệp. Sáp ong vẽ tay để lại vết sáp mờ ở mặt sau vải — hàng copy không có. Và quan trọng nhất: hoa văn thật không đối xứng hoàn hảo vì vẽ tay. Hàng máy thì đối xứng tuyệt đối — đó là dấu hiệu rõ nhất.",
+      },
+      {
+        order: 2,
+        question: "Đàn tính Then có ý nghĩa gì?",
+        answer:
+          "Đàn tính là cầu nối giữa thế giới người và thế giới thần linh. Khi Then hát cùng đàn tính, bà đang 'đi' vào hành trình tâm linh — dẫn linh hồn người bệnh trở về, cầu xin thần nông, hay tiễn đưa người mất. Không phải ai cũng học được Then — phải được tổ tiên 'gọi' và trải qua lễ nhập môn.",
+      },
+      {
+        order: 3,
+        question: "Then Tày có nguy cơ thất truyền không?",
+        answer:
+          "Rất cao. Ở bản chúng tôi chỉ còn 3 bà Then cao tuổi. Thanh niên không học vì Then gắn với nghi lễ — mà xã hội hiện đại ít tin vào nghi lễ hơn. UNESCO công nhận năm 2019 có giúp, nhưng chỉ 'bảo tàng hóa' — người ta nhìn Then như di vật, không phải như thực hành sống. Điều đó mới nguy hiểm.",
+      },
+    ],
+    photoChallenge: {
+      prompt: "Chụp ảnh bà H'Mông đang vẽ sáp ong lên vải chàm",
+      promptEn: "Photograph an H'Mong elder drawing beeswax patterns on indigo fabric",
+      referenceImages: [
+        "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=70",
+      ],
+    },
+    items: [
+      {
+        id: "hmts-001",
+        name: "Sáp ong batik H'Mông",
+        nameEn: "H'Mong Indigo Beeswax Block",
+        ichDomain: "ethnic-minority",
+        sourceNodeId: "hmong-then-sapa",
+        sourceNodeName: "Thổ Cẩm H'Mông & Then Tày",
+        knowledgeHolderName: "Bà Lý Thị Chúa",
+        image: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=80",
+        rarity: "Common",
+        description: "Cục sáp ong tự nhiên dùng vẽ hoa văn chống nhuộm trên vải chàm — công cụ batik H'Mông.",
+        descriptionEn: "Natural beeswax block used to draw resist patterns on indigo fabric — the H'Mong batik tool.",
+        dropRate: 0.6,
+      },
+      {
+        id: "hmts-002",
+        name: "Mẫu thổ cẩm hoa văn truyền thống",
+        nameEn: "Brocade Pattern Template",
+        ichDomain: "ethnic-minority",
+        sourceNodeId: "hmong-then-sapa",
+        sourceNodeName: "Thổ Cẩm H'Mông & Then Tày",
+        knowledgeHolderName: "Bà Lý Thị Chúa",
+        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80",
+        rarity: "Rare",
+        description: "Bảng hoa văn thổ cẩm H'Mông truyền thống — mỗi họa tiết mang câu chuyện của dòng họ.",
+        descriptionEn: "Traditional H'Mong brocade pattern template — each motif carries a clan's story.",
+        dropRate: 0.28,
+      },
+      {
+        id: "hmts-003",
+        name: "Bảng nhạc Then cổ",
+        nameEn: "Then Song Score Tablet",
+        ichDomain: "ethnic-minority",
+        sourceNodeId: "hmong-then-sapa",
+        sourceNodeName: "Thổ Cẩm H'Mông & Then Tày",
+        knowledgeHolderName: "Bà Lý Thị Chúa",
+        image: "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&q=80",
+        rarity: "Epic",
+        description: "Tấm gỗ khắc ký hiệu bài Then cổ — hệ thống ký âm riêng của người Tày, chưa được giải mã hoàn toàn.",
+        descriptionEn: "Wooden tablet with ancient Then song notation — the Tay people's own notation system, not yet fully decoded.",
+        dropRate: 0.08,
+      },
+      {
+        id: "hmts-004",
+        name: "Chốt đàn tính thiêng",
+        nameEn: "Sacred Tính Lute Peg",
+        ichDomain: "ethnic-minority",
+        sourceNodeId: "hmong-then-sapa",
+        sourceNodeName: "Thổ Cẩm H'Mông & Then Tày",
+        knowledgeHolderName: "Bà Lý Thị Chúa",
+        image: "https://images.unsplash.com/photo-1519683109079-d5f539e1542f?w=400&q=80",
+        rarity: "Endangered",
+        description: "Chốt lên dây đàn tính của bà Then — nhạc cụ thiêng, không được sờ khi chưa được phép. Được trao như di vật.",
+        descriptionEn: "Tuning peg from a Then singer's tính lute — a sacred instrument, not to be touched without permission. Gifted as a relic.",
+        dropRate: 0.005,
+      },
+    ],
+  },
+];

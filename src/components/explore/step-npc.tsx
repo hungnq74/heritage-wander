@@ -25,7 +25,7 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
 
   // Auto-send NPC greeting on mount
   useEffect(() => {
-    const greeting = `Xin chào! Tôi là ${node.artisanName}, nghệ nhân ${node.nameEn}. Rất vui được gặp bạn tại đây. Bạn muốn hỏi tôi điều gì?`;
+    const greeting = `Xin chào! Tôi là ${node.knowledgeHolder.name}, ${node.knowledgeHolder.roleEn} tại ${node.nameEn}. Rất vui được gặp bạn tại đây. Bạn muốn hỏi tôi điều gì?`;
     const t = setTimeout(() => {
       setMessages([{ id: 0, from: "npc", text: greeting }]);
     }, 600);
@@ -62,6 +62,9 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
   const currentExchange = node.npcScript[exchangeIndex];
   const showReplies = currentExchange && !isTyping && messages.some((m) => m.from === "npc");
 
+  // Suppress unused variable warning for availableExchanges
+  void availableExchanges;
+
   return (
     <div className="flex flex-col h-screen bg-background max-w-2xl mx-auto">
       {/* NPC header */}
@@ -69,16 +72,16 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
         <div className="relative mb-3">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={node.artisanAvatar}
-            alt={node.artisanName}
+            src={node.knowledgeHolder.avatar}
+            alt={node.knowledgeHolder.name}
             className="size-16 rounded-full object-cover border-2 border-primary/40"
           />
           <span className="absolute bottom-0 right-0 flex size-4 items-center justify-center rounded-full bg-background">
             <span className="size-2.5 rounded-full bg-accent animate-pulse" />
           </span>
         </div>
-        <p className="font-black text-base">{node.artisanName}</p>
-        <p className="text-xs text-muted-foreground">Nghệ nhân · {node.nameEn}</p>
+        <p className="font-black text-base">{node.knowledgeHolder.name}</p>
+        <p className="text-xs text-muted-foreground">{node.knowledgeHolder.roleEn} · {node.nameEn}</p>
       </div>
 
       {/* Chat area */}
@@ -94,7 +97,7 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
               {msg.from === "npc" && (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img
-                  src={node.artisanAvatar}
+                  src={node.knowledgeHolder.avatar}
                   alt=""
                   className="size-7 rounded-full object-cover mr-2 mt-1 shrink-0"
                 />
@@ -122,7 +125,7 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={node.artisanAvatar}
+                src={node.knowledgeHolder.avatar}
                 alt=""
                 className="size-7 rounded-full object-cover mr-2 mt-1 shrink-0"
               />
@@ -165,7 +168,7 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
               animate={{ opacity: 1, y: 0 }}
             >
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">
-                Hỏi nghệ nhân
+                Hỏi {node.knowledgeHolder.roleEn}
               </p>
               <button
                 onClick={() => handleQuickReply(currentExchange)}

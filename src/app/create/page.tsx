@@ -6,17 +6,17 @@ import { ArrowRight, MapPin, Route, Building2 } from "lucide-react";
 const tiers = [
   {
     id: 1,
-    icon: "🪵",
+    icon: "🌿",
     lucide: MapPin,
-    title: "Nghệ nhân",
-    titleEn: "Artisan",
+    title: "Người nắm giữ di sản",
+    titleEn: "Heritage Knowledge Holder",
     badge: "Tier 1",
-    description: "Đăng ký địa điểm làng nghề, chia sẻ câu chuyện và kỹ thuật của bạn.",
-    descriptionEn: "Register your craft village location, share your story and techniques.",
+    description: "Nghệ nhân, nghệ sĩ biểu diễn, người cao tuổi, người kể chuyện, thầy thuốc nam, thầy cúng, người giữ lễ… Đăng ký địa điểm di sản và chia sẻ câu chuyện của bạn.",
+    descriptionEn: "Artisan, performer, elder, storyteller, traditional healer, ceremony keeper… Register your heritage site and share your story.",
     earnings: "Nhận phí tham quan + bản quyền kỹ thuật số",
     earningsEn: "Earn visitor fees + digital royalties",
     href: "/create/node",
-    cta: "Tạo địa điểm",
+    cta: "Tạo địa điểm di sản",
   },
   {
     id: 2,
@@ -48,6 +48,16 @@ const tiers = [
   },
 ];
 
+const knowledgeHolderRoles = [
+  { emoji: "🏺", label: "Nghệ nhân thủ công", labelEn: "Artisan" },
+  { emoji: "🎶", label: "Nghệ sĩ biểu diễn", labelEn: "Performer" },
+  { emoji: "👴", label: "Người cao tuổi / Già làng", labelEn: "Elder" },
+  { emoji: "📜", label: "Người kể chuyện", labelEn: "Storyteller" },
+  { emoji: "🕯️", label: "Người giữ lễ / Thầy cúng", labelEn: "Ceremony Keeper" },
+  { emoji: "🌿", label: "Thầy thuốc nam", labelEn: "Traditional Healer" },
+  { emoji: "🥁", label: "Người truyền dạy nghi lễ", labelEn: "Ritual Master" },
+];
+
 export default function CreatePage() {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
@@ -57,11 +67,26 @@ export default function CreatePage() {
           Creator Platform
         </p>
         <h1 className="text-3xl font-black">
-          Chia sẻ <span className="text-primary italic">làng nghề</span>
+          Chia sẻ <span className="text-primary italic">di sản</span>
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Bạn là nghệ nhân, hướng dẫn viên hay tổ chức văn hóa? Chọn cấp độ phù hợp.
+          Bạn là người nắm giữ di sản văn hóa? Chọn vai trò phù hợp và bắt đầu chia sẻ.
         </p>
+      </div>
+
+      {/* Knowledge holder role preview */}
+      <div className="mb-6 p-4 rounded-2xl bg-secondary/40 border border-border/50">
+        <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">
+          Ai có thể tham gia?
+        </p>
+        <div className="flex flex-wrap gap-2">
+          {knowledgeHolderRoles.map((role) => (
+            <div key={role.labelEn} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background border border-border/50 text-xs font-medium">
+              <span>{role.emoji}</span>
+              <span>{role.label}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {/* Tier cards */}
@@ -76,17 +101,16 @@ export default function CreatePage() {
                     {tier.icon}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-black text-base">{tier.title}</span>
-                      <span className="text-sm text-muted-foreground italic">{tier.titleEn}</span>
-                      <Badge variant="outline" className="text-[10px] border-primary/30 text-primary ml-auto shrink-0">
+                    <div className="flex items-center gap-2 mb-0.5">
+                      <span className="font-black text-base leading-tight">{tier.title}</span>
+                      <Badge variant="outline" className="text-[10px] border-primary/30 text-primary shrink-0 ml-auto">
                         {tier.badge}
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground leading-relaxed mb-1">
+                    <p className="text-xs text-muted-foreground italic mb-2">{tier.titleEn}</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       {tier.description}
                     </p>
-                    <p className="text-xs text-muted-foreground/70 italic">{tier.descriptionEn}</p>
                     <div className="mt-2 flex items-center gap-1.5 text-xs text-primary font-medium">
                       <Icon className="size-3" />
                       <span>{tier.earnings}</span>

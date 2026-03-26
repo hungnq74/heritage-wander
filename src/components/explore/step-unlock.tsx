@@ -5,15 +5,8 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { HeritageNode } from "@/lib/types";
+import { getDomainEmoji, getDomainLabel, getProvinceLabel } from "@/lib/ich-utils";
 import { MapPin, Unlock } from "lucide-react";
-
-const craftEmoji: Record<string, string> = {
-  carpentry: "🪵",
-  incense: "🕯️",
-  silk: "🧵",
-  pottery: "🏺",
-  "hat-making": "👒",
-};
 
 interface StepUnlockProps {
   node: HeritageNode;
@@ -27,6 +20,10 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
     const t = setTimeout(() => setShowContent(true), 400);
     return () => clearTimeout(t);
   }, []);
+
+  const domainEmoji = getDomainEmoji(node.ichDomain);
+  const domainLabel = getDomainLabel(node.ichDomain);
+  const provinceLabel = getProvinceLabel(node.province);
 
   return (
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-[oklch(0.10_0.01_80)] text-white overflow-hidden px-6 py-12">
@@ -71,7 +68,7 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
       >
         <div className="flex items-center gap-2 px-5 py-2 rounded-full border-2 border-primary/60 bg-primary/10 backdrop-blur-sm">
           <span className="text-primary text-sm font-black uppercase tracking-widest">Đã Mở Khóa</span>
-          <span className="text-lg">{craftEmoji[node.craftCategory]}</span>
+          <span className="text-lg">{domainEmoji}</span>
         </div>
       </motion.div>
 
@@ -97,17 +94,22 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
       >
         <div className="flex items-center gap-1.5 text-white/50 text-sm">
           <MapPin className="size-4" />
-          <span>Huế, Việt Nam</span>
+          <span>{provinceLabel}, Việt Nam</span>
         </div>
         <Badge className="bg-white/10 text-white/80 border-white/20 text-xs">
           Tier {node.tier}
         </Badge>
-        <Badge className="bg-white/10 text-white/80 border-white/20 text-xs capitalize">
-          {node.craftCategory}
+        {node.unescoStatus === "inscribed" && (
+          <Badge className="bg-amber-500/20 text-amber-300 border-amber-500/30 text-xs">
+            ⭐ UNESCO
+          </Badge>
+        )}
+        <Badge className="bg-white/10 text-white/80 border-white/20 text-xs">
+          {domainLabel.vi}
         </Badge>
       </motion.div>
 
-      {/* Artisan card */}
+      {/* Knowledge holder card */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -116,15 +118,15 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
       >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src={node.artisanAvatar}
-          alt={node.artisanName}
+          src={node.knowledgeHolder.avatar}
+          alt={node.knowledgeHolder.name}
           className="size-12 rounded-full object-cover border-2 border-primary/40"
         />
         <div>
-          <p className="font-bold text-sm">{node.artisanName}</p>
-          <p className="text-xs text-white/50">Nghệ nhân · {node.nameEn}</p>
+          <p className="font-bold text-sm">{node.knowledgeHolder.name}</p>
+          <p className="text-xs text-white/50">{node.knowledgeHolder.roleEn} · {node.nameEn}</p>
         </div>
-        <div className="ml-auto text-xl">{craftEmoji[node.craftCategory]}</div>
+        <div className="ml-auto text-xl">{domainEmoji}</div>
       </motion.div>
 
       {/* CTA */}

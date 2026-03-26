@@ -1,0 +1,114 @@
+import type { HeritageNode } from "../types";
+
+export const CENTRAL_NODES: HeritageNode[] = [
+  {
+    id: "bau-truc-cham-pottery",
+    name: "Gốm Bàu Trúc Chăm",
+    nameEn: "Bau Truc Cham Pottery",
+    ichDomain: "craftsmanship",
+    province: "ninh-thuan",
+    unescoStatus: "inscribed",
+    ethnicGroup: "Chăm",
+    coordinates: [108.9633, 11.5644],
+    coverImage: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=800&q=80",
+    tier: 1,
+    knowledgeHolder: {
+      name: "Bà Đàng Thị Phan",
+      nameEn: "Ms. Dang Thi Phan",
+      avatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200&q=80",
+      role: "artisan",
+      roleEn: "Chăm Potter",
+    },
+    knowledgeSummary:
+      "Du khách từ Hội An đến Mỹ Sơn như đi thăm di tích chết. Nhưng 50km từ đó, ở làng Bàu Trúc tỉnh Ninh Thuận, phụ nữ Chăm vẫn đang làm gốm theo kỹ thuật 2000 năm tuổi — không bàn xoay, không lò nung, nung ngoài trời. UNESCO công nhận năm 2022. Đây là truyền thống gốm sống lâu đời nhất Đông Nam Á, và chỉ phụ nữ mới được học.",
+    knowledgeSummaryEn:
+      "Tourists from Hoi An visit My Son Sanctuary as a dead ruin. But 50km away, in Bau Truc village in Ninh Thuan province, Cham women still make pottery using a 2000-year-old technique — no wheel, no kiln, outdoor fired. UNESCO inscribed in 2022. This is the oldest living pottery tradition in Southeast Asia, and only women are allowed to learn it.",
+    elements: ["Đất sét núi Chà Bang", "Kỹ thuật xoay tay không bàn xoay", "Lá thốt nốt đánh bóng", "Nung ngoài trời"],
+    videoUrl: undefined,
+    npcScript: [
+      {
+        order: 1,
+        question: "Tại sao chỉ phụ nữ được làm gốm Bàu Trúc?",
+        answer:
+          "Theo tín ngưỡng Chăm, đất đai là 'mẹ' — chỉ phụ nữ mới có quyền nhào nặn đất thành hình. Đây là truyền thống mẫu hệ: đất truyền qua tay mẹ sang tay con gái. Đàn ông không được chạm vào đất sét đang được tạo hình — họ có thể phụ việc khác như gom củi hay đem sản phẩm ra phơi. Nhưng tay tạo hình là tay phụ nữ.",
+      },
+      {
+        order: 2,
+        question: "Không dùng bàn xoay thì tạo hình gốm như thế nào?",
+        answer:
+          "Chúng tôi đi xung quanh đất sét — không phải đất sét xoay quanh bàn xoay. Hai tay một trong một ngoài, một tay đẩy, một tay đỡ — tôi đi giật lùi theo vòng tròn trong khi tạo hình. Trông kỳ lạ nhưng cho phép kiểm soát hoàn toàn bằng cảm giác. Không cần nhìn — tay tôi biết hình dạng trước khi mắt nhìn thấy.",
+      },
+      {
+        order: 3,
+        question: "Nung ngoài trời có ưu điểm gì so với lò nung?",
+        answer:
+          "Lò nung kiểm soát nhiệt độ nhưng làm mất sự khác biệt — mỗi mẻ gốm ra giống nhau. Nung ngoài trời cho nhiệt độ không đều — tạo ra màu sắc và vân không thể kiểm soát, mỗi chiếc gốm là độc nhất. Màu đất nung Bàu Trúc — từ trắng xám đến nâu đỏ đến đen bóng — là kết quả của sự ngẫu nhiên có kinh nghiệm. Không ai có thể làm giả điều đó bằng lò điện.",
+      },
+    ],
+    photoChallenge: {
+      prompt: "Chụp ảnh phụ nữ Chăm đang đi xung quanh đất sét để tạo hình gốm",
+      promptEn: "Photograph a Cham woman walking around the clay to shape her pottery",
+      referenceImages: [
+        "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=70",
+      ],
+    },
+    items: [
+      {
+        id: "btcp-001",
+        name: "Mảnh đất sét cuộn tay",
+        nameEn: "Hand-Coil Clay Fragment",
+        ichDomain: "craftsmanship",
+        sourceNodeId: "bau-truc-cham-pottery",
+        sourceNodeName: "Gốm Bàu Trúc Chăm",
+        knowledgeHolderName: "Bà Đàng Thị Phan",
+        image: "https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?w=400&q=80",
+        rarity: "Common",
+        description: "Mảnh gốm Bàu Trúc nhỏ — vân tay người thợ còn in rõ trên mặt đất sét nung.",
+        descriptionEn: "Small Bau Truc pottery fragment — the maker's fingerprints still clearly visible on the fired clay surface.",
+        dropRate: 0.6,
+      },
+      {
+        id: "btcp-002",
+        name: "Thanh đánh bóng lá thốt nốt",
+        nameEn: "Thnot Palm Burnisher",
+        ichDomain: "craftsmanship",
+        sourceNodeId: "bau-truc-cham-pottery",
+        sourceNodeName: "Gốm Bàu Trúc Chăm",
+        knowledgeHolderName: "Bà Đàng Thị Phan",
+        image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80",
+        rarity: "Rare",
+        description: "Thanh đánh bóng làm từ cuống lá thốt nốt — dùng đánh bóng gốm trước khi nung, tạo bề mặt mịn không cần men.",
+        descriptionEn: "Burnisher made from sugar palm leaf stem — used to polish pottery before firing, creating a smooth surface without glaze.",
+        dropRate: 0.28,
+      },
+      {
+        id: "btcp-003",
+        name: "Mẫu tro lò nung ngoài trời",
+        nameEn: "Open-Air Kiln Ash Sample",
+        ichDomain: "craftsmanship",
+        sourceNodeId: "bau-truc-cham-pottery",
+        sourceNodeName: "Gốm Bàu Trúc Chăm",
+        knowledgeHolderName: "Bà Đàng Thị Phan",
+        image: "https://images.unsplash.com/photo-1608889825205-eebdb9fc5806?w=400&q=80",
+        rarity: "Epic",
+        description: "Mẫu tro sau một mẻ nung gốm Bàu Trúc ngoài trời — màu sắc tro cho thấy nhiệt độ và loại củi dùng nung.",
+        descriptionEn: "Ash sample from a Bau Truc outdoor firing — ash color reveals temperature and wood type used.",
+        dropRate: 0.08,
+      },
+      {
+        id: "btcp-004",
+        name: "Con dấu thần linh Chăm",
+        nameEn: "Cham Pottery Deity Seal",
+        ichDomain: "craftsmanship",
+        sourceNodeId: "bau-truc-cham-pottery",
+        sourceNodeName: "Gốm Bàu Trúc Chăm",
+        knowledgeHolderName: "Bà Đàng Thị Phan",
+        image: "https://images.unsplash.com/photo-1616627547584-bf28cee262db?w=400&q=80",
+        rarity: "Legendary",
+        description: "Con dấu đất nung khắc hình Bà Po Nagar — nữ thần Chăm bảo hộ nghề gốm, đóng lên đáy mỗi sản phẩm nghi lễ.",
+        descriptionEn: "Fired clay seal carved with Po Nagar — the Cham goddess protecting pottery, stamped on each ritual vessel's base.",
+        dropRate: 0.02,
+      },
+    ],
+  },
+];

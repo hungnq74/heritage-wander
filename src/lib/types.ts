@@ -1,10 +1,55 @@
 export type Rarity = "Common" | "Rare" | "Epic" | "Legendary" | "Endangered";
-export type CraftCategory = "carpentry" | "incense" | "silk" | "pottery" | "hat-making";
+
+export type ICHDomain =
+  | "craftsmanship"
+  | "performing-arts"
+  | "ritual"
+  | "oral-tradition"
+  | "traditional-knowledge"
+  | "culinary"
+  | "ethnic-minority";
+
+export type VietnamProvince =
+  | "thua-thien-hue"
+  | "quang-nam"
+  | "ha-noi"
+  | "bac-ninh"
+  | "lao-cai"
+  | "lam-dong"
+  | "ninh-binh"
+  | "can-tho"
+  | "ninh-thuan"
+  | "quang-ngai"
+  | "gia-lai";
+
+export type UNESCOStatus =
+  | "inscribed"
+  | "urgent-safeguarding"
+  | "best-practice"
+  | "nominated"
+  | "unrecognized";
+
+export type KnowledgeHolderRole =
+  | "artisan"
+  | "performer"
+  | "elder"
+  | "storyteller"
+  | "ceremony-keeper"
+  | "healer"
+  | "ritual-master";
+
+export interface KnowledgeHolder {
+  name: string;
+  nameEn: string;
+  avatar: string;
+  role: KnowledgeHolderRole;
+  roleEn: string;
+}
 
 export interface NPCExchange {
   order: number;
-  question: string; // quick-reply chip text shown to the user
-  answer: string;   // NPC response text
+  question: string;
+  answer: string;
 }
 
 export interface PhotoChallenge {
@@ -15,38 +60,40 @@ export interface PhotoChallenge {
 
 export interface CollectibleItem {
   id: string;
-  name: string;       // Vietnamese primary
+  name: string;
   nameEn: string;
-  craftCategory: CraftCategory;
+  ichDomain: ICHDomain;
   sourceNodeId: string;
   sourceNodeName: string;
-  artisanName: string;
+  knowledgeHolderName: string;
   image: string;
   rarity: Rarity;
   description: string;
   descriptionEn: string;
-  dropRate: number;   // 0–1, probability weight
+  dropRate: number;
 }
 
 export interface CollectedItem extends CollectibleItem {
-  acquiredAt: string; // ISO timestamp
+  acquiredAt: string;
 }
 
 export interface HeritageNode {
   id: string;
-  name: string;       // Vietnamese primary
+  name: string;
   nameEn: string;
-  craftCategory: CraftCategory;
-  coordinates: [number, number]; // [lng, lat]
+  ichDomain: ICHDomain;
+  province: VietnamProvince;
+  unescoStatus?: UNESCOStatus;
+  ethnicGroup?: string;
+  coordinates: [number, number];
   coverImage: string;
   tier: 1 | 2 | 3;
-  artisanName: string;
-  artisanAvatar: string;
+  knowledgeHolder: KnowledgeHolder;
   items: CollectibleItem[];
   videoUrl?: string;
   knowledgeSummary: string;
   knowledgeSummaryEn: string;
-  materials: string[];
+  elements: string[];
   npcScript: NPCExchange[];
   photoChallenge: PhotoChallenge;
 }

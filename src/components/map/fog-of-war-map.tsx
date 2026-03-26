@@ -12,23 +12,25 @@ import type { GeoJSON } from "geojson";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
-// Hue city center
-const HUE_CENTER: [number, number] = [107.5905, 16.4637];
+// Vietnam center — shows full country at zoom 5.5
+const VIETNAM_CENTER: [number, number] = [106.6297, 16.4637];
 
 // Distance in degrees (approx 300m at this latitude)
 const PROXIMITY_DEGREES = 0.003;
 
 // Build fog GeoJSON: large bounding box with holes for each unlocked node
-function buildFogGeoJSON(nodes: HeritageNode[], unlockedIds: string[]): GeoJSON.Feature<GeoJSON.Polygon> {
+function buildFogGeoJSON(nodes: HeritageNode[], unlockedIds: string[], zoom: number): GeoJSON.Feature<GeoJSON.Polygon> {
   const outerRing: GeoJSON.Position[] = [
     [-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90],
   ];
+
+  // Zoom-adaptive reveal radius: larger at national view, precise at local view
+  const r = zoom < 8 ? 0.05 : 0.012;
 
   const holes: GeoJSON.Position[][] = unlockedIds.map((id) => {
     const node = nodes.find((n) => n.id === id);
     if (!node) return [];
     const [lng, lat] = node.coordinates;
-    const r = 0.012; // ~1.3km reveal radius
     const steps = 32;
     const ring: GeoJSON.Position[] = [];
     for (let i = 0; i <= steps; i++) {
@@ -73,13 +75,14 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
   const [hoveredNode, setHoveredNode] = useState<HeritageNode | null>(null);
   const [hoveredDistance, setHoveredDistance] = useState(0);
   const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
+  const [currentZoom, setCurrentZoom] = useState(5.5);
 
   useEffect(() => {
     const state = getMuseumState();
     setUnlockedIds(state.unlockedNodeIds);
   }, []);
 
-  const fogGeoJSON = buildFogGeoJSON(nodes, unlockedIds);
+  const fogGeoJSON = buildFogGeoJSON(nodes, unlockedIds, currentZoom);
 
   const handleMapClick = useCallback(
     (e: MapMouseEvent) => {
@@ -104,10 +107,11 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
       <Map
         mapboxAccessToken={MAPBOX_TOKEN}
         initialViewState={{
-          longitude: HUE_CENTER[0],
-          latitude: HUE_CENTER[1],
-          zoom: 11.5,
+          longitude: VIETNAM_CENTER[0],
+          latitude: VIETNAM_CENTER[1],
+          zoom: 5.5,
         }}
+        onZoom={(e) => setCurrentZoom(e.viewState.zoom)}
         style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/mapbox/outdoors-v12"
         onClick={handleMapClick}
