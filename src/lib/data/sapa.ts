@@ -3,6 +3,8 @@ import type { HeritageNode } from "../types";
 export const SAPA_NODES: HeritageNode[] = [
   {
     id: "hmong-then-sapa",
+    cityId: "sapa",
+    category: "intangible-heritage",
     name: "Thổ Cẩm H'Mông & Then Tày",
     nameEn: "H'Mong Brocade & Tay Then Ritual Music",
     ichDomain: "ethnic-minority",

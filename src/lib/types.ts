@@ -1,5 +1,10 @@
 export type Rarity = "Common" | "Rare" | "Epic" | "Legendary" | "Endangered";
 
+export type HeritageCategory =
+  | "intangible-heritage"
+  | "must-visit"
+  | "tourist-landmark";
+
 export type ICHDomain =
   | "craftsmanship"
   | "performing-arts"
@@ -20,7 +25,9 @@ export type VietnamProvince =
   | "can-tho"
   | "ninh-thuan"
   | "quang-ngai"
-  | "gia-lai";
+  | "gia-lai"
+  | "ho-chi-minh-city"
+  | "da-nang";
 
 export type UNESCOStatus =
   | "inscribed"
@@ -81,6 +88,8 @@ export interface HeritageNode {
   id: string;
   name: string;
   nameEn: string;
+  cityId: string;
+  category: HeritageCategory;
   ichDomain: ICHDomain;
   province: VietnamProvince;
   unescoStatus?: UNESCOStatus;
@@ -98,6 +107,26 @@ export interface HeritageNode {
   photoChallenge: PhotoChallenge;
 }
 
+export interface City {
+  id: string;
+  name: string;
+  nameEn: string;
+  coordinates: [number, number];
+  province: VietnamProvince;
+  badgeEmoji: string;
+  badgeName: string;
+  badgeNameEn: string;
+  badgeDescription: string;
+}
+
+export interface CityBadge {
+  cityId: string;
+  name: string;
+  nameEn: string;
+  description: string;
+  emoji: string;
+}
+
 export interface HeritageRoute {
   id: string;
   name: string;
@@ -111,4 +140,5 @@ export interface HeritageRoute {
 export interface MuseumState {
   unlockedNodeIds: string[];
   collectedItemIds: string[];
+  earnedBadgeIds: string[];
 }

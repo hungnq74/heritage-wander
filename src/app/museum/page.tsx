@@ -13,10 +13,10 @@ export default function MuseumPage() {
           Bảo Tàng <span className="text-primary italic">Của Tôi</span>
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Khám phá di sản văn hóa phi vật thể Việt Nam, mở khóa vật phẩm văn hóa độc đáo.
+          Khám phá di sản văn hóa Việt Nam — di tích, địa danh, và di sản phi vật thể từ khắp đất nước.
         </p>
         <p className="text-xs text-muted-foreground mt-0.5">
-          Collect cultural artifacts from intangible heritage sites across Vietnam.
+          Discover heritage sites, landmarks, and intangible culture across Vietnam.
         </p>
       </div>
 

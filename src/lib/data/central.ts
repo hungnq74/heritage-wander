@@ -3,6 +3,8 @@ import type { HeritageNode } from "../types";
 export const CENTRAL_NODES: HeritageNode[] = [
   {
     id: "bau-truc-cham-pottery",
+    cityId: "ninh-thuan",
+    category: "intangible-heritage",
     name: "Gốm Bàu Trúc Chăm",
     nameEn: "Bau Truc Cham Pottery",
     ichDomain: "craftsmanship",

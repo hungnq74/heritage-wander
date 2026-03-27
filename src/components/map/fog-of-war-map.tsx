@@ -1,22 +1,23 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import Map, { Marker, Source, Layer } from "react-map-gl/mapbox";
-import type { MapMouseEvent } from "react-map-gl/mapbox";
+import type { MapMouseEvent, MapRef } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
 import type { HeritageNode } from "@/lib/types";
 import { MistNodeMarker } from "./mist-node-marker";
 import { ProximityHud } from "./proximity-hud";
 import { getMuseumState } from "@/lib/museum-store";
 import type { GeoJSON } from "geojson";
+import { Navigation, Crosshair } from "lucide-react";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
 // Vietnam center — shows full country at zoom 5.5
 const VIETNAM_CENTER: [number, number] = [106.6297, 16.4637];
 
-// Distance in degrees (approx 300m at this latitude)
-const PROXIMITY_DEGREES = 0.003;
+// Proximity radius in meters for entering a node
+const PROXIMITY_METERS = 150;
 
 // Build fog GeoJSON: large bounding box with holes for each unlocked node
 function buildFogGeoJSON(nodes: HeritageNode[], unlockedIds: string[], zoom: number): GeoJSON.Feature<GeoJSON.Polygon> {
@@ -24,7 +25,6 @@ function buildFogGeoJSON(nodes: HeritageNode[], unlockedIds: string[], zoom: num
     [-180, -90], [180, -90], [180, 90], [-180, 90], [-180, -90],
   ];
 
-  // Zoom-adaptive reveal radius: larger at national view, precise at local view
   const r = zoom < 8 ? 0.05 : 0.012;
 
   const holes: GeoJSON.Position[][] = unlockedIds.map((id) => {
@@ -37,7 +37,7 @@ function buildFogGeoJSON(nodes: HeritageNode[], unlockedIds: string[], zoom: num
       const angle = (i / steps) * Math.PI * 2;
       ring.push([lng + Math.cos(angle) * r, lat + Math.sin(angle) * r * 0.7]);
     }
-    ring.push(ring[0]); // close
+    ring.push(ring[0]);
     return ring;
   });
 
@@ -68,30 +68,62 @@ function haversineDistance(
 
 interface FogOfWarMapProps {
   nodes: HeritageNode[];
+  gpsPosition?: [number, number] | null; // from GeolocationGate
 }
 
-export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
+export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
   const [hoveredNode, setHoveredNode] = useState<HeritageNode | null>(null);
   const [hoveredDistance, setHoveredDistance] = useState(0);
-  const [userPosition, setUserPosition] = useState<[number, number] | null>(null);
+  // userPosition: GPS position (preferred) or manual click fallback
+  const [manualPosition, setManualPosition] = useState<[number, number] | null>(null);
   const [currentZoom, setCurrentZoom] = useState(5.5);
+  const [devMode, setDevMode] = useState(false);
+  const mapRef = useRef<MapRef>(null);
+  const hasFlewToGps = useRef(false);
+
+  // Check dev mode from URL
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search);
+      setDevMode(params.has("dev"));
+    }
+  }, []);
 
   useEffect(() => {
     const state = getMuseumState();
     setUnlockedIds(state.unlockedNodeIds);
   }, []);
 
+  // Fly to GPS position on first GPS fix
+  useEffect(() => {
+    if (gpsPosition && !hasFlewToGps.current && mapRef.current) {
+      hasFlewToGps.current = true;
+      mapRef.current.flyTo({
+        center: gpsPosition,
+        zoom: 14,
+        duration: 2000,
+      });
+    }
+  }, [gpsPosition]);
+
+  const userPosition = gpsPosition ?? manualPosition;
+
   const fogGeoJSON = buildFogGeoJSON(nodes, unlockedIds, currentZoom);
 
   const handleMapClick = useCallback(
     (e: MapMouseEvent) => {
-      const clickLng = e.lngLat.lng;
-      const clickLat = e.lngLat.lat;
-      setUserPosition([clickLng, clickLat]);
-      // Map canvas click only updates position — node HUD is opened via marker clicks
+      // In dev mode, clicking sets the fake GPS position
+      if (devMode) {
+        setManualPosition([e.lngLat.lng, e.lngLat.lat]);
+        return;
+      }
+      // Without GPS, allow manual position for demo
+      if (!gpsPosition) {
+        setManualPosition([e.lngLat.lng, e.lngLat.lat]);
+      }
     },
-    []
+    [devMode, gpsPosition]
   );
 
   const handleNodeMarkerClick = useCallback(
@@ -102,9 +134,16 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
     []
   );
 
+  const flyToGps = useCallback(() => {
+    if (gpsPosition && mapRef.current) {
+      mapRef.current.flyTo({ center: gpsPosition, zoom: 15, duration: 1200 });
+    }
+  }, [gpsPosition]);
+
   return (
     <div className="relative w-full h-full">
       <Map
+        ref={mapRef}
         mapboxAccessToken={MAPBOX_TOKEN}
         initialViewState={{
           longitude: VIETNAM_CENTER[0],
@@ -115,7 +154,7 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
         style={{ width: "100%", height: "100%" }}
         mapStyle="mapbox://styles/mapbox/outdoors-v12"
         onClick={handleMapClick}
-        cursor="crosshair"
+        cursor={devMode ? "crosshair" : "default"}
       >
         {/* Fog of war layer */}
         <Source id="fog" type="geojson" data={fogGeoJSON}>
@@ -129,9 +168,20 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
           />
         </Source>
 
-        {/* User position marker */}
-        {userPosition && (
-          <Marker longitude={userPosition[0]} latitude={userPosition[1]}>
+        {/* GPS user location marker — pulsing blue dot */}
+        {gpsPosition && (
+          <Marker longitude={gpsPosition[0]} latitude={gpsPosition[1]}>
+            <div className="relative flex items-center justify-center">
+              <div className="size-4 rounded-full bg-blue-500 border-2 border-white shadow-lg z-10" />
+              <div className="absolute size-4 rounded-full bg-blue-400 animate-ping opacity-60" />
+              <div className="absolute size-10 rounded-full bg-blue-300/20" />
+            </div>
+          </Marker>
+        )}
+
+        {/* Manual/fallback position marker */}
+        {!gpsPosition && manualPosition && (
+          <Marker longitude={manualPosition[0]} latitude={manualPosition[1]}>
             <div className="size-4 rounded-full bg-accent border-2 border-white shadow-lg shadow-accent/50" />
           </Marker>
         )}
@@ -156,7 +206,7 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
                 isUnlocked={isUnlocked}
                 isHovered={isHovered}
                 distance={distance}
-                onClick={() => handleNodeMarkerClick(node, distance ?? 145)}
+                onClick={() => handleNodeMarkerClick(node, distance ?? 9999)}
               />
             </Marker>
           );
@@ -167,14 +217,36 @@ export function FogOfWarMap({ nodes }: FogOfWarMapProps) {
       <ProximityHud
         node={hoveredNode}
         distance={hoveredDistance}
+        proximityMeters={PROXIMITY_METERS}
         onDismiss={() => setHoveredNode(null)}
       />
+
+      {/* GPS re-center button */}
+      {gpsPosition && (
+        <button
+          onClick={flyToGps}
+          className="absolute bottom-24 md:bottom-8 right-4 size-11 rounded-full bg-background/90 backdrop-blur border border-border shadow-lg flex items-center justify-center text-primary hover:bg-secondary transition-colors"
+          title="Về vị trí của tôi"
+        >
+          <Navigation className="size-5" />
+        </button>
+      )}
+
+      {/* Dev mode indicator */}
+      {devMode && (
+        <div className="absolute top-20 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-amber-400/90 text-amber-900 text-xs font-bold flex items-center gap-1.5 shadow">
+          <Crosshair className="size-3" />
+          Dev: nhấn bản đồ để đặt vị trí giả
+        </div>
+      )}
 
       {/* Hint overlay */}
       {!hoveredNode && (
         <div className="absolute bottom-20 md:bottom-4 left-1/2 -translate-x-1/2 pointer-events-none">
           <div className="px-4 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 text-xs text-muted-foreground font-medium whitespace-nowrap shadow-sm">
-            Chạm vào địa điểm để tiếp cận · Tap a node to approach
+            {gpsPosition
+              ? "Di chuyển đến di sản để mở khóa"
+              : "Chạm vào địa điểm để tiếp cận · Tap a node to approach"}
           </div>
         </div>
       )}

@@ -6,7 +6,8 @@ import { HERITAGE_NODES } from "@/lib/mock-data";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { unlockNode, addItems } from "@/lib/museum-store";
+import { unlockNode, addItems, checkAndAwardCityBadge } from "@/lib/museum-store";
+import { BadgeCelebration } from "@/components/museum/badge-celebration";
 
 // Step components (imported below)
 import { StepUnlock } from "@/components/explore/step-unlock";
@@ -39,6 +40,7 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
   if (!node) notFound();
 
   const [step, setStep] = useState<NodeStep>("unlock");
+  const [earnedBadgeId, setEarnedBadgeId] = useState<string | null>(null);
   const stepIndex = STEPS.indexOf(step);
 
   const goNext = () => {
@@ -61,6 +63,12 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
 
   const handleCollected = (itemIds: string[]) => {
     addItems(itemIds);
+    // Check if this unlocked a city badge
+    if (node.cityId) {
+      const cityNodes = HERITAGE_NODES.filter((n) => n.cityId === node.cityId);
+      const awarded = checkAndAwardCityBadge(node.cityId, cityNodes);
+      if (awarded) setEarnedBadgeId(awarded);
+    }
   };
 
   return (
@@ -92,6 +100,11 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
             {STEP_LABELS[step]}
           </span>
         </div>
+      )}
+
+      {/* Badge celebration overlay */}
+      {earnedBadgeId && (
+        <BadgeCelebration cityId={earnedBadgeId} onDismiss={() => setEarnedBadgeId(null)} />
       )}
 
       {/* Step content */}

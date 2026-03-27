@@ -1,4 +1,4 @@
-import type { ICHDomain, VietnamProvince, HeritageNode } from "./types";
+import type { ICHDomain, VietnamProvince, HeritageNode, HeritageCategory, City } from "./types";
 
 export function getDomainEmoji(domain: ICHDomain): string {
   const map: Record<ICHDomain, string> = {
@@ -24,6 +24,15 @@ export function getDomainLabel(domain: ICHDomain): { vi: string; en: string } {
     "ethnic-minority": { vi: "Văn hóa dân tộc", en: "Ethnic Minority Culture" },
   };
   return map[domain] ?? { vi: "Di sản", en: "Heritage" };
+}
+
+export function getCategoryLabel(category: HeritageCategory): { vi: string; en: string; emoji: string } {
+  const map: Record<HeritageCategory, { vi: string; en: string; emoji: string }> = {
+    "intangible-heritage": { vi: "Di sản phi vật thể", en: "Intangible Heritage", emoji: "🏮" },
+    "must-visit": { vi: "Điểm đến nổi bật", en: "Must-Visit", emoji: "📍" },
+    "tourist-landmark": { vi: "Địa danh du lịch", en: "Tourist Landmark", emoji: "🗺️" },
+  };
+  return map[category] ?? { vi: "Di sản", en: "Heritage", emoji: "🏛️" };
 }
 
 export function getElementsLabel(domain: ICHDomain): { vi: string; en: string } {
@@ -65,6 +74,8 @@ export function getProvinceLabel(province: VietnamProvince): string {
     "ninh-thuan": "Ninh Thuận",
     "quang-ngai": "Quảng Ngãi",
     "gia-lai": "Gia Lai",
+    "ho-chi-minh-city": "TP. Hồ Chí Minh",
+    "da-nang": "Đà Nẵng",
   };
   return map[province] ?? province;
 }
@@ -83,4 +94,21 @@ export function groupNodesByDomain(nodes: HeritageNode[]): Partial<Record<ICHDom
     acc[node.ichDomain]!.push(node);
     return acc;
   }, {} as Partial<Record<ICHDomain, HeritageNode[]>>);
+}
+
+export function groupNodesByCategory(nodes: HeritageNode[]): Partial<Record<HeritageCategory, HeritageNode[]>> {
+  return nodes.reduce((acc, node) => {
+    if (!acc[node.category]) acc[node.category] = [];
+    acc[node.category]!.push(node);
+    return acc;
+  }, {} as Partial<Record<HeritageCategory, HeritageNode[]>>);
+}
+
+export function groupNodesByCity(nodes: HeritageNode[], cities: City[]): Map<City, HeritageNode[]> {
+  const result = new Map<City, HeritageNode[]>();
+  for (const city of cities) {
+    const cityNodes = nodes.filter((n) => n.cityId === city.id);
+    if (cityNodes.length > 0) result.set(city, cityNodes);
+  }
+  return result;
 }

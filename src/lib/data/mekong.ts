@@ -3,6 +3,8 @@ import type { HeritageNode } from "../types";
 export const MEKONG_NODES: HeritageNode[] = [
   {
     id: "don-ca-tai-tu-cantho",
+    cityId: "can-tho",
+    category: "intangible-heritage",
     name: "Đờn Ca Tài Tử Nam Bộ",
     nameEn: "Don Ca Tai Tu Southern Vietnamese Chamber Music",
     ichDomain: "performing-arts",

@@ -6,8 +6,10 @@ import { SAPA_NODES } from "./data/sapa";
 import { DA_LAT_NODES } from "./data/da-lat";
 import { MEKONG_NODES } from "./data/mekong";
 import { CENTRAL_NODES } from "./data/central";
+import { HO_CHI_MINH_CITY_NODES } from "./data/ho-chi-minh-city";
 
 export const HERITAGE_NODES: HeritageNode[] = [
+  ...HO_CHI_MINH_CITY_NODES,
   ...HUE_NODES,
   ...HOI_AN_NODES,
   ...HA_NOI_NODES,

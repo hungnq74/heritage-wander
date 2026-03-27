@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,10 +12,13 @@ import Link from "next/link";
 interface ProximityHudProps {
   node: HeritageNode | null;
   distance: number;
+  proximityMeters: number;
   onDismiss: () => void;
 }
 
-export function ProximityHud({ node, distance, onDismiss }: ProximityHudProps) {
+export function ProximityHud({ node, distance, proximityMeters, onDismiss }: ProximityHudProps) {
+  const canEnter = distance <= proximityMeters;
+  const [thumbFailed, setThumbFailed] = useState(false);
   return (
     <AnimatePresence>
       {node && (
@@ -29,12 +33,19 @@ export function ProximityHud({ node, distance, onDismiss }: ProximityHudProps) {
           <div className="bg-background/95 backdrop-blur-md rounded-3xl border border-border shadow-2xl p-5">
             {/* Node info */}
             <div className="flex items-center gap-4 mb-4">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={node.coverImage}
-                alt={node.name}
-                className="size-14 rounded-2xl object-cover shrink-0"
-              />
+              {thumbFailed ? (
+                <div className="size-14 rounded-2xl bg-secondary flex items-center justify-center shrink-0">
+                  <span className="text-2xl">{getDomainEmoji(node.ichDomain)}</span>
+                </div>
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  src={node.coverImage}
+                  alt={node.name}
+                  onError={() => setThumbFailed(true)}
+                  className="size-14 rounded-2xl object-cover shrink-0"
+                />
+              )}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
                   <span className="text-lg">{getDomainEmoji(node.ichDomain)}</span>
@@ -94,11 +105,18 @@ export function ProximityHud({ node, distance, onDismiss }: ProximityHudProps) {
               >
                 Để sau
               </button>
-              <Button className="flex-[2] h-12 rounded-full text-sm font-black" asChild>
-                <Link href={`/explore/node/${node.id}`}>
-                  Tiếp cận →
-                </Link>
-              </Button>
+              {canEnter ? (
+                <Button className="flex-[2] h-12 rounded-full text-sm font-black" asChild>
+                  <Link href={`/explore/node/${node.id}`}>
+                    Tiếp cận →
+                  </Link>
+                </Button>
+              ) : (
+                <div className="flex-[2] h-12 rounded-full bg-secondary flex flex-col items-center justify-center gap-0.5">
+                  <span className="text-[11px] font-black text-muted-foreground leading-none">Đến gần hơn</span>
+                  <span className="text-[10px] text-muted-foreground/70 leading-none">{distance - proximityMeters}m nữa</span>
+                </div>
+              )}
             </div>
           </div>
         </motion.div>

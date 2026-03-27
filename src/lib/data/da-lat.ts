@@ -3,6 +3,8 @@ import type { HeritageNode } from "../types";
 export const DA_LAT_NODES: HeritageNode[] = [
   {
     id: "kho-gong-dalat",
+    cityId: "da-lat",
+    category: "intangible-heritage",
     name: "Cồng Chiêng K'Ho Tây Nguyên",
     nameEn: "K'Ho Gong Culture of the Central Highlands",
     ichDomain: "performing-arts",
