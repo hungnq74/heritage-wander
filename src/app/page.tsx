@@ -1,19 +1,33 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Compass, Star, Users, MapPin } from "lucide-react";
-import { HERITAGE_NODES, TOTAL_ITEMS } from "@/lib/mock-data";
+import dbConnect from "@/lib/db";
+import Heritage from "@/models/Heritage";
 
-export default function Home() {
+export default async function Home() {
+  await dbConnect();
+  const nodes = await Heritage.find({}).lean();
+  const heritageNodes = JSON.parse(JSON.stringify(nodes));
+  const totalItems = heritageNodes.reduce((sum: number, n: any) => sum + n.items.length, 0);
+
   return (
     <div className="flex flex-col">
       {/* Hero */}
       <section className="relative overflow-hidden min-h-[90vh] flex flex-col items-center justify-center px-5 py-16 text-center">
         {/* Background mosaic of node images */}
         <div className="absolute inset-0 grid grid-cols-3 md:grid-cols-5 gap-1 opacity-15 pointer-events-none">
-          {HERITAGE_NODES.flatMap((n) => n.items).slice(0, 15).map((item) => (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img key={item.id} src={item.image} alt="" className="w-full h-40 object-cover" />
+          {heritageNodes.flatMap((n: any) => n.items).slice(0, 15).map((item: any) => (
+            <div key={item.id} className="relative w-full h-40">
+              <Image 
+                src={item.image} 
+                alt="" 
+                fill 
+                sizes="(max-width: 768px) 33vw, 20vw"
+                className="object-cover" 
+              />
+            </div>
           ))}
         </div>
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
@@ -55,8 +69,8 @@ export default function Home() {
       <section className="px-5 pb-12">
         <div className="max-w-4xl mx-auto grid grid-cols-3 gap-4">
           {[
-            { value: `${HERITAGE_NODES.length}`, label: "Địa điểm di sản", icon: MapPin },
-            { value: `${TOTAL_ITEMS}`, label: "Vật phẩm", icon: Star },
+            { value: `${heritageNodes.length}`, label: "Địa điểm di sản", icon: MapPin },
+            { value: `${totalItems}`, label: "Vật phẩm", icon: Star },
             { value: "∞", label: "Hành trình", icon: Users },
           ].map((stat) => {
             const Icon = stat.icon;
@@ -126,18 +140,19 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-          {HERITAGE_NODES.map((node) => (
+          {heritageNodes.slice(0, 6).map((node: any) => (
             <Link
               key={node.id}
               href={`/explore/node/${node.id}`}
               className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-md"
             >
-              <div className="aspect-video overflow-hidden">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
+              <div className="aspect-video relative overflow-hidden">
+                <Image
                   src={node.coverImage}
                   alt={node.name}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
               </div>
@@ -145,7 +160,7 @@ export default function Home() {
                 <p className="text-white font-black text-sm leading-tight">{node.name}</p>
                 <p className="text-white/60 text-xs">{node.items.length} vật phẩm</p>
               </div>
-              <Badge className="absolute top-2 right-2 text-[9px] bg-background/80 backdrop-blur-sm text-foreground border-0 font-bold">
+              <Badge className="absolute top-2 right-2 text-[9px] bg-black/60 text-white border-0 font-bold">
                 Tier {node.tier}
               </Badge>
             </Link>

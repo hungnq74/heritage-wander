@@ -3,6 +3,7 @@
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 import type { HeritageNode } from "@/lib/types";
 import { Camera, CheckCircle2, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -102,13 +103,15 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
             </p>
             <div className="flex gap-2">
               {node.photoChallenge.referenceImages.map((img, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={i}
-                  src={img}
-                  alt={`Reference ${i + 1}`}
-                  className="size-16 rounded-xl object-cover border border-border/50 opacity-60"
-                />
+                <div key={i} className="relative size-16 rounded-xl overflow-hidden border border-border/50 opacity-60">
+                  <Image
+                    src={img}
+                    alt={`Reference ${i + 1}`}
+                    fill
+                    sizes="64px"
+                    className="object-cover"
+                  />
+                </div>
               ))}
             </div>
           </div>

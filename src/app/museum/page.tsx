@@ -1,9 +1,14 @@
 import { MuseumGrid } from "@/components/museum/museum-grid";
-import { HERITAGE_NODES, TOTAL_ITEMS } from "@/lib/mock-data";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { LayoutGrid, ArrowLeftRight } from "lucide-react";
+import dbConnect from "@/lib/db";
+import Heritage from "@/models/Heritage";
 
-export default function MuseumPage() {
+export default async function MuseumPage() {
+  await dbConnect();
+  const nodes = await Heritage.find({}).lean();
+  const heritageNodes = JSON.parse(JSON.stringify(nodes)); // Plain object for client components
+  
   return (
     <div className="max-w-4xl mx-auto px-4 py-8">
       {/* Header */}
@@ -33,7 +38,7 @@ export default function MuseumPage() {
         </TabsList>
 
         <TabsContent value="collection">
-          <MuseumGrid nodes={HERITAGE_NODES} />
+          <MuseumGrid nodes={heritageNodes} />
         </TabsContent>
 
         <TabsContent value="trade">

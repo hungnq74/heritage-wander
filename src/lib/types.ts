@@ -96,6 +96,7 @@ export interface HeritageNode {
   ethnicGroup?: string;
   coordinates: [number, number];
   coverImage: string;
+  teaserImage?: string;
   tier: 1 | 2 | 3;
   knowledgeHolder: KnowledgeHolder;
   items: CollectibleItem[];

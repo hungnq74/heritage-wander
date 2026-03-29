@@ -11,8 +11,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6314, 10.7600],
-    coverImage:
-      "https://images.unsplash.com/photo-1599342565611-3796ff619714?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-chua-giac-lam.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-chua-giac-lam.jpg",
     tier: 2,
     knowledgeHolder: {
       name: "Đại đức Thích Minh Tâm",
@@ -123,8 +123,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6882, 10.8003],
-    coverImage:
-      "https://images.unsplash.com/photo-1596701062351-be5f6a42a4a9?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-lang-ong-ba-chieu.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-lang-ong-ba-chieu.jpg",
     tier: 2,
     knowledgeHolder: {
       name: "Ông Nguyễn Văn Đức",
@@ -221,8 +221,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6946, 10.7892],
-    coverImage:
-      "https://images.unsplash.com/photo-1528697203043-733dafdaa316?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-chua-ngoc-hoang.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-chua-ngoc-hoang.jpg",
     tier: 1,
     knowledgeHolder: {
       name: "Bà Trần Thị Hương",
@@ -319,8 +319,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6590, 10.7570],
-    coverImage:
-      "https://images.unsplash.com/photo-1563298199-6e3e1cb1ba21?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-dinh-minh-huong.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-dinh-minh-huong.jpg",
     tier: 3,
     knowledgeHolder: {
       name: "Ông Lý Văn Thành",
@@ -431,8 +431,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "nominated",
     coordinates: [106.6912, 10.7714],
-    coverImage:
-      "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-hat-boi.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-hat-boi.jpg",
     tier: 2,
     knowledgeHolder: {
       name: "Nghệ sĩ Nhân dân Diệu Hiền",
@@ -543,8 +543,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6983, 10.7728],
-    coverImage:
-      "https://images.unsplash.com/photo-1621245033772-e14b71d6c8d7?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-ben-thanh.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-ben-thanh.jpg",
     tier: 1,
     knowledgeHolder: {
       name: "Bà Nguyễn Thị Lan",
@@ -641,8 +641,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6956, 10.7769],
-    coverImage:
-      "https://images.unsplash.com/photo-1500916434205-0c77489c6cf7?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-dinh-doc-lap.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-dinh-doc-lap.jpg",
     tier: 1,
     knowledgeHolder: {
       name: "Ông Phạm Văn Hùng",
@@ -739,8 +739,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.6921, 10.7791],
-    coverImage:
-      "https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-bao-tang-chung-tich.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-bao-tang-chung-tich.jpg",
     tier: 1,
     knowledgeHolder: {
       name: "Bà Lê Thị Mai",
@@ -837,8 +837,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.7031, 10.7769],
-    coverImage:
-      "https://images.unsplash.com/photo-1555620263-73d02633039d?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-nha-hat-thanh-pho.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-nha-hat-thanh-pho.jpg",
     tier: 1,
     knowledgeHolder: {
       name: "Nghệ sĩ Ưu tú Thành Lộc",
@@ -935,7 +935,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.5502, 10.9504],
-    coverImage: "https://images.unsplash.com/photo-1516684732162-798a0062be99?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-banh-trang-cu-chi.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-banh-trang-cu-chi.jpg",
     tier: 3,
     knowledgeHolder: {
       name: "Bà Nguyễn Thị Bảy",
@@ -1046,7 +1047,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "inscribed",
     coordinates: [106.7020, 10.7750],
-    coverImage: "https://images.unsplash.com/photo-1520699049698-acd2fccb8cc8?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-don-ca-tai-tu.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-don-ca-tai-tu.jpg",
     tier: 3,
     knowledgeHolder: {
       name: "NSND Kim Cương",
@@ -1097,7 +1099,8 @@ export const HO_CHI_MINH_CITY_NODES: HeritageNode[] = [
     province: "ho-chi-minh-city",
     unescoStatus: "unrecognized",
     coordinates: [106.8850, 10.5050],
-    coverImage: "https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&q=80&w=1200",
+    coverImage: "/assets/heritages/hcmc/hcmc-nghinh-ong.jpg",
+    teaserImage: "/assets/heritages/hcmc/hcmc-nghinh-ong.jpg",
     tier: 2,
     knowledgeHolder: {
       name: "Ông Nguyễn Văn Một",

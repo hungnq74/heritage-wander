@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
+import Image from "next/image";
 import type { HeritageNode } from "@/lib/types";
 import { getElementsLabel, getKnowledgeHolderLabel } from "@/lib/ich-utils";
 import { Play, User, Package } from "lucide-react";
@@ -20,11 +21,12 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
     <div className="flex flex-col min-h-screen bg-background max-w-2xl mx-auto">
       {/* Video area */}
       <div className="relative aspect-video w-full bg-foreground/10 overflow-hidden shrink-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={node.coverImage}
           alt={node.name}
-          className="w-full h-full object-cover opacity-70"
+          fill
+          priority
+          className="object-cover opacity-70"
         />
         <div className="absolute inset-0 flex items-center justify-center">
           <button className="size-16 rounded-full bg-background/90 backdrop-blur-sm flex items-center justify-center shadow-2xl hover:scale-105 transition-transform">
@@ -88,12 +90,15 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
 
         {/* Knowledge holder */}
         <div className="flex items-center gap-3 p-3 rounded-2xl bg-secondary/40 border border-border/50">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={node.knowledgeHolder.avatar}
-            alt={node.knowledgeHolder.name}
-            className="size-10 rounded-full object-cover"
-          />
+          <div className="relative size-10 rounded-full overflow-hidden">
+            <Image
+              src={node.knowledgeHolder.avatar}
+              alt={node.knowledgeHolder.name}
+              fill
+              sizes="40px"
+              className="object-cover"
+            />
+          </div>
           <div className="flex-1">
             <p className="text-sm font-bold">{node.knowledgeHolder.name}</p>
             <div className="flex items-center gap-1 text-xs text-muted-foreground">
@@ -117,12 +122,15 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
                 key={item.id}
                 className="shrink-0 flex flex-col items-center gap-1 w-16"
               >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                  src={item.image}
-                  alt={item.name}
-                  className="size-14 rounded-xl object-cover border border-border/50"
-                />
+                <div className="relative size-14 rounded-xl overflow-hidden border border-border/50">
+                  <Image
+                    src={item.image}
+                    alt={item.name}
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                  />
+                </div>
                 <span className="text-[9px] text-center text-muted-foreground font-medium leading-tight line-clamp-2">
                   {item.rarity}
                 </span>

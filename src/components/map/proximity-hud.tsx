@@ -8,6 +8,7 @@ import type { HeritageNode } from "@/lib/types";
 import { getDomainEmoji, getDomainLabel, getProvinceLabel } from "@/lib/ich-utils";
 import { MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface ProximityHudProps {
   node: HeritageNode | null;
@@ -30,7 +31,7 @@ export function ProximityHud({ node, distance, proximityMeters, onDismiss }: Pro
           transition={{ type: "spring", stiffness: 300, damping: 30 }}
           className="fixed bottom-16 left-0 right-0 z-50 px-4 pb-2 md:bottom-4 md:pb-4 md:max-w-md md:mx-auto md:left-0 md:right-0"
         >
-          <div className="bg-background/95 backdrop-blur-md rounded-3xl border border-border shadow-2xl p-5">
+          <div className="bg-background/95 backdrop-blur-sm rounded-3xl border border-border shadow-2xl p-5">
             {/* Node info */}
             <div className="flex items-center gap-4 mb-4">
               {thumbFailed ? (
@@ -38,13 +39,16 @@ export function ProximityHud({ node, distance, proximityMeters, onDismiss }: Pro
                   <span className="text-2xl">{getDomainEmoji(node.ichDomain)}</span>
                 </div>
               ) : (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={node.coverImage}
-                  alt={node.name}
-                  onError={() => setThumbFailed(true)}
-                  className="size-14 rounded-2xl object-cover shrink-0"
-                />
+                <div className="relative size-14 rounded-2xl overflow-hidden shrink-0">
+                  <Image
+                    src={node.coverImage}
+                    alt={node.name}
+                    fill
+                    sizes="56px"
+                    onError={() => setThumbFailed(true)}
+                    className="object-cover"
+                  />
+                </div>
               )}
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 mb-0.5 flex-wrap">
@@ -81,13 +85,15 @@ export function ProximityHud({ node, distance, proximityMeters, onDismiss }: Pro
               <span className="text-xs text-muted-foreground shrink-0">{node.items.length} vật phẩm</span>
               <div className="flex gap-1 ml-1">
                 {node.items.slice(0, 4).map((item) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    key={item.id}
-                    src={item.image}
-                    alt=""
-                    className="size-7 rounded-lg object-cover border border-border/50"
-                  />
+                  <div key={item.id} className="relative size-7 rounded-lg overflow-hidden border border-border/50">
+                    <Image
+                      src={item.image}
+                      alt=""
+                      fill
+                      sizes="28px"
+                      className="object-cover"
+                    />
+                  </div>
                 ))}
                 {node.items.length > 4 && (
                   <div className="size-7 rounded-lg bg-secondary flex items-center justify-center text-[9px] font-bold text-muted-foreground border border-border/50">

@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import type { HeritageNode } from "@/lib/types";
 import { getDomainEmoji, getDomainLabel, getProvinceLabel } from "@/lib/ich-utils";
 import { MapPin, Unlock } from "lucide-react";
+import Image from "next/image";
 
 interface StepUnlockProps {
   node: HeritageNode;
@@ -29,11 +30,12 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
     <div className="relative flex flex-col items-center justify-center min-h-screen bg-[oklch(0.10_0.01_80)] text-white overflow-hidden px-6 py-12">
       {/* Background image with dark overlay */}
       <div className="absolute inset-0">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <Image
           src={node.coverImage}
           alt={node.name}
-          className="w-full h-full object-cover opacity-20"
+          fill
+          priority
+          className="object-cover opacity-20"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[oklch(0.10_0.01_80)/80] via-transparent to-[oklch(0.10_0.01_80)]" />
       </div>
@@ -116,12 +118,15 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
         transition={{ delay: 1.2 }}
         className="relative z-10 w-full max-w-sm bg-white/10 backdrop-blur-sm rounded-2xl p-4 flex items-center gap-4 mb-8"
       >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={node.knowledgeHolder.avatar}
-          alt={node.knowledgeHolder.name}
-          className="size-12 rounded-full object-cover border-2 border-primary/40"
-        />
+        <div className="relative size-12 rounded-full overflow-hidden border-2 border-primary/40">
+          <Image
+            src={node.knowledgeHolder.avatar}
+            alt={node.knowledgeHolder.name}
+            fill
+            sizes="48px"
+            className="object-cover"
+          />
+        </div>
         <div>
           <p className="font-bold text-sm">{node.knowledgeHolder.name}</p>
           <p className="text-xs text-white/50">{node.knowledgeHolder.roleEn} · {node.nameEn}</p>

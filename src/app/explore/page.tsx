@@ -1,10 +1,15 @@
 import { ExploreMapWrapper } from "@/components/explore/explore-map-wrapper";
-import { HERITAGE_NODES } from "@/lib/mock-data";
+import dbConnect from "@/lib/db";
+import Heritage from "@/models/Heritage";
 
-export default function ExplorePage() {
+export default async function ExplorePage() {
+  await dbConnect();
+  const nodes = await Heritage.find({}).lean();
+  const serializedNodes = JSON.parse(JSON.stringify(nodes));
+
   return (
     <div className="h-[calc(100dvh-3.5rem)] md:h-[calc(100dvh-3.5rem)] w-full relative">
-      <ExploreMapWrapper nodes={HERITAGE_NODES} />
+      <ExploreMapWrapper nodes={serializedNodes} />
     </div>
   );
 }

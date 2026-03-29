@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { CheckCircle2 } from "lucide-react";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { HeritageNode } from "@/lib/types";
 import { getCategoryLabel } from "@/lib/ich-utils";
@@ -33,8 +34,8 @@ export function HeritageCard({ node, isUnlocked }: HeritageCardProps) {
   const category = getCategoryLabel(node.category);
   const config = getCardConfig(node);
 
-  // High-quality heritage placeholder from Unsplash
-  const placeholderUrl = "https://images.unsplash.com/photo-1596402184320-417d717867cd?auto=format&fit=crop&q=80&w=800";
+  // High-quality heritage placeholder (stable)
+  const placeholderUrl = "https://images.unsplash.com/photo-1596701062351-be5f6a42a4a9?auto=format&fit=crop&q=80&w=1200";
 
   return (
     <Link href={`/museum/heritage/${node.id}`} className="block group">
@@ -46,22 +47,31 @@ export function HeritageCard({ node, isUnlocked }: HeritageCardProps) {
         )}
       >
         {/* Cover image / Fallback */}
-        <img
-          src={imgFailed ? placeholderUrl : node.coverImage}
-          alt={node.name}
-          onError={() => setImgFailed(true)}
-          className={cn(
-            "absolute inset-0 w-full h-full object-cover transition-all duration-700",
-            isUnlocked 
-              ? "opacity-100 scale-100 blur-0 grayscale-0" 
-              : "opacity-40 scale-105 blur-[1px] grayscale contrast-125"
-          )}
-        />
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src={
+              imgFailed 
+                ? placeholderUrl 
+                : (!isUnlocked && node.teaserImage ? node.teaserImage : node.coverImage)
+            }
+            alt={node.name}
+            fill
+            sizes="(max-width: 768px) 50vw, 33vw"
+            onError={() => setImgFailed(true)}
+            className={cn(
+              "object-cover transition-all duration-700 will-change-transform",
+              isUnlocked 
+                ? "opacity-100 scale-100 blur-0 grayscale-0" 
+                : "opacity-40 scale-105 blur-[2px] grayscale contrast-125"
+            )}
+            priority={node.tier === 1}
+          />
+        </div>
 
         {/* Lock Overlay for locked items */}
         {!isUnlocked && (
-          <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[1px]">
-            <div className="size-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center shadow-2xl">
+          <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+            <div className="size-10 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center shadow-xl">
               <svg 
                 xmlns="http://www.w3.org/2000/svg" 
                 viewBox="0 0 24 24" 
@@ -86,15 +96,15 @@ export function HeritageCard({ node, isUnlocked }: HeritageCardProps) {
         <div className="absolute top-2 left-2 right-2 flex items-start justify-between">
           <div className="flex flex-col gap-1">
             {node.unescoStatus === "inscribed" && (
-              <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-amber-500/90 text-white backdrop-blur-sm shadow-sm ring-1 ring-white/20">
+              <span className="text-[9px] font-black px-1.5 py-0.5 rounded-full bg-amber-500/90 text-white shadow-sm ring-1 ring-white/10">
                 ⭐ UNESCO
               </span>
             )}
           </div>
           {/* Rarity label top-right */}
           <span className={cn(
-            "text-[9px] font-black px-1.5 py-0.5 rounded-full bg-background/80 backdrop-blur-md text-foreground shadow-sm ring-1 ring-white/10",
-            !isUnlocked && "opacity-50"
+            "text-[9px] font-black px-1.5 py-0.5 rounded-full bg-black/40 text-white shadow-sm ring-1 ring-white/10",
+            !isUnlocked && "opacity-30"
           )}>
             {config.label}
           </span>
@@ -113,8 +123,8 @@ export function HeritageCard({ node, isUnlocked }: HeritageCardProps) {
         <div className="absolute bottom-0 left-0 right-0 p-3">
           <div className="flex items-center gap-1.5 mb-1.5">
             <span className={cn(
-              "text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-white/90 ring-1 ring-white/10",
-              !isUnlocked && "bg-white/10"
+              "text-[8px] font-bold px-1.5 py-0.5 rounded-full bg-black/40 text-white/90 ring-1 ring-white/10",
+              !isUnlocked && "bg-black/20"
             )}>
               {category.emoji} {category.vi}
             </span>

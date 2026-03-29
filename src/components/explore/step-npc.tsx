@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { HeritageNode } from "@/lib/types";
 
@@ -70,12 +71,15 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
       {/* NPC header */}
       <div className="flex flex-col items-center pt-6 pb-4 px-5 border-b border-border/50 bg-background shrink-0">
         <div className="relative mb-3">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={node.knowledgeHolder.avatar}
-            alt={node.knowledgeHolder.name}
-            className="size-16 rounded-full object-cover border-2 border-primary/40"
-          />
+          <div className="relative size-16 rounded-full overflow-hidden border-2 border-primary/40">
+            <Image
+              src={node.knowledgeHolder.avatar}
+              alt={node.knowledgeHolder.name}
+              fill
+              sizes="64px"
+              className="object-cover"
+            />
+          </div>
           <span className="absolute bottom-0 right-0 flex size-4 items-center justify-center rounded-full bg-background">
             <span className="size-2.5 rounded-full bg-accent animate-pulse" />
           </span>
@@ -95,12 +99,15 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
               className={`flex ${msg.from === "user" ? "justify-end" : "justify-start"}`}
             >
               {msg.from === "npc" && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  src={node.knowledgeHolder.avatar}
-                  alt=""
-                  className="size-7 rounded-full object-cover mr-2 mt-1 shrink-0"
-                />
+                <div className="relative size-7 rounded-full overflow-hidden mr-2 mt-1 shrink-0">
+                  <Image
+                    src={node.knowledgeHolder.avatar}
+                    alt=""
+                    fill
+                    sizes="28px"
+                    className="object-cover"
+                  />
+                </div>
               )}
               <div
                 className={`max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed ${
@@ -123,12 +130,15 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
               exit={{ opacity: 0 }}
               className="flex justify-start"
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={node.knowledgeHolder.avatar}
-                alt=""
-                className="size-7 rounded-full object-cover mr-2 mt-1 shrink-0"
-              />
+              <div className="relative size-7 rounded-full overflow-hidden mr-2 mt-1 shrink-0">
+                <Image
+                  src={node.knowledgeHolder.avatar}
+                  alt=""
+                  fill
+                  sizes="28px"
+                  className="object-cover"
+                />
+              </div>
               <div className="bg-secondary rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
                 {[0, 1, 2].map((i) => (
                   <motion.div

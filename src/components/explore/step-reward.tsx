@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import type { CollectibleItem } from "@/lib/types";
 import { MapPin, Star, ChevronRight } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 const rarityLabel: Record<string, string> = {
@@ -170,9 +171,14 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
               rarityClass[item.rarity]
             )}
           >
-            <div className="aspect-[3/4] overflow-hidden">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+            <div className="aspect-[3/4] relative overflow-hidden">
+              <Image
+                src={item.image}
+                alt={item.name}
+                fill
+                sizes="(max-width: 768px) 33vw, 150px"
+                className="object-cover"
+              />
             </div>
             <div className="p-2">
               <p className="text-[10px] font-black leading-tight text-white/90 mb-1">{item.name}</p>

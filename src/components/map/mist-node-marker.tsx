@@ -43,9 +43,9 @@ export function MistNodeMarker({ node, isUnlocked, isHovered, distance, onClick 
           isUnlocked
             ? "bg-primary text-primary-foreground shadow-primary/30 group-hover:scale-110"
             : isHovered
-            ? "bg-accent/80 backdrop-blur-sm shadow-accent/30 scale-110"
-            : "bg-foreground/60 backdrop-blur-sm shadow-black/30",
-          !isUnlocked && !isHovered && "filter blur-[1px]"
+            ? "bg-accent/90 shadow-accent/30 scale-110"
+            : "bg-foreground/70 shadow-black/30",
+          !isUnlocked && !isHovered && "opacity-40"
         )}
       >
         {isUnlocked ? (
@@ -66,7 +66,7 @@ export function MistNodeMarker({ node, isUnlocked, isHovered, distance, onClick 
       <div
         className={cn(
           "mt-1.5 px-2 py-0.5 rounded-full text-[10px] font-bold whitespace-nowrap transition-all duration-300",
-          "bg-background/80 backdrop-blur-sm border border-border/50 shadow-sm",
+          "bg-background/95 border border-border/50 shadow-sm",
           isUnlocked ? "text-foreground" : "text-muted-foreground"
         )}
       >

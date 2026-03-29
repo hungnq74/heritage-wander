@@ -29,7 +29,7 @@ function buildFogGeoJSON(nodes: HeritageNode[], unlockedIds: string[], zoom: num
 
   const holes: GeoJSON.Position[][] = unlockedIds.map((id) => {
     const node = nodes.find((n) => n.id === id);
-    if (!node) return [];
+    if (!node || !node.coordinates) return [];
     const [lng, lat] = node.coordinates;
     const steps = 32;
     const ring: GeoJSON.Position[] = [];
@@ -194,6 +194,7 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
             ? Math.round(haversineDistance(userPosition, node.coordinates))
             : undefined;
 
+          if (!node.coordinates) return null;
           return (
             <Marker
               key={node.id}
