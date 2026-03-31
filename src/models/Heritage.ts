@@ -23,6 +23,8 @@ export interface IHeritage extends Document {
   knowledgeSummary: string;
   knowledgeSummaryEn: string;
   elements: string[];
+  videoUrl?: string; // Optional field
+  ethnicGroup?: string; // Optional field
   npcScript: Array<{
     order: number;
     question: string;
@@ -73,6 +75,8 @@ const HeritageSchema: Schema = new Schema(
     knowledgeSummary: { type: String, required: true },
     knowledgeSummaryEn: { type: String, required: true },
     elements: [{ type: String }],
+    videoUrl: { type: String },
+    ethnicGroup: { type: String },
     npcScript: [
       {
         order: { type: Number, required: true },

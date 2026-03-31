@@ -23,25 +23,31 @@ export const viewport: Viewport = {
 import { Navbar } from "@/components/navigation/navbar";
 import { BottomTabBar } from "@/components/navigation/bottom-tab-bar";
 import { PageTransition } from "@/components/shared/page-transition";
+import { AuthProvider } from "@/components/providers/session-provider";
+import { auth } from "@/auth";
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const session = await auth();
+
   return (
     <html
       lang="en"
       className={`${plusJakartaSans.variable} h-full`}
     >
       <body className="min-h-full bg-background text-foreground flex flex-col font-sans pt-14 pb-[calc(56px+env(safe-area-inset-bottom))] md:pb-0">
-        <Navbar />
-        <main className="flex-1 overflow-auto">
-          <PageTransition>
-            {children}
-          </PageTransition>
-        </main>
-        <BottomTabBar />
+        <AuthProvider session={session}>
+          <Navbar />
+          <main className="flex-1 overflow-auto">
+            <PageTransition>
+              {children}
+            </PageTransition>
+          </main>
+          <BottomTabBar />
+        </AuthProvider>
       </body>
     </html>
   );

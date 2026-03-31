@@ -7,9 +7,10 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import type { HeritageNode } from "@/lib/types";
 import { MistNodeMarker } from "./mist-node-marker";
 import { ProximityHud } from "./proximity-hud";
-import { getMuseumState } from "@/lib/museum-store";
+import { getMuseumState, syncFromCloud } from "@/lib/museum-store";
 import type { GeoJSON } from "geojson";
 import { Navigation, Crosshair } from "lucide-react";
+import { useUser } from "@/hooks/use-user";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -72,6 +73,7 @@ interface FogOfWarMapProps {
 }
 
 export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
+  const { userId } = useUser();
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
   const [hoveredNode, setHoveredNode] = useState<HeritageNode | null>(null);
   const [hoveredDistance, setHoveredDistance] = useState(0);
@@ -91,9 +93,15 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
   }, []);
 
   useEffect(() => {
-    const state = getMuseumState();
-    setUnlockedIds(state.unlockedNodeIds);
-  }, []);
+    async function init() {
+      if (userId) {
+        await syncFromCloud(userId);
+      }
+      const state = getMuseumState();
+      setUnlockedIds(state.unlockedNodeIds);
+    }
+    init();
+  }, [userId]);
 
   // Fly to GPS position on first GPS fix
   useEffect(() => {

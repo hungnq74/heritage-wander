@@ -2,6 +2,8 @@ import { ExploreMapWrapper } from "@/components/explore/explore-map-wrapper";
 import dbConnect from "@/lib/db";
 import Heritage from "@/models/Heritage";
 
+export const dynamic = "force-dynamic";
+
 export default async function ExplorePage() {
   await dbConnect();
   const nodes = await Heritage.find({}).lean();

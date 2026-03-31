@@ -6,6 +6,8 @@ import { Compass, Star, Users, MapPin } from "lucide-react";
 import dbConnect from "@/lib/db";
 import Heritage from "@/models/Heritage";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   await dbConnect();
   const nodes = await Heritage.find({}).lean();

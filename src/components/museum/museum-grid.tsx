@@ -2,11 +2,12 @@
 
 import { useState, useEffect } from "react";
 import type { HeritageNode, City } from "@/lib/types";
-import { getMuseumState } from "@/lib/museum-store";
+import { getMuseumState, syncFromCloud } from "@/lib/museum-store";
 import { groupNodesByCity } from "@/lib/ich-utils";
 import { CITIES } from "@/lib/cities";
 import { HeritageCard } from "./heritage-card";
 import { BadgeCelebration } from "./badge-celebration";
+import { useUser } from "@/hooks/use-user";
 
 interface MuseumGridProps {
   nodes: HeritageNode[];
@@ -69,15 +70,22 @@ function CitySection({
 }
 
 export function MuseumGrid({ nodes }: MuseumGridProps) {
+  const { userId } = useUser();
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
   const [earnedBadgeIds, setEarnedBadgeIds] = useState<string[]>([]);
   const [celebrationBadgeId, setCelebrationBadgeId] = useState<string | null>(null);
 
   useEffect(() => {
-    const state = getMuseumState();
-    setUnlockedIds(state.unlockedNodeIds);
-    setEarnedBadgeIds(state.earnedBadgeIds);
-  }, []);
+    async function init() {
+      if (userId) {
+        await syncFromCloud(userId);
+      }
+      const state = getMuseumState();
+      setUnlockedIds(state.unlockedNodeIds);
+      setEarnedBadgeIds(state.earnedBadgeIds);
+    }
+    init();
+  }, [userId]);
 
   const cityMap = groupNodesByCity(nodes, CITIES);
   const totalNodes = nodes.length;

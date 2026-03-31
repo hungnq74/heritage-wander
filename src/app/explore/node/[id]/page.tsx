@@ -1,13 +1,14 @@
 "use client";
 
-import { use, useState } from "react";
+import { use, useState, useEffect } from "react";
 import { notFound, useRouter } from "next/navigation";
-import { HERITAGE_NODES } from "@/lib/mock-data";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { unlockNode, addItems, checkAndAwardCityBadge } from "@/lib/museum-store";
+import { unlockNode, addItems, checkAndAwardCityBadge, syncFromCloud } from "@/lib/museum-store";
 import { BadgeCelebration } from "@/components/museum/badge-celebration";
+import { useUser } from "@/hooks/use-user";
+import type { HeritageNode } from "@/lib/types";
 
 // Step components (imported below)
 import { StepUnlock } from "@/components/explore/step-unlock";
@@ -36,11 +37,43 @@ const slideVariants = {
 export default function NodeFlowPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params);
   const router = useRouter();
-  const node = HERITAGE_NODES.find((n) => n.id === id);
-  if (!node) notFound();
-
+  const { userId } = useUser();
+  const [node, setNode] = useState<HeritageNode | null>(null);
+  const [cityNodes, setCityNodes] = useState<HeritageNode[]>([]);
+  const [loading, setLoading] = useState(true);
   const [step, setStep] = useState<NodeStep>("unlock");
   const [earnedBadgeId, setEarnedBadgeId] = useState<string | null>(null);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const res = await fetch("/api/heritages");
+        const json = await res.json();
+        if (json.success) {
+          const allNodes: HeritageNode[] = json.data;
+          const target = allNodes.find((n) => n.id === id);
+          if (target) {
+            setNode(target);
+            setCityNodes(allNodes.filter((n) => n.cityId === target.cityId));
+          }
+        }
+        
+        // Also sync cloud progress if we have userId
+        if (userId) {
+          await syncFromCloud(userId);
+        }
+      } catch (err) {
+        console.error("Failed to fetch heritage:", err);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchData();
+  }, [id, userId]);
+
+  if (loading) return <div className="fixed inset-0 flex items-center justify-center bg-background">Loading...</div>;
+  if (!node) notFound();
+
   const stepIndex = STEPS.indexOf(step);
 
   const goNext = () => {
@@ -65,7 +98,6 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
     addItems(itemIds);
     // Check if this unlocked a city badge
     if (node.cityId) {
-      const cityNodes = HERITAGE_NODES.filter((n) => n.cityId === node.cityId);
       const awarded = checkAndAwardCityBadge(node.cityId, cityNodes);
       if (awarded) setEarnedBadgeId(awarded);
     }

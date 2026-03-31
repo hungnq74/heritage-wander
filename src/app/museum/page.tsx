@@ -4,6 +4,8 @@ import { LayoutGrid, ArrowLeftRight } from "lucide-react";
 import dbConnect from "@/lib/db";
 import Heritage from "@/models/Heritage";
 
+export const dynamic = "force-dynamic";
+
 export default async function MuseumPage() {
   await dbConnect();
   const nodes = await Heritage.find({}).lean();
