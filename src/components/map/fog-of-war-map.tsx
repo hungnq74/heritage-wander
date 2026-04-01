@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef } from "react";
+import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useSearchParams } from "next/navigation";
 import Map, { Marker, Source, Layer } from "react-map-gl/mapbox";
 import type { MapMouseEvent, MapRef } from "react-map-gl/mapbox";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -103,9 +104,44 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
     init();
   }, [userId]);
 
-  // Fly to GPS position on first GPS fix
+  const searchParams = useSearchParams();
+  const targetNodeId = searchParams.get("nodeId");
+  const hasFlewToTarget = useRef(false);
+
+  const userPosition = gpsPosition ?? manualPosition;
+
+  // Focus on specific node if passed in URL (from homepage)
   useEffect(() => {
-    if (gpsPosition && !hasFlewToGps.current && mapRef.current) {
+    if (targetNodeId && nodes.length > 0 && mapRef.current && !hasFlewToTarget.current) {
+      const targetNode = nodes.find((n) => n.id === targetNodeId);
+      if (targetNode && targetNode.coordinates) {
+        hasFlewToTarget.current = true;
+        
+        // Use manual flyTo with higher priority than GPS flyTo
+        mapRef.current.flyTo({
+          center: targetNode.coordinates,
+          zoom: 16,
+          duration: 3000,
+          essential: true
+        });
+
+        // Open its HUD after flying
+        setHoveredNode(targetNode);
+        
+        // Calculate distance immediately
+        if (userPosition) {
+          const dist = Math.round(haversineDistance(userPosition, targetNode.coordinates));
+          setHoveredDistance(dist);
+        } else {
+          setHoveredDistance(9999);
+        }
+      }
+    }
+  }, [targetNodeId, nodes, userPosition]);
+
+  // Fly to GPS position on first GPS fix (only if no targetNodeId is present)
+  useEffect(() => {
+    if (!targetNodeId && gpsPosition && !hasFlewToGps.current && mapRef.current) {
       hasFlewToGps.current = true;
       mapRef.current.flyTo({
         center: gpsPosition,
@@ -113,9 +149,7 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
         duration: 2000,
       });
     }
-  }, [gpsPosition]);
-
-  const userPosition = gpsPosition ?? manualPosition;
+  }, [gpsPosition, targetNodeId]);
 
   const fogGeoJSON = buildFogGeoJSON(nodes, unlockedIds, currentZoom);
 

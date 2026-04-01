@@ -145,7 +145,7 @@ export default async function Home() {
           {heritageNodes.slice(0, 6).map((node: any) => (
             <Link
               key={node.id}
-              href={`/explore/node/${node.id}`}
+              href={`/explore?nodeId=${node.id}`}
               className="group relative overflow-hidden rounded-2xl border border-border/50 hover:border-primary/30 transition-all hover:shadow-md"
             >
               <div className="aspect-video relative overflow-hidden">
