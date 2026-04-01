@@ -10,6 +10,7 @@ import { signOut } from "next-auth/react";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -86,30 +87,32 @@ export function Navbar() {
               </Avatar>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56 mt-2 rounded-xl shadow-xl border-border/50">
-              <DropdownMenuLabel className="font-normal p-3">
-                <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-bold leading-none">{user?.name}</p>
-                  <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
-                </div>
-              </DropdownMenuLabel>
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="font-normal p-3">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-bold leading-none">{user?.name}</p>
+                    <p className="text-xs leading-none text-muted-foreground">{user?.email}</p>
+                  </div>
+                </DropdownMenuLabel>
+              </DropdownMenuGroup>
               <DropdownMenuSeparator />
-              <DropdownMenuItem className="cursor-pointer py-2.5 rounded-lg focus:bg-secondary">
+              <DropdownMenuItem className="cursor-pointer py-2.5 px-3 rounded-lg focus:bg-primary focus:text-primary-foreground transition-all group">
                 <Link href={`/profile/${user?.id || 'me'}`} className="flex items-center w-full">
-                  <User className="mr-2 size-4 text-primary" />
-                  <span>Của tôi (Profile)</span>
+                  <User className="mr-3 size-4 text-primary group-focus:text-primary-foreground" />
+                  <span className="font-bold">Của tôi (Profile)</span>
                 </Link>
               </DropdownMenuItem>
-              <DropdownMenuItem className="cursor-pointer py-2.5 rounded-lg focus:bg-secondary">
-                <Settings className="mr-2 size-4 text-muted-foreground" />
-                <span>Cài đặt (Settings)</span>
+              <DropdownMenuItem className="cursor-pointer py-2.5 px-3 rounded-lg focus:bg-primary focus:text-primary-foreground transition-all group">
+                <Settings className="mr-3 size-4 text-muted-foreground group-focus:text-primary-foreground transition-colors" />
+                <span className="font-bold">Cài đặt (Settings)</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem 
-                className="cursor-pointer py-2.5 rounded-lg focus:bg-destructive/10 focus:text-destructive group"
+                className="cursor-pointer py-2.5 px-3 rounded-lg focus:bg-destructive focus:text-destructive-foreground group transition-all"
                 onClick={() => signOut()}
               >
-                <LogOut className="mr-2 size-4 group-hover:translate-x-0.5 transition-transform" />
-                <span>Đăng xuất (Logout)</span>
+                <LogOut className="mr-3 size-4 transition-transform group-focus:translate-x-0.5 group-focus:text-destructive-foreground" />
+                <span className="font-bold">Đăng xuất (Logout)</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
