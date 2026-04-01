@@ -5,18 +5,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import type { CollectibleItem } from "@/lib/types";
-import { MapPin, Star, ChevronRight } from "lucide-react";
+import { Star, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-
-const rarityLabel: Record<string, string> = {
-  Common: "Phổ thông",
-  Rare: "Hiếm",
-  Epic: "Sử thi",
-  Legendary: "Huyền thoại",
-  Endangered: "Cực hiếm",
-};
+import { useTranslations } from "next-intl";
 
 const rarityClass: Record<string, string> = {
   Common: "rarity-common border",
@@ -35,7 +28,6 @@ const rarityTextColor: Record<string, string> = {
 };
 
 function selectItems(items: CollectibleItem[]): CollectibleItem[] {
-  // Always include one guaranteed drop (highest dropRate), plus up to 2 random extra
   const sorted = [...items].sort((a, b) => b.dropRate - a.dropRate);
   const selected: CollectibleItem[] = [sorted[0]];
 
@@ -76,9 +68,13 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
   const [confetti, setConfetti] = useState<ConfettiDot[]>([]);
   const [collected, setCollected] = useState(false);
   const hasNotified = useRef(false);
+  const t = useTranslations("stepReward");
+  const tCommon = useTranslations("common");
+
+  // Suppress unused variable warning
+  void nodeId;
 
   useEffect(() => {
-    // Animate XP counter
     let current = 0;
     const target = xp;
     const duration = 1500;
@@ -89,7 +85,6 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
       if (current >= target) clearInterval(interval);
     }, 16);
 
-    // Generate confetti
     const dots: ConfettiDot[] = Array.from({ length: 28 }, (_, i) => ({
       id: i,
       x: 45 + Math.random() * 10,
@@ -143,9 +138,9 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
           {nodeName}
         </p>
         <h1 className="text-3xl font-black">
-          Nhận <span className="text-[oklch(0.82_0.18_85)]">Vật Phẩm!</span>
+          {t("titlePrefix")} <span className="text-[oklch(0.82_0.18_85)]">{t("titleHighlight")}</span>
         </h1>
-        <p className="text-sm text-white/60 mt-1">You&apos;ve earned cultural collectibles</p>
+        <p className="text-sm text-white/60 mt-1">{t("subtitle")}</p>
       </motion.div>
 
       {/* Item cards */}
@@ -187,7 +182,7 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
                 rarityTextColor[item.rarity]
               )}>
                 <Star className="size-2 mr-0.5" />
-                {rarityLabel[item.rarity]}
+                {tCommon(`rarity.${item.rarity}`)}
               </Badge>
             </div>
           </motion.div>
@@ -202,7 +197,7 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
         className="flex flex-col items-center gap-1 mb-6"
       >
         <span className="text-4xl font-black text-[oklch(0.82_0.18_85)]">+{xpDisplay}</span>
-        <span className="text-xs font-bold uppercase tracking-widest text-white/50">XP Earned</span>
+        <span className="text-xs font-bold uppercase tracking-widest text-white/50">{t("xpEarned")}</span>
       </motion.div>
 
       {/* Museum progress */}
@@ -227,7 +222,7 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
           />
         </div>
         <p className="text-[10px] text-white/50 mt-1.5">
-          {droppedItems.length} vật phẩm được thêm vào bảo tàng
+          {t("itemsAdded", { count: droppedItems.length })}
         </p>
       </motion.div>
 
@@ -245,19 +240,19 @@ export function StepReward({ items, nodeId, nodeName, totalNodeItems, onCollecte
               className="w-full h-14 rounded-full text-base font-black bg-primary text-primary-foreground shadow-xl shadow-primary/30"
               onClick={handleCollect}
             >
-              Thu thập vật phẩm
+              {t("collectBtn")}
             </Button>
           ) : (
             <>
               <Button size="lg" className="w-full h-14 rounded-full text-base font-black bg-primary" asChild>
                 <Link href="/museum">
                   <LayoutGrid className="size-4 mr-2" />
-                  Xem Bảo Tàng
+                  {t("viewMuseumBtn")}
                 </Link>
               </Button>
               <Button variant="outline" size="lg" className="w-full h-14 rounded-full font-bold border-white/20 text-white hover:bg-white/10 hover:text-white" asChild>
                 <Link href="/explore">
-                  Tiếp tục khám phá
+                  {t("continueBtn")}
                   <ChevronRight className="size-4 ml-1" />
                 </Link>
               </Button>

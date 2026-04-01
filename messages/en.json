@@ -1,0 +1,405 @@
+{
+  "common": {
+    "appName": "Heritage Wander",
+    "loading": "Loading...",
+    "back": "Go back",
+    "next": "Next →",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "rarity": {
+      "Common": "Common",
+      "Rare": "Rare",
+      "Epic": "Epic",
+      "Legendary": "Legendary",
+      "Endangered": "Endangered"
+    }
+  },
+  "navigation": {
+    "explore": "Explore",
+    "museum": "Museum",
+    "create": "Create",
+    "profile": "Profile",
+    "settings": "Settings",
+    "login": "Sign In",
+    "logout": "Sign Out",
+    "heritageExplorer": "Heritage Explorer",
+    "heritageMenu": "Heritage Menu",
+    "myProfile": "My Profile",
+    "myProfileLabel": "Profile"
+  },
+  "home": {
+    "badge": "Heritage Wander — Field Edition",
+    "hero": {
+      "title1": "Explore.",
+      "titleHighlight": "Unlock.",
+      "title3": "Collect.",
+      "subtitle": "Discover Vietnam's intangible cultural heritage. Explore craft villages, ceremonies, folk songs, and traditional knowledge — unlock locations, meet AI heritage keepers, and earn rare cultural collectibles.",
+      "subtitleEn": "Explore Vietnam's intangible cultural heritage. Discover craft villages, ceremonies, folk music, and traditional knowledge — unlock locations, meet AI heritage keepers, and earn rare cultural collectibles.",
+      "ctaExplore": "Start Exploring",
+      "ctaCreate": "Share Heritage"
+    },
+    "stats": {
+      "locations": "Heritage Sites",
+      "items": "Collectibles",
+      "journeys": "Journeys"
+    },
+    "howItWorks": {
+      "sectionTitle": "How it",
+      "sectionHighlight": "Works",
+      "stepBadge": "Step {step}",
+      "step1Title": "Go to the Location",
+      "step1TitleEn": "Go to the Location",
+      "step1Desc": "Open the map, tap a mist node, and travel to a nearby craft village.",
+      "step2Title": "Unlock & Discover",
+      "step2TitleEn": "Unlock & Discover",
+      "step2Desc": "GPS confirms location → watch video → chat with AI artisan → take a field photo.",
+      "step3Title": "Earn Collectibles",
+      "step3TitleEn": "Earn Collectibles",
+      "step3Desc": "Receive 1–3 cultural items with varying rarity. Build your personal museum."
+    },
+    "heritageSection": {
+      "title": "Heritage",
+      "titleHighlight": "Across Vietnam",
+      "viewAll": "View all →",
+      "itemsCount": "{count} items"
+    },
+    "creatorCta": {
+      "title": "Are you a heritage keeper?",
+      "desc": "Artisan, performer, elder, storyteller — register your site and reach thousands of young heritage explorers.",
+      "descEn": "Artisan, performer, elder, storyteller — register your heritage site and reach thousands of GenZ explorers.",
+      "cta": "Get Started →"
+    }
+  },
+  "login": {
+    "backToHome": "Back to homepage",
+    "tagline": "Preserve your own Vietnamese cultural heritage journey.",
+    "continueWithGoogle": "Continue with Google",
+    "since": "Personal Heritage Collection · Since 2026",
+    "footerLeft": "VIETNAM HERITAGE EXPLORER",
+    "footerRight": "AUTHENTICATION SECURED BY GOOGLE"
+  },
+  "explore": {
+    "loadingMap": "Loading map..."
+  },
+  "geolocationGate": {
+    "title": "Explore heritage around you",
+    "subtitle": "Like Pokémon GO, Heritage Wander guides you to cultural sites nearby. Allow location to unlock the full experience.",
+    "allowLocation": "Allow Location",
+    "locating": "Locating you…",
+    "skipLocation": "Skip — use manual map mode",
+    "denied": "Location denied. Go to browser settings to re-enable, or tap the map to set position manually."
+  },
+  "fogOfWarMap": {
+    "moveHint": "Travel to a heritage site to unlock it",
+    "tapHint": "Tap a node to approach · Chạm vào địa điểm để tiếp cận",
+    "myLocation": "Go to my location",
+    "devMode": "Dev: click map to set fake position"
+  },
+  "proximityHud": {
+    "meters": "meters",
+    "itemsCount": "{count} items",
+    "dismiss": "Dismiss",
+    "approach": "Approach →",
+    "getCloser": "Get closer",
+    "metersAway": "{count}m away"
+  },
+  "nodeFlow": {
+    "stepLabels": {
+      "unlock": "Unlock",
+      "blueprint": "Discover",
+      "npc": "Meet",
+      "photo": "Photo",
+      "reward": "Reward"
+    },
+    "loading": "Loading..."
+  },
+  "stepBlueprint": {
+    "sectionLabel": "Explore Heritage",
+    "badgeLabel": "Blueprint",
+    "verifiedBadge": "Verified ✓",
+    "itemsLabel": "Collectible items · {count} items",
+    "meetCta": "{role} →"
+  },
+  "stepUnlock": {
+    "unlockedBadge": "Unlocked",
+    "vietnam": "Vietnam",
+    "exploreCta": "Explore →"
+  },
+  "stepNpc": {
+    "greeting": "Hello! I am {name}, {role} at {location}. It's great to meet you here. What would you like to ask me?",
+    "askLabel": "Ask {role}",
+    "photoChallengeBtn": "Field Photo Challenge →"
+  },
+  "stepPhoto": {
+    "sectionLabel": "Photo Challenge · Field Challenge",
+    "cameraHint": "Take a field photo to confirm your presence",
+    "referenceLabel": "Reference · Tham khảo",
+    "captureBtn": "Take Field Photo",
+    "uploadBtn": "Upload from device",
+    "confirmBtn": "Confirm Photo",
+    "retakeBtn": "Retake",
+    "receiveItemsBtn": "Receive Items →"
+  },
+  "stepReward": {
+    "titlePrefix": "Earn",
+    "titleHighlight": "Collectibles!",
+    "subtitle": "You've earned cultural collectibles",
+    "xpEarned": "XP Earned",
+    "itemsAdded": "{count} items added to your museum",
+    "collectBtn": "Collect Items",
+    "viewMuseumBtn": "View Museum",
+    "continueBtn": "Continue Exploring"
+  },
+  "museum": {
+    "personalMuseum": "Personal Museum",
+    "title": "My",
+    "titleHighlight": "Museum",
+    "subtitle": "Discover Vietnamese cultural heritage — monuments, landmarks, and intangible culture from across the country.",
+    "subtitleEn": "Discover heritage sites, landmarks, and intangible culture across Vietnam.",
+    "tabs": {
+      "collection": "Collection",
+      "trade": "Trade"
+    },
+    "trade": {
+      "title": "Item Trading",
+      "subtitle": "Trade duplicate items with friends. Coming soon.",
+      "subtitleEn": "Trade duplicate items with friends. Coming soon."
+    }
+  },
+  "museumGrid": {
+    "overallProgress": "{unlocked}/{total} heritage sites",
+    "cityProgress": "{unlocked}/{total} heritage sites explored",
+    "completed": "Completed! ✓"
+  },
+  "heritageDetail": {
+    "notExplored": "Not yet explored",
+    "collectibles": "Collectible Items",
+    "visitCta": "Visit Site →"
+  },
+  "badgeCelebration": {
+    "newBadge": "New Badge",
+    "viewBadge": "View Badge",
+    "continueCta": "Continue Exploring"
+  },
+  "profile": {
+    "defaultName": "Explorer",
+    "memberRole": "Travel Member",
+    "guestRole": "Visitor",
+    "since": "Since 2026",
+    "verifiedBadge": "Verified ✓",
+    "syncedWithGoogle": "Data synced with Google",
+    "loginToSave": "Sign in to save progress",
+    "levelLabel": "Level",
+    "stats": {
+      "locations": "Locations",
+      "items": "Items",
+      "legendary": "Legendary",
+      "completion": "Completion"
+    },
+    "tabs": {
+      "collection": "Collection",
+      "achievements": "Achievements"
+    },
+    "emptyCollection": {
+      "title": "No items yet",
+      "subtitle": "Explore craft villages to start collecting.",
+      "cta": "Start Exploring"
+    },
+    "achievements": {
+      "pioneer": "Pioneer",
+      "pioneerEn": "Pioneer",
+      "pioneerDesc": "Unlock your first location",
+      "collector": "Collector",
+      "collectorEn": "Collector",
+      "collectorDesc": "Collect 5 items",
+      "legendaryHunter": "Legendary Hunter",
+      "legendaryHunterEn": "Legendary Hunter",
+      "legendaryHunterDesc": "Find 1 Legendary item",
+      "hueWanderer": "Hue Wanderer",
+      "hueWandererEn": "Hue Wanderer",
+      "hueWandererDesc": "Explore 3 Hue craft villages",
+      "curator": "Curator",
+      "curatorEn": "Curator",
+      "curatorDesc": "Complete 50% of the collection",
+      "achieved": "Achieved ✓"
+    },
+    "resetDemo": "Reset museum state (demo only)"
+  },
+  "create": {
+    "creatorPlatform": "Creator Platform",
+    "title": "Share",
+    "titleHighlight": "Heritage",
+    "subtitle": "Are you a heritage knowledge holder? Choose your role and start sharing.",
+    "whoCanJoin": "Who can participate?",
+    "tiers": {
+      "tier1Title": "Heritage Knowledge Holder",
+      "tier1TitleEn": "Heritage Knowledge Holder",
+      "tier1Badge": "Tier 1",
+      "tier1Desc": "Artisan, performer, elder, storyteller, traditional healer, ceremony keeper… Register your heritage site and share your story.",
+      "tier1DescEn": "Artisan, performer, elder, storyteller, traditional healer, ceremony keeper… Register your heritage site and share your story.",
+      "tier1Earnings": "Earn visitor fees + digital royalties",
+      "tier1EarningsEn": "Earn visitor fees + digital royalties",
+      "tier1Cta": "Create Heritage Site",
+      "tier2Title": "Local Guide",
+      "tier2TitleEn": "Local Guide",
+      "tier2Badge": "Tier 2",
+      "tier2Desc": "Create heritage routes connecting multiple nodes into themed journeys.",
+      "tier2DescEn": "Create heritage routes connecting multiple nodes into themed journeys.",
+      "tier2Earnings": "Earn subscription fees + tips from explorers",
+      "tier2EarningsEn": "Earn subscription fees + tips from explorers",
+      "tier2Cta": "Create Route",
+      "tier3Title": "Cultural Organization",
+      "tier3TitleEn": "Cultural Organization",
+      "tier3Badge": "Tier 3 · Verified",
+      "tier3Desc": "Culture departments, UNESCO orgs, cultural NGOs — add official verified heritage layers.",
+      "tier3DescEn": "Culture departments, UNESCO orgs, cultural NGOs — add official verified heritage layers.",
+      "tier3Earnings": "Government partnerships + tourism licensing fees",
+      "tier3EarningsEn": "Government partnerships + tourism licensing fees",
+      "tier3Cta": "Access Dashboard"
+    },
+    "roles": {
+      "artisan": "Artisan",
+      "performer": "Performer",
+      "elder": "Elder / Village Chief",
+      "storyteller": "Storyteller",
+      "ceremonyKeeper": "Ceremony Keeper",
+      "healer": "Traditional Healer",
+      "ritualMaster": "Ritual Master"
+    }
+  },
+  "createNode": {
+    "steps": {
+      "location": "Location",
+      "story": "Story",
+      "npc": "AI Character",
+      "challenge": "Challenge",
+      "items": "Items",
+      "review": "Review"
+    },
+    "location": {
+      "title": "Your",
+      "titleHighlight": "Location",
+      "subtitle": "The craft village or artisan site you want to register.",
+      "nameLabel": "Site Name",
+      "namePlaceholder": "E.g. Bat Trang Pottery Village...",
+      "categoryLabel": "Craft Type",
+      "gpsLabel": "GPS Coordinates",
+      "latPlaceholder": "Latitude (Lat)",
+      "lngPlaceholder": "Longitude (Lng)",
+      "gpsNote": "Or select directly on the map in the full version.",
+      "nextBtn": "Next →"
+    },
+    "story": {
+      "title": "Craft",
+      "titleHighlight": "Story",
+      "subtitle": "Share the knowledge and history of your craft.",
+      "videoLabel": "Intro Video (2–3 minutes)",
+      "videoUpload": "Upload Video",
+      "summaryLabel": "Knowledge Summary",
+      "summaryPlaceholder": "Describe the history, techniques, and what makes this craft village special...",
+      "materialsLabel": "Key Materials",
+      "materialsPlaceholder": "E.g. Jackwood, carving tools...",
+      "backBtn": "Back",
+      "nextBtn": "Next →"
+    },
+    "npc": {
+      "title": "AI",
+      "titleHighlight": "Character",
+      "subtitle": "Define 3–5 questions and answers for the NPC representing you.",
+      "questionLabel": "Question {n}",
+      "questionPlaceholder": "A question users might ask...",
+      "answerPlaceholder": "The artisan's answer (written in first person)...",
+      "backBtn": "Back",
+      "nextBtn": "Next →"
+    },
+    "challenge": {
+      "title": "Photo",
+      "titleHighlight": "Challenge",
+      "subtitle": "What photo should explorers take to confirm their presence at the site?",
+      "descLabel": "Challenge Description",
+      "descPlaceholder": "E.g. Take a photo of the incense drying rack in sunlight...",
+      "refLabel": "Reference Photos (1–3 photos)",
+      "backBtn": "Back",
+      "nextBtn": "Next →"
+    },
+    "items": {
+      "title": "Collectible",
+      "titleHighlight": "Items",
+      "subtitle": "Define 2–5 items explorers can receive.",
+      "itemLabel": "Item {n}",
+      "namePlaceholder": "Item name...",
+      "addItemBtn": "Add Item",
+      "backBtn": "Back",
+      "reviewBtn": "Review →"
+    },
+    "review": {
+      "title": "Ready to",
+      "titleHighlight": "Submit!",
+      "subtitle": "Your site will be reviewed by the Heritage Wander team and Tier 3 community before appearing on the map.",
+      "checkLocation": "Location",
+      "checkStory": "Story",
+      "checkNpc": "AI Character",
+      "checkItems": "Items",
+      "checkFilled": "✓ Filled",
+      "checkQuestions": "✓ 3 questions",
+      "checkItemsCount": "✓ 2 items",
+      "submitBtn": "Submit for Verification",
+      "backToCreator": "Back to Creator page"
+    },
+    "crafts": {
+      "carpentry": "Mộc / Carpentry",
+      "incense": "Hương / Incense",
+      "silk": "Lụa / Silk",
+      "pottery": "Gốm / Pottery",
+      "hatMaking": "Nón / Hat-making"
+    }
+  },
+  "admin": {
+    "title": "Verifier",
+    "titleHighlight": "Console",
+    "subtitle": "Quality Control & Community Trust",
+    "pending": "Pending",
+    "trustScore": "Trust Score",
+    "searchPlaceholder": "Search queue...",
+    "selectPrompt": "Select a submission\nto begin review",
+    "mainEvidence": "Main Evidence",
+    "viewSource": "View Source",
+    "partialTranscription": "Partial Transcription",
+    "aiReview": "AI-Structured Data Review",
+    "extractedSummary": "Extracted Summary",
+    "techniqueSteps": "Technique Steps",
+    "confidenceWarning": "Confidence Warning",
+    "confidenceWarningDesc": "Step 03 may be local folklore rather than scientific necessity. Verifier must confirm cultural significance.",
+    "communityProof": "Community Proof",
+    "provenanceVerified": "Provenance verified via Elder Consent ID:",
+    "revisions": "Revisions",
+    "approve": "Approve"
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Customize your Heritage Wander experience",
+    "language": {
+      "sectionTitle": "Language",
+      "sectionSubtitle": "Choose your display language",
+      "vi": "Tiếng Việt",
+      "en": "English",
+      "switching": "Switching..."
+    },
+    "navigation": {
+      "sectionTitle": "Navigation Mode",
+      "sectionSubtitle": "Choose how you travel across Vietnam",
+      "gps": {
+        "label": "GPS Location",
+        "description": "Travel to real physical locations to unlock them."
+      },
+      "manual": {
+        "label": "Travel by Click",
+        "description": "Click on the map to approach heritage sites."
+      }
+    },
+    "about": {
+      "sectionTitle": "About",
+      "version": "Heritage Wander v1.0"
+    }
+  }
+}

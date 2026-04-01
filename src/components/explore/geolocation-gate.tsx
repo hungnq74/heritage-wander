@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { MapPin, Navigation, X } from "lucide-react";
 import { useGeolocation } from "@/hooks/use-geolocation";
+import { useTranslations } from "next-intl";
 
 interface GeolocationGateProps {
   children: (position: [number, number] | null) => React.ReactNode;
@@ -11,6 +12,7 @@ interface GeolocationGateProps {
 export function GeolocationGate({ children }: GeolocationGateProps) {
   const { position, permission, requestLocation, skipLocation, isLoading, error } =
     useGeolocation();
+  const t = useTranslations("geolocationGate");
 
   const showOnboarding = permission === "unknown";
   const showDeniedBanner = permission === "denied";
@@ -57,11 +59,10 @@ export function GeolocationGate({ children }: GeolocationGateProps) {
 
               {/* Text */}
               <h2 className="text-xl font-black text-center mb-2">
-                Khám phá di sản xung quanh bạn
+                {t("title")}
               </h2>
               <p className="text-sm text-muted-foreground text-center leading-relaxed mb-6">
-                Như Pokémon GO, Heritage Wander dẫn bạn đến những địa điểm văn hóa trong bán kính
-                hiện tại. Cho phép vị trí để mở khóa trải nghiệm đầy đủ.
+                {t("subtitle")}
               </p>
 
               {error && (
@@ -77,11 +78,11 @@ export function GeolocationGate({ children }: GeolocationGateProps) {
                 className="w-full py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm mb-3 transition-opacity disabled:opacity-60 flex items-center justify-center gap-2"
               >
                 {isLoading ? (
-                  <span>Đang xác định vị trí…</span>
+                  <span>{t("locating")}</span>
                 ) : (
                   <>
                     <MapPin className="size-4" />
-                    <span>Cho phép vị trí</span>
+                    <span>{t("allowLocation")}</span>
                   </>
                 )}
               </button>
@@ -90,7 +91,7 @@ export function GeolocationGate({ children }: GeolocationGateProps) {
                 onClick={skipLocation}
                 className="w-full py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
-                Để sau — dùng chế độ bản đồ thủ công
+                {t("skipLocation")}
               </button>
             </motion.div>
           </motion.div>
@@ -110,8 +111,7 @@ export function GeolocationGate({ children }: GeolocationGateProps) {
             <div className="bg-amber-50 border border-amber-200 rounded-2xl px-4 py-3 flex items-start gap-3 shadow-md">
               <MapPin className="size-4 text-amber-600 mt-0.5 shrink-0" />
               <p className="text-xs text-amber-800 flex-1 leading-relaxed">
-                Vị trí bị từ chối. Vào cài đặt trình duyệt để bật lại, hoặc nhấn vào bản đồ để
-                đặt vị trí thủ công.
+                {t("denied")}
               </p>
               <button onClick={skipLocation} className="text-amber-600 hover:text-amber-800">
                 <X className="size-4" />

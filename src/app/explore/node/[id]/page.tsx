@@ -9,6 +9,7 @@ import { unlockNode, addItems, checkAndAwardCityBadge, syncFromCloud } from "@/l
 import { BadgeCelebration } from "@/components/museum/badge-celebration";
 import { useUser } from "@/hooks/use-user";
 import type { HeritageNode } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 // Step components (imported below)
 import { StepUnlock } from "@/components/explore/step-unlock";
@@ -20,13 +21,6 @@ import { StepReward } from "@/components/explore/step-reward";
 type NodeStep = "unlock" | "blueprint" | "npc" | "photo" | "reward";
 
 const STEPS: NodeStep[] = ["unlock", "blueprint", "npc", "photo", "reward"];
-const STEP_LABELS: Record<NodeStep, string> = {
-  unlock: "Mở Khóa",
-  blueprint: "Khám Phá",
-  npc: "Gặp Gỡ",
-  photo: "Chụp Ảnh",
-  reward: "Nhận Quà",
-};
 
 const slideVariants = {
   enter: { opacity: 0, x: 40 },
@@ -38,6 +32,7 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
   const { id } = use(params);
   const router = useRouter();
   const { userId } = useUser();
+  const t = useTranslations("nodeFlow");
   const [node, setNode] = useState<HeritageNode | null>(null);
   const [cityNodes, setCityNodes] = useState<HeritageNode[]>([]);
   const [loading, setLoading] = useState(true);
@@ -71,7 +66,7 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
     fetchData();
   }, [id, userId]);
 
-  if (loading) return <div className="fixed inset-0 flex items-center justify-center bg-background">Loading...</div>;
+  if (loading) return <div className="fixed inset-0 flex items-center justify-center bg-background">{t("loading")}</div>;
   if (!node) notFound();
 
   const stepIndex = STEPS.indexOf(step);
@@ -129,7 +124,7 @@ export default function NodeFlowPage({ params }: { params: Promise<{ id: string 
           </div>
 
           <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground shrink-0">
-            {STEP_LABELS[step]}
+            {t(`stepLabels.${step}`)}
           </span>
         </div>
       )}

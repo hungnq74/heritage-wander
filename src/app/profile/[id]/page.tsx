@@ -11,11 +11,13 @@ import { LayoutGrid, MapPin, Star, Trophy, LogIn, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useUser } from "@/hooks/use-user";
 import { signIn, signOut } from "next-auth/react";
+import { useTranslations } from "next-intl";
 
 export default function ProfilePage() {
   const { userId, anonymousId, isLoggedIn, user } = useUser();
   const [collectedIds, setCollectedIds] = useState<string[]>([]);
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
+  const t = useTranslations("profile");
 
   useEffect(() => {
     async function loadData() {
@@ -61,35 +63,35 @@ export default function ProfilePage() {
           <div className="flex-1 space-y-3">
             <div>
               <div className="flex items-center justify-center md:justify-start gap-2 mb-1">
-                <h1 className="text-2xl font-black tracking-tight">{user?.name || "Nhà Khám Phá"}</h1>
+                <h1 className="text-2xl font-black tracking-tight">{user?.name || t("defaultName")}</h1>
                 {isLoggedIn && (
                   <Badge className="bg-primary/10 text-primary border-primary/20 font-bold text-[10px] px-2 py-0">
-                    Verified ✓
+                    {t("verifiedBadge")}
                   </Badge>
                 )}
               </div>
               <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest leading-none opacity-60">
-                {isLoggedIn ? "Thành viên lữ hành" : "Khách tham quan"} · Since 2026
+                {isLoggedIn ? t("memberRole") : t("guestRole")} · {t("since")}
               </p>
             </div>
 
             {isLoggedIn ? (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/5 border border-emerald-500/10 text-[10px] font-bold text-emerald-600 dark:text-emerald-400 animate-in fade-in slide-in-from-top-2 duration-700">
                 <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                Dữ liệu đã được đồng bộ hóa với Google
+                {t("syncedWithGoogle")}
               </div>
             ) : (
               <Button asChild variant="outline" size="sm" className="h-9 px-4 rounded-full text-xs font-bold border-dashed hover:border-primary transition-all">
                 <Link href="/login">
                   <LogIn className="size-3.5 mr-2" />
-                  Đăng nhập để lưu tiến trình
+                  {t("loginToSave")}
                 </Link>
               </Button>
             )}
           </div>
 
           <div className="flex flex-col items-center gap-1 shrink-0">
-            <div className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">Cấp độ</div>
+            <div className="text-[10px] font-black text-muted-foreground uppercase tracking-tighter opacity-40">{t("levelLabel")}</div>
             <div className="size-14 rounded-2xl bg-primary flex items-center justify-center text-primary-foreground font-black text-xl shadow-lg shadow-primary/20">
               {Math.max(1, Math.floor(collectedIds.length / 3) + 1)}
             </div>
@@ -100,10 +102,10 @@ export default function ProfilePage() {
       {/* Stats */}
       <div className="grid grid-cols-4 gap-3 mb-8">
         {[
-          { icon: MapPin, value: unlockedIds.length, label: "Địa điểm" },
-          { icon: LayoutGrid, value: collectedIds.length, label: "Vật phẩm" },
-          { icon: Star, value: legendaryCount, label: "Huyền thoại" },
-          { icon: Trophy, value: `${Math.round((collectedIds.length / TOTAL_ITEMS) * 100)}%`, label: "Hoàn thành" },
+          { icon: MapPin, value: unlockedIds.length, label: t("stats.locations") },
+          { icon: LayoutGrid, value: collectedIds.length, label: t("stats.items") },
+          { icon: Star, value: legendaryCount, label: t("stats.legendary") },
+          { icon: Trophy, value: `${Math.round((collectedIds.length / TOTAL_ITEMS) * 100)}%`, label: t("stats.completion") },
         ].map((stat) => {
           const Icon = stat.icon;
           return (
@@ -120,11 +122,11 @@ export default function ProfilePage() {
         <TabsList className="mb-6 h-10 bg-secondary rounded-xl p-1">
           <TabsTrigger value="collection" className="gap-1.5 text-sm rounded-lg">
             <LayoutGrid className="size-3.5" />
-            Bộ sưu tập
+            {t("tabs.collection")}
           </TabsTrigger>
           <TabsTrigger value="achievements" className="gap-1.5 text-sm rounded-lg">
             <Trophy className="size-3.5" />
-            Thành tích
+            {t("tabs.achievements")}
           </TabsTrigger>
         </TabsList>
 
@@ -133,11 +135,11 @@ export default function ProfilePage() {
             <div className="flex flex-col items-center justify-center py-16 text-center gap-4">
               <span className="text-5xl">🗺️</span>
               <div>
-                <h3 className="font-bold text-lg">Chưa có vật phẩm</h3>
-                <p className="text-sm text-muted-foreground mt-1">Khám phá làng nghề để bắt đầu sưu tầm.</p>
+                <h3 className="font-bold text-lg">{t("emptyCollection.title")}</h3>
+                <p className="text-sm text-muted-foreground mt-1">{t("emptyCollection.subtitle")}</p>
               </div>
               <Button asChild className="rounded-full h-12 px-6">
-                <Link href="/explore">Bắt đầu khám phá</Link>
+                <Link href="/explore">{t("emptyCollection.cta")}</Link>
               </Button>
             </div>
           ) : (
@@ -152,11 +154,11 @@ export default function ProfilePage() {
         <TabsContent value="achievements">
           <div className="space-y-3">
             {[
-              { emoji: "🚀", title: "Người tiên phong", titleEn: "Pioneer", desc: "Mở khóa địa điểm đầu tiên", unlocked: unlockedIds.length > 0 },
-              { emoji: "🏺", title: "Nhà sưu tập", titleEn: "Collector", desc: "Thu thập 5 vật phẩm", unlocked: collectedIds.length >= 5 },
-              { emoji: "⭐", title: "Thợ săn huyền thoại", titleEn: "Legendary Hunter", desc: "Tìm được 1 vật phẩm Huyền thoại", unlocked: legendaryCount > 0 },
-              { emoji: "🗺️", title: "Lữ khách Huế", titleEn: "Hue Wanderer", desc: "Khám phá 3 làng nghề Huế", unlocked: unlockedIds.length >= 3 },
-              { emoji: "🏆", title: "Nhà bảo tàng", titleEn: "Curator", desc: "Hoàn thành 50% bộ sưu tập", unlocked: (collectedIds.length / TOTAL_ITEMS) >= 0.5 },
+              { emoji: "🚀", title: t("achievements.pioneer"), titleEn: t("achievements.pioneerEn"), desc: t("achievements.pioneerDesc"), unlocked: unlockedIds.length > 0 },
+              { emoji: "🏺", title: t("achievements.collector"), titleEn: t("achievements.collectorEn"), desc: t("achievements.collectorDesc"), unlocked: collectedIds.length >= 5 },
+              { emoji: "⭐", title: t("achievements.legendaryHunter"), titleEn: t("achievements.legendaryHunterEn"), desc: t("achievements.legendaryHunterDesc"), unlocked: legendaryCount > 0 },
+              { emoji: "🗺️", title: t("achievements.hueWanderer"), titleEn: t("achievements.hueWandererEn"), desc: t("achievements.hueWandererDesc"), unlocked: unlockedIds.length >= 3 },
+              { emoji: "🏆", title: t("achievements.curator"), titleEn: t("achievements.curatorEn"), desc: t("achievements.curatorDesc"), unlocked: (collectedIds.length / TOTAL_ITEMS) >= 0.5 },
             ].map((a) => (
               <div key={a.title} className={`flex items-center gap-4 p-4 rounded-2xl border ${a.unlocked ? "bg-secondary/50 border-border/50" : "opacity-40 border-border/30"}`}>
                 <span className="text-2xl">{a.emoji}</span>
@@ -164,7 +166,7 @@ export default function ProfilePage() {
                   <p className="font-bold text-sm">{a.title} <span className="text-muted-foreground font-normal">· {a.titleEn}</span></p>
                   <p className="text-xs text-muted-foreground">{a.desc}</p>
                 </div>
-                {a.unlocked && <Badge className="bg-primary/10 text-primary border-0 text-xs">Đạt được ✓</Badge>}
+                {a.unlocked && <Badge className="bg-primary/10 text-primary border-0 text-xs">{t("achievements.achieved")}</Badge>}
               </div>
             ))}
           </div>
@@ -177,7 +179,7 @@ export default function ProfilePage() {
           onClick={handleReset}
           className="text-xs text-muted-foreground/50 hover:text-destructive transition-colors"
         >
-          Reset museum state (demo only)
+          {t("resetDemo")}
         </button>
       </div>
     </div>

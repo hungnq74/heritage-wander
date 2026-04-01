@@ -9,11 +9,14 @@ import { getCategoryLabel, getDomainEmoji, getDomainLabel, getProvinceLabel } fr
 import { getCityById } from "@/lib/cities";
 import { Badge } from "@/components/ui/badge";
 import type { HeritageNode } from "@/lib/types";
+import { useTranslations, useLocale } from "next-intl";
 
 export function HeritageDetailContent({ node }: { node: HeritageNode }) {
   const [isUnlocked, setIsUnlocked] = useState(false);
   const [collectedItemIds, setCollectedItemIds] = useState<string[]>([]);
   const [heroFailed, setHeroFailed] = useState(false);
+  const t = useTranslations("heritageDetail");
+  const locale = useLocale();
 
   useEffect(() => {
     const state = getMuseumState();
@@ -58,7 +61,7 @@ export function HeritageDetailContent({ node }: { node: HeritageNode }) {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="flex flex-col items-center gap-2 text-white/80">
               <Lock className="size-8" />
-              <span className="text-xs font-bold">Chưa khám phá</span>
+              <span className="text-xs font-bold">{t("notExplored")}</span>
             </div>
           </div>
         )}
@@ -80,7 +83,7 @@ export function HeritageDetailContent({ node }: { node: HeritageNode }) {
             Tier {node.tier}
           </Badge>
           <Badge variant="outline" className="text-xs text-muted-foreground gap-1">
-            {getDomainEmoji(node.ichDomain)} {getDomainLabel(node.ichDomain).vi}
+            {getDomainEmoji(node.ichDomain)} {getDomainLabel(node.ichDomain)[locale as "vi" | "en"] ?? getDomainLabel(node.ichDomain).vi}
           </Badge>
         </div>
 
@@ -108,7 +111,7 @@ export function HeritageDetailContent({ node }: { node: HeritageNode }) {
         {/* Collectibles */}
         <div>
           <h2 className="font-black text-base mb-3">
-            Vật phẩm sưu tầm
+            {t("collectibles")}
             <span className="ml-2 text-xs font-normal text-muted-foreground">
               {node.items.filter((i) => collectedItemIds.includes(i.id)).length}/{node.items.length}
             </span>
@@ -143,7 +146,7 @@ export function HeritageDetailContent({ node }: { node: HeritageNode }) {
             className="flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl bg-primary text-primary-foreground font-bold text-sm"
           >
             <MapPin className="size-4" />
-            Đến tham quan →
+            {t("visitCta")}
           </Link>
         )}
       </div>

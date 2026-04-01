@@ -5,8 +5,11 @@ import { Button } from "@/components/ui/button";
 import { Compass, LogIn, ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 export default function LoginPage() {
+  const t = useTranslations("login");
+
   return (
     <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-[#1a1a18]">
       {/* Cinematic Background */}
@@ -30,7 +33,7 @@ export default function LoginPage() {
           className="inline-flex items-center gap-2 text-white/60 hover:text-white transition-colors mb-8 group"
         >
           <ChevronLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
-          <span className="text-sm font-medium">Quay lại trang chủ</span>
+          <span className="text-sm font-medium">{t("backToHome")}</span>
         </Link>
 
         <div className="bg-background/40 backdrop-blur-3xl border border-white/10 p-8 md:p-10 rounded-[2.5rem] shadow-2xl">
@@ -42,7 +45,7 @@ export default function LoginPage() {
             <div className="space-y-2">
               <h1 className="text-3xl font-black tracking-tight text-white">Heritage Wander</h1>
               <p className="text-white/60 text-sm leading-relaxed max-w-[240px] mx-auto">
-                Lưu giữ hành trình khám phá di sản Việt Nam của riêng bạn.
+                {t("tagline")}
               </p>
             </div>
 
@@ -53,11 +56,11 @@ export default function LoginPage() {
                 className="w-full h-14 rounded-2xl bg-white text-black hover:bg-white/90 font-bold text-base flex items-center justify-center gap-3 shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
                 <img src="https://www.google.com/favicon.ico" alt="Google" className="size-5" />
-                Tiếp tục với Google
+                {t("continueWithGoogle")}
               </Button>
 
               <p className="mt-6 text-[10px] text-white/40 uppercase tracking-widest font-black">
-                Personal Heritage Collection · Since 2026
+                {t("since")}
               </p>
             </div>
           </div>
@@ -71,10 +74,10 @@ export default function LoginPage() {
       {/* Footer info */}
       <div className="absolute bottom-6 left-6 right-6 flex justify-between items-end text-white/20">
         <div className="text-[10px] font-medium leading-tight">
-          VIETNAM<br />HERITAGE EXPLORER
+          {t("footerLeft")}
         </div>
         <div className="text-[10px] font-medium text-right">
-          AUTHENTICATION<br />SECURED BY GOOGLE
+          {t("footerRight")}
         </div>
       </div>
     </div>

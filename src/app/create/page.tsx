@@ -2,86 +2,83 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ArrowRight, MapPin, Route, Building2 } from "lucide-react";
+import { getTranslations } from "next-intl/server";
 
-const tiers = [
-  {
-    id: 1,
-    icon: "🌿",
-    lucide: MapPin,
-    title: "Người nắm giữ di sản",
-    titleEn: "Heritage Knowledge Holder",
-    badge: "Tier 1",
-    description: "Nghệ nhân, nghệ sĩ biểu diễn, người cao tuổi, người kể chuyện, thầy thuốc nam, thầy cúng, người giữ lễ… Đăng ký địa điểm di sản và chia sẻ câu chuyện của bạn.",
-    descriptionEn: "Artisan, performer, elder, storyteller, traditional healer, ceremony keeper… Register your heritage site and share your story.",
-    earnings: "Nhận phí tham quan + bản quyền kỹ thuật số",
-    earningsEn: "Earn visitor fees + digital royalties",
-    href: "/create/node",
-    cta: "Tạo địa điểm di sản",
-  },
-  {
-    id: 2,
-    icon: "🗺️",
-    lucide: Route,
-    title: "Hướng dẫn viên",
-    titleEn: "Local Guide",
-    badge: "Tier 2",
-    description: "Tạo tuyến hành trình di sản kết nối nhiều địa điểm thành một hành trình có chủ đề.",
-    descriptionEn: "Create heritage routes connecting multiple nodes into themed journeys.",
-    earnings: "Nhận subscription + tip từ người khám phá",
-    earningsEn: "Earn subscription fees + tips from explorers",
-    href: "/create/route",
-    cta: "Tạo tuyến đường",
-  },
-  {
-    id: 3,
-    icon: "🏛️",
-    lucide: Building2,
-    title: "Tổ chức văn hóa",
-    titleEn: "Cultural Organization",
-    badge: "Tier 3 · Xác minh",
-    description: "Sở VHTT, tổ chức UNESCO và NGO văn hóa — thêm lớp di sản chính thức được xác minh.",
-    descriptionEn: "Culture departments, UNESCO orgs, cultural NGOs — add official verified heritage layers.",
-    earnings: "Hợp tác chính phủ + phí cấp phép du lịch",
-    earningsEn: "Government partnerships + tourism licensing fees",
-    href: "/admin",
-    cta: "Truy cập bảng quản lý",
-  },
-];
+export default async function CreatePage() {
+  const t = await getTranslations("create");
 
-const knowledgeHolderRoles = [
-  { emoji: "🏺", label: "Nghệ nhân thủ công", labelEn: "Artisan" },
-  { emoji: "🎶", label: "Nghệ sĩ biểu diễn", labelEn: "Performer" },
-  { emoji: "👴", label: "Người cao tuổi / Già làng", labelEn: "Elder" },
-  { emoji: "📜", label: "Người kể chuyện", labelEn: "Storyteller" },
-  { emoji: "🕯️", label: "Người giữ lễ / Thầy cúng", labelEn: "Ceremony Keeper" },
-  { emoji: "🌿", label: "Thầy thuốc nam", labelEn: "Traditional Healer" },
-  { emoji: "🥁", label: "Người truyền dạy nghi lễ", labelEn: "Ritual Master" },
-];
+  const tiers = [
+    {
+      id: 1,
+      icon: "🌿",
+      lucide: MapPin,
+      title: t("tiers.tier1Title"),
+      titleEn: t("tiers.tier1TitleEn"),
+      badge: t("tiers.tier1Badge"),
+      description: t("tiers.tier1Desc"),
+      earnings: t("tiers.tier1Earnings"),
+      href: "/create/node",
+      cta: t("tiers.tier1Cta"),
+    },
+    {
+      id: 2,
+      icon: "🗺️",
+      lucide: Route,
+      title: t("tiers.tier2Title"),
+      titleEn: t("tiers.tier2TitleEn"),
+      badge: t("tiers.tier2Badge"),
+      description: t("tiers.tier2Desc"),
+      earnings: t("tiers.tier2Earnings"),
+      href: "/create/route",
+      cta: t("tiers.tier2Cta"),
+    },
+    {
+      id: 3,
+      icon: "🏛️",
+      lucide: Building2,
+      title: t("tiers.tier3Title"),
+      titleEn: t("tiers.tier3TitleEn"),
+      badge: t("tiers.tier3Badge"),
+      description: t("tiers.tier3Desc"),
+      earnings: t("tiers.tier3Earnings"),
+      href: "/admin",
+      cta: t("tiers.tier3Cta"),
+    },
+  ];
 
-export default function CreatePage() {
+  const knowledgeHolderRoles = [
+    { emoji: "🏺", label: t("roles.artisan") },
+    { emoji: "🎶", label: t("roles.performer") },
+    { emoji: "👴", label: t("roles.elder") },
+    { emoji: "📜", label: t("roles.storyteller") },
+    { emoji: "🕯️", label: t("roles.ceremonyKeeper") },
+    { emoji: "🌿", label: t("roles.healer") },
+    { emoji: "🥁", label: t("roles.ritualMaster") },
+  ];
+
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       {/* Header */}
       <div className="mb-8">
         <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-1">
-          Creator Platform
+          {t("creatorPlatform")}
         </p>
         <h1 className="text-3xl font-black">
-          Chia sẻ <span className="text-primary italic">di sản</span>
+          {t("title")} <span className="text-primary italic">{t("titleHighlight")}</span>
         </h1>
         <p className="text-sm text-muted-foreground mt-1">
-          Bạn là người nắm giữ di sản văn hóa? Chọn vai trò phù hợp và bắt đầu chia sẻ.
+          {t("subtitle")}
         </p>
       </div>
 
       {/* Knowledge holder role preview */}
       <div className="mb-6 p-4 rounded-2xl bg-secondary/40 border border-border/50">
         <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">
-          Ai có thể tham gia?
+          {t("whoCanJoin")}
         </p>
         <div className="flex flex-wrap gap-2">
           {knowledgeHolderRoles.map((role) => (
-            <div key={role.labelEn} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background border border-border/50 text-xs font-medium">
+            <div key={role.label} className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-background border border-border/50 text-xs font-medium">
               <span>{role.emoji}</span>
               <span>{role.label}</span>
             </div>

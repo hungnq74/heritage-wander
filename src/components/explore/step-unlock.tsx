@@ -8,6 +8,7 @@ import type { HeritageNode } from "@/lib/types";
 import { getDomainEmoji, getDomainLabel, getProvinceLabel } from "@/lib/ich-utils";
 import { MapPin, Unlock } from "lucide-react";
 import Image from "next/image";
+import { useTranslations, useLocale } from "next-intl";
 
 interface StepUnlockProps {
   node: HeritageNode;
@@ -16,10 +17,12 @@ interface StepUnlockProps {
 
 export function StepUnlock({ node, onNext }: StepUnlockProps) {
   const [showContent, setShowContent] = useState(false);
+  const t = useTranslations("stepUnlock");
+  const locale = useLocale();
 
   useEffect(() => {
-    const t = setTimeout(() => setShowContent(true), 400);
-    return () => clearTimeout(t);
+    const timer = setTimeout(() => setShowContent(true), 400);
+    return () => clearTimeout(timer);
   }, []);
 
   const domainEmoji = getDomainEmoji(node.ichDomain);
@@ -69,7 +72,7 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
         className="relative z-10 mb-4"
       >
         <div className="flex items-center gap-2 px-5 py-2 rounded-full border-2 border-primary/60 bg-primary/10 backdrop-blur-sm">
-          <span className="text-primary text-sm font-black uppercase tracking-widest">Đã Mở Khóa</span>
+          <span className="text-primary text-sm font-black uppercase tracking-widest">{t("unlockedBadge")}</span>
           <span className="text-lg">{domainEmoji}</span>
         </div>
       </motion.div>
@@ -96,7 +99,7 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
       >
         <div className="flex items-center gap-1.5 text-white/50 text-sm">
           <MapPin className="size-4" />
-          <span>{provinceLabel}, Việt Nam</span>
+          <span>{provinceLabel}, {t("vietnam")}</span>
         </div>
         <Badge className="bg-white/10 text-white/80 border-white/20 text-xs">
           Tier {node.tier}
@@ -107,7 +110,7 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
           </Badge>
         )}
         <Badge className="bg-white/10 text-white/80 border-white/20 text-xs">
-          {domainLabel.vi}
+          {domainLabel[locale as "vi" | "en"] ?? domainLabel.vi}
         </Badge>
       </motion.div>
 
@@ -146,7 +149,7 @@ export function StepUnlock({ node, onNext }: StepUnlockProps) {
           className="w-full h-14 rounded-full text-base font-black bg-primary shadow-xl shadow-primary/30"
           onClick={onNext}
         >
-          Khám phá →
+          {t("exploreCta")}
         </Button>
       </motion.div>
     </div>

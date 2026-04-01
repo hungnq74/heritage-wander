@@ -8,6 +8,7 @@ import { CITIES } from "@/lib/cities";
 import { HeritageCard } from "./heritage-card";
 import { BadgeCelebration } from "./badge-celebration";
 import { useUser } from "@/hooks/use-user";
+import { useTranslations } from "next-intl";
 
 interface MuseumGridProps {
   nodes: HeritageNode[];
@@ -26,6 +27,7 @@ function CitySection({
 }) {
   const unlockedCount = nodes.filter((n) => unlockedIds.includes(n.id)).length;
   const hasBadge = earnedBadgeIds.includes(city.id);
+  const t = useTranslations("museumGrid");
 
   return (
     <div className="space-y-3">
@@ -37,12 +39,12 @@ function CitySection({
             <span className="font-black text-base leading-tight">{city.name}</span>
             {hasBadge && (
               <span className="text-[10px] font-black px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-600 border border-amber-500/30">
-                Hoàn thành! ✓
+                {t("completed")}
               </span>
             )}
           </div>
           <span className="text-xs text-muted-foreground">
-            {unlockedCount}/{nodes.length} di sản đã khám phá
+            {t("cityProgress", { unlocked: unlockedCount, total: nodes.length })}
           </span>
         </div>
         <div className="shrink-0">
@@ -74,6 +76,7 @@ export function MuseumGrid({ nodes }: MuseumGridProps) {
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
   const [earnedBadgeIds, setEarnedBadgeIds] = useState<string[]>([]);
   const [celebrationBadgeId, setCelebrationBadgeId] = useState<string | null>(null);
+  const t = useTranslations("museumGrid");
 
   useEffect(() => {
     async function init() {
@@ -96,7 +99,7 @@ export function MuseumGrid({ nodes }: MuseumGridProps) {
       {/* Overall progress */}
       <div className="flex items-center gap-3">
         <span className="text-sm font-bold text-muted-foreground shrink-0">
-          {unlockedCount}/{totalNodes} di sản
+          {t("overallProgress", { unlocked: unlockedCount, total: totalNodes })}
         </span>
         <div className="flex-1 h-1.5 rounded-full bg-secondary overflow-hidden">
           <div

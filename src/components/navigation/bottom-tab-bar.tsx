@@ -4,16 +4,18 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { Compass, LayoutGrid, PlusCircle, User } from "lucide-react";
-
-const tabs = [
-  { name: "Explore", href: "/explore", icon: Compass },
-  { name: "Museum", href: "/museum", icon: LayoutGrid },
-  { name: "Create", href: "/create", icon: PlusCircle },
-  { name: "Profile", href: "/profile/me", icon: User },
-];
+import { useTranslations } from "next-intl";
 
 export function BottomTabBar() {
   const pathname = usePathname();
+  const t = useTranslations("navigation");
+
+  const tabs = [
+    { name: t("explore"), href: "/explore", icon: Compass },
+    { name: t("museum"), href: "/museum", icon: LayoutGrid },
+    { name: t("create"), href: "/create", icon: PlusCircle },
+    { name: t("profile"), href: "/profile/me", icon: User },
+  ];
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 h-14 flex items-center border-t border-border bg-background/95 backdrop-blur-sm"

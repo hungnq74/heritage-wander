@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { getCityById } from "@/lib/cities";
+import { useTranslations } from "next-intl";
 
 interface ConfettiDot {
   id: number;
@@ -25,6 +26,7 @@ interface BadgeCelebrationProps {
 export function BadgeCelebration({ cityId, onDismiss }: BadgeCelebrationProps) {
   const [confetti, setConfetti] = useState<ConfettiDot[]>([]);
   const city = getCityById(cityId);
+  const t = useTranslations("badgeCelebration");
 
   useEffect(() => {
     const dots: ConfettiDot[] = Array.from({ length: 36 }, (_, i) => ({
@@ -86,7 +88,7 @@ export function BadgeCelebration({ cityId, onDismiss }: BadgeCelebrationProps) {
           </motion.div>
 
           <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-2">
-            Huy hiệu mới
+            {t("newBadge")}
           </p>
           <h2 className="text-2xl font-black mb-1">
             🎉 {city.badgeName}
@@ -103,13 +105,13 @@ export function BadgeCelebration({ cityId, onDismiss }: BadgeCelebrationProps) {
               onClick={onDismiss}
               className="block w-full py-3 rounded-2xl bg-primary text-primary-foreground font-bold text-sm"
             >
-              Xem huy hiệu
+              {t("viewBadge")}
             </Link>
             <button
               onClick={onDismiss}
               className="block w-full py-2.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
-              Tiếp tục khám phá
+              {t("continueCta")}
             </button>
           </div>
         </motion.div>

@@ -7,6 +7,7 @@ import Image from "next/image";
 import type { HeritageNode } from "@/lib/types";
 import { Camera, CheckCircle2, Upload } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslations } from "next-intl";
 
 interface StepPhotoProps {
   node: HeritageNode;
@@ -17,6 +18,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
   const [preview, setPreview] = useState<string | null>(null);
   const [verified, setVerified] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const t = useTranslations("stepPhoto");
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -34,7 +36,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
       {/* Header */}
       <div className="mb-6">
         <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-1">
-          Thách thức ảnh · Field Challenge
+          {t("sectionLabel")}
         </p>
         <h2 className="text-2xl font-black">{node.photoChallenge.prompt}</h2>
         <p className="text-sm text-muted-foreground italic mt-1">
@@ -89,7 +91,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
               <div className="absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 border-muted-foreground/40 rounded-br-sm" />
               <Camera className="size-12 text-muted-foreground/40" />
               <p className="text-sm text-muted-foreground text-center px-4">
-                Chụp ảnh thực địa để xác nhận sự hiện diện
+                {t("cameraHint")}
               </p>
             </div>
           )}
@@ -99,7 +101,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
         {node.photoChallenge.referenceImages.length > 0 && !preview && (
           <div className="w-full max-w-sm">
             <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">
-              Tham khảo · Reference
+              {t("referenceLabel")}
             </p>
             <div className="flex gap-2">
               {node.photoChallenge.referenceImages.map((img, i) => (
@@ -142,7 +144,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
                 className="w-full h-14 rounded-full text-base font-black bg-primary shadow-xl shadow-primary/20"
                 onClick={onNext}
               >
-                Nhận vật phẩm →
+                {t("receiveItemsBtn")}
               </Button>
             </motion.div>
           ) : preview ? (
@@ -158,7 +160,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
                 onClick={handleVerify}
               >
                 <CheckCircle2 className="size-5 mr-2" />
-                Xác nhận ảnh
+                {t("confirmBtn")}
               </Button>
               <Button
                 variant="outline"
@@ -169,7 +171,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
                   fileInputRef.current?.click();
                 }}
               >
-                Chụp lại
+                {t("retakeBtn")}
               </Button>
             </motion.div>
           ) : (
@@ -186,7 +188,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
                 onClick={() => fileInputRef.current?.click()}
               >
                 <Camera className="size-5 mr-2" />
-                Chụp ảnh thực địa
+                {t("captureBtn")}
               </Button>
               {/* Desktop fallback */}
               <button
@@ -201,7 +203,7 @@ export function StepPhoto({ node, onNext }: StepPhotoProps) {
                 className="w-full flex items-center justify-center gap-2 h-12 rounded-full text-sm text-muted-foreground hover:text-foreground border border-dashed border-border hover:border-primary/50 transition-colors"
               >
                 <Upload className="size-4" />
-                Upload từ thiết bị
+                {t("uploadBtn")}
               </button>
             </motion.div>
           )}

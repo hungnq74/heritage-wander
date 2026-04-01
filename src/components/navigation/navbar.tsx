@@ -18,16 +18,18 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { Button } from "@/components/ui/button";
-
-const navItems = [
-  { name: "Explore", href: "/explore", icon: Compass },
-  { name: "Museum", href: "/museum", icon: LayoutGrid },
-  { name: "Create", href: "/create", icon: PlusCircle },
-];
+import { useTranslations } from "next-intl";
 
 export function Navbar() {
   const pathname = usePathname();
   const { isLoggedIn, isLoading, user } = useUser();
+  const t = useTranslations("navigation");
+
+  const navItems = [
+    { name: t("explore"), href: "/explore", icon: Compass },
+    { name: t("museum"), href: "/museum", icon: LayoutGrid },
+    { name: t("create"), href: "/create", icon: PlusCircle },
+  ];
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 h-14 flex items-center border-b border-border bg-background/90 backdrop-blur-sm px-4 md:px-6">
@@ -77,7 +79,7 @@ export function Navbar() {
             <DropdownMenuTrigger className="flex items-center gap-2 focus:outline-none group cursor-pointer">
               <div className="flex flex-col items-end mr-1">
                 <span className="text-xs font-bold leading-tight group-hover:text-primary transition-colors">{user?.name}</span>
-                <span className="text-[10px] text-muted-foreground leading-tight">Heritage Explorer</span>
+                <span className="text-[10px] text-muted-foreground leading-tight">{t("heritageExplorer")}</span>
               </div>
               <Avatar className="size-8 border border-border shadow-sm group-hover:border-primary/50 transition-colors">
                 <AvatarImage src={user?.image || ""} />
@@ -97,22 +99,24 @@ export function Navbar() {
               </DropdownMenuGroup>
               <DropdownMenuSeparator />
               <DropdownMenuItem className="cursor-pointer py-2.5 px-3 rounded-lg focus:bg-primary focus:text-primary-foreground transition-all group">
-                <Link href={`/profile/${user?.id || 'me'}`} className="flex items-center w-full">
+                <Link href={`/profile/${user?.id || "me"}`} className="flex items-center w-full">
                   <User className="mr-3 size-4 text-primary group-focus:text-primary-foreground" />
-                  <span className="font-bold">Của tôi (Profile)</span>
+                  <span className="font-bold">{t("myProfile")}</span>
                 </Link>
               </DropdownMenuItem>
               <DropdownMenuItem className="cursor-pointer py-2.5 px-3 rounded-lg focus:bg-primary focus:text-primary-foreground transition-all group">
-                <Settings className="mr-3 size-4 text-muted-foreground group-focus:text-primary-foreground transition-colors" />
-                <span className="font-bold">Cài đặt (Settings)</span>
+                <Link href="/settings" className="flex items-center w-full">
+                  <Settings className="mr-3 size-4 text-muted-foreground group-focus:text-primary-foreground transition-colors" />
+                  <span className="font-bold">{t("settings")}</span>
+                </Link>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem 
+              <DropdownMenuItem
                 className="cursor-pointer py-2.5 px-3 rounded-lg focus:bg-destructive focus:text-destructive-foreground group transition-all"
                 onClick={() => signOut()}
               >
                 <LogOut className="mr-3 size-4 transition-transform group-focus:translate-x-0.5 group-focus:text-destructive-foreground" />
-                <span className="font-bold">Đăng xuất (Logout)</span>
+                <span className="font-bold">{t("logout")}</span>
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
@@ -120,7 +124,7 @@ export function Navbar() {
           <Button asChild variant="default" size="sm" className="rounded-full h-9 px-4 font-bold shadow-lg shadow-primary/25 animate-in fade-in duration-500">
             <Link href="/login">
               <LogIn className="mr-1.5 size-3.5" />
-              Đăng nhập
+              {t("login")}
             </Link>
           </Button>
         )}
@@ -129,7 +133,7 @@ export function Navbar() {
       {/* Mobile: Hamburger and Mobile Auth */}
       <div className="md:hidden flex items-center gap-2 ml-auto">
         {isLoggedIn && (
-          <Link href={`/profile/${user?.id || 'me'}`}>
+          <Link href={`/profile/${user?.id || "me"}`}>
             <Avatar className="size-8 border border-border">
               <AvatarImage src={user?.image || ""} />
               <AvatarFallback className="text-[10px] bg-primary/5 text-primary">
@@ -138,7 +142,7 @@ export function Navbar() {
             </Avatar>
           </Link>
         )}
-        
+
         <Sheet>
           <SheetTrigger
             className="flex items-center justify-center size-9 rounded-md text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
@@ -149,8 +153,8 @@ export function Navbar() {
           <SheetContent side="right" className="w-72 p-0 rounded-l-2xl">
             <div className="flex flex-col h-full">
               <div className="flex flex-col gap-1 p-4 pt-14 flex-1">
-                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground px-3 mb-2">Heritage Menu</p>
-                {navItems.concat([{ name: "Profile", href: `/profile/${user?.id || 'me'}`, icon: User }]).map((item) => {
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground px-3 mb-2">{t("heritageMenu")}</p>
+                {navItems.concat([{ name: t("profile"), href: `/profile/${user?.id || "me"}`, icon: User }]).map((item) => {
                   const Icon = item.icon;
                   const isActive = pathname === item.href || pathname.startsWith(item.href + "/");
                   return (
@@ -169,25 +173,37 @@ export function Navbar() {
                     </Link>
                   );
                 })}
+                <Link
+                  href="/settings"
+                  className={cn(
+                    "flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold transition-all duration-200",
+                    pathname === "/settings"
+                      ? "bg-primary/5 text-primary"
+                      : "text-foreground/70 hover:bg-secondary/60"
+                  )}
+                >
+                  <Settings className="size-4" />
+                  {t("settings")}
+                </Link>
               </div>
-              
+
               <div className="p-4 border-t border-border bg-secondary/20 min-h-[76px] flex items-center">
                 {isLoading ? (
                   <div className="w-full h-11 bg-muted rounded-xl animate-pulse" />
                 ) : isLoggedIn ? (
-                  <Button 
-                    variant="ghost" 
+                  <Button
+                    variant="ghost"
                     className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10 font-bold h-11 rounded-xl"
                     onClick={() => signOut()}
                   >
                     <LogOut className="mr-3 size-4" />
-                    Đăng xuất
+                    {t("logout")}
                   </Button>
                 ) : (
                   <Button asChild className="w-full font-bold h-11 rounded-xl shadow-lg shadow-primary/20 animate-in fade-in duration-500">
                     <Link href="/login">
                       <LogIn className="mr-2 size-4" />
-                      Đăng nhập
+                      {t("login")}
                     </Link>
                   </Button>
                 )}

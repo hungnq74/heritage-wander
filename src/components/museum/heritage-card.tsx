@@ -7,19 +7,20 @@ import Image from "next/image";
 import { cn } from "@/lib/utils";
 import type { HeritageNode } from "@/lib/types";
 import { getCategoryLabel } from "@/lib/ich-utils";
+import { useTranslations } from "next-intl";
 
 type TierRarityKey = 1 | 2 | 3;
 
-const tierConfig: Record<TierRarityKey, { className: string; label: string; bg: string }> = {
-  1: { className: "rarity-common border",    label: "Phổ thông",    bg: "from-primary/10 to-primary/5" },
-  2: { className: "rarity-rare border-2",    label: "Hiếm",         bg: "from-sky-500/15 to-sky-500/5" },
-  3: { className: "rarity-legendary border-2", label: "Huyền thoại", bg: "from-yellow-400/20 to-yellow-400/5" },
+const tierConfig: Record<TierRarityKey, { className: string; rarityKey: string; bg: string }> = {
+  1: { className: "rarity-common border",      rarityKey: "Common",    bg: "from-primary/10 to-primary/5" },
+  2: { className: "rarity-rare border-2",      rarityKey: "Rare",      bg: "from-sky-500/15 to-sky-500/5" },
+  3: { className: "rarity-legendary border-2", rarityKey: "Legendary", bg: "from-yellow-400/20 to-yellow-400/5" },
 };
 
 function getCardConfig(node: HeritageNode) {
   const hasEndangered = node.items.some((i) => i.rarity === "Endangered");
   if (hasEndangered) {
-    return { className: "rarity-endangered border-2", label: "Cực hiếm", bg: "from-red-500/15 to-red-500/5" };
+    return { className: "rarity-endangered border-2", rarityKey: "Endangered", bg: "from-red-500/15 to-red-500/5" };
   }
   return tierConfig[(node.tier as TierRarityKey)] ?? tierConfig[1];
 }
@@ -33,6 +34,7 @@ export function HeritageCard({ node, isUnlocked }: HeritageCardProps) {
   const [imgFailed, setImgFailed] = useState(false);
   const category = getCategoryLabel(node.category);
   const config = getCardConfig(node);
+  const tCommon = useTranslations("common");
 
   // High-quality heritage placeholder (stable)
   const placeholderUrl = "https://images.unsplash.com/photo-1596701062351-be5f6a42a4a9?auto=format&fit=crop&q=80&w=1200";
@@ -106,7 +108,7 @@ export function HeritageCard({ node, isUnlocked }: HeritageCardProps) {
             "text-[9px] font-black px-1.5 py-0.5 rounded-full bg-black/40 text-white shadow-sm ring-1 ring-white/10",
             !isUnlocked && "opacity-30"
           )}>
-            {config.label}
+            {tCommon(`rarity.${config.rarityKey}`)}
           </span>
         </div>
 

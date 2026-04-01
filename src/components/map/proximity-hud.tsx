@@ -9,6 +9,7 @@ import { getDomainEmoji, getDomainLabel, getProvinceLabel } from "@/lib/ich-util
 import { MapPin, Navigation } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 
 interface ProximityHudProps {
   node: HeritageNode | null;
@@ -20,6 +21,8 @@ interface ProximityHudProps {
 export function ProximityHud({ node, distance, proximityMeters, onDismiss }: ProximityHudProps) {
   const canEnter = distance <= proximityMeters;
   const [thumbFailed, setThumbFailed] = useState(false);
+  const t = useTranslations("proximityHud");
+
   return (
     <AnimatePresence>
       {node && (
@@ -75,14 +78,14 @@ export function ProximityHud({ node, distance, proximityMeters, onDismiss }: Pro
                   <Navigation className="size-3.5" />
                   <span className="font-black text-lg leading-none">{distance}</span>
                 </div>
-                <span className="text-[9px] font-bold uppercase text-muted-foreground">mét</span>
+                <span className="text-[9px] font-bold uppercase text-muted-foreground">{t("meters")}</span>
               </div>
             </div>
 
             {/* Items preview */}
             <div className="flex items-center gap-1.5 mb-4 overflow-x-auto pb-0.5">
               <MapPin className="size-3 text-muted-foreground shrink-0" />
-              <span className="text-xs text-muted-foreground shrink-0">{node.items.length} vật phẩm</span>
+              <span className="text-xs text-muted-foreground shrink-0">{t("itemsCount", { count: node.items.length })}</span>
               <div className="flex gap-1 ml-1">
                 {node.items.slice(0, 4).map((item) => (
                   <div key={item.id} className="relative size-7 rounded-lg overflow-hidden border border-border/50">
@@ -109,18 +112,18 @@ export function ProximityHud({ node, distance, proximityMeters, onDismiss }: Pro
                 onClick={onDismiss}
                 className="flex-1 h-12 rounded-full border border-border text-sm font-bold text-muted-foreground hover:bg-secondary transition-colors"
               >
-                Để sau
+                {t("dismiss")}
               </button>
               {canEnter ? (
                 <Button className="flex-[2] h-12 rounded-full text-sm font-black" asChild>
                   <Link href={`/explore/node/${node.id}`}>
-                    Tiếp cận →
+                    {t("approach")}
                   </Link>
                 </Button>
               ) : (
                 <div className="flex-[2] h-12 rounded-full bg-secondary flex flex-col items-center justify-center gap-0.5">
-                  <span className="text-[11px] font-black text-muted-foreground leading-none">Đến gần hơn</span>
-                  <span className="text-[10px] text-muted-foreground/70 leading-none">{distance - proximityMeters}m nữa</span>
+                  <span className="text-[11px] font-black text-muted-foreground leading-none">{t("getCloser")}</span>
+                  <span className="text-[10px] text-muted-foreground/70 leading-none">{t("metersAway", { count: distance - proximityMeters })}</span>
                 </div>
               )}
             </div>

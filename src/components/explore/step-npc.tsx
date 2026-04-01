@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import type { HeritageNode } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 interface Message {
   id: number;
@@ -23,15 +24,20 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
   const [exchangeIndex, setExchangeIndex] = useState(0);
   const [done, setDone] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const t = useTranslations("stepNpc");
 
   // Auto-send NPC greeting on mount
   useEffect(() => {
-    const greeting = `Xin chào! Tôi là ${node.knowledgeHolder.name}, ${node.knowledgeHolder.roleEn} tại ${node.nameEn}. Rất vui được gặp bạn tại đây. Bạn muốn hỏi tôi điều gì?`;
-    const t = setTimeout(() => {
+    const greeting = t("greeting", {
+      name: node.knowledgeHolder.name,
+      role: node.knowledgeHolder.roleEn,
+      location: node.nameEn,
+    });
+    const timer = setTimeout(() => {
       setMessages([{ id: 0, from: "npc", text: greeting }]);
     }, 600);
-    return () => clearTimeout(t);
-  }, [node]);
+    return () => clearTimeout(timer);
+  }, [node, t]);
 
   useEffect(() => {
     if (scrollRef.current) {
@@ -168,7 +174,7 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
                 className="w-full h-14 rounded-full text-base font-black"
                 onClick={onNext}
               >
-                Thách thức ảnh thực địa →
+                {t("photoChallengeBtn")}
               </Button>
             </motion.div>
           ) : showReplies && currentExchange ? (
@@ -178,7 +184,7 @@ export function StepNpc({ node, onNext }: StepNpcProps) {
               animate={{ opacity: 1, y: 0 }}
             >
               <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">
-                Hỏi {node.knowledgeHolder.roleEn}
+                {t("askLabel", { role: node.knowledgeHolder.roleEn })}
               </p>
               <button
                 onClick={() => handleQuickReply(currentExchange)}

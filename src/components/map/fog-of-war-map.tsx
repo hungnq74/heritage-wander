@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect, useRef, useMemo } from "react";
+import { useState, useCallback, useEffect, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import Map, { Marker, Source, Layer } from "react-map-gl/mapbox";
 import type { MapMouseEvent, MapRef } from "react-map-gl/mapbox";
@@ -12,6 +12,8 @@ import { getMuseumState, syncFromCloud } from "@/lib/museum-store";
 import type { GeoJSON } from "geojson";
 import { Navigation, Crosshair } from "lucide-react";
 import { useUser } from "@/hooks/use-user";
+import { useTranslations } from "next-intl";
+import { cn } from "@/lib/utils";
 
 const MAPBOX_TOKEN = process.env.NEXT_PUBLIC_MAPBOX_TOKEN;
 
@@ -70,7 +72,7 @@ function haversineDistance(
 
 interface FogOfWarMapProps {
   nodes: HeritageNode[];
-  gpsPosition?: [number, number] | null; // from GeolocationGate
+  gpsPosition?: [number, number] | null;
 }
 
 export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
@@ -78,20 +80,30 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
   const [unlockedIds, setUnlockedIds] = useState<string[]>([]);
   const [hoveredNode, setHoveredNode] = useState<HeritageNode | null>(null);
   const [hoveredDistance, setHoveredDistance] = useState(0);
-  // userPosition: GPS position (preferred) or manual click fallback
   const [manualPosition, setManualPosition] = useState<[number, number] | null>(null);
   const [currentZoom, setCurrentZoom] = useState(5.5);
   const [devMode, setDevMode] = useState(false);
+  const [navMode, setNavMode] = useState<"gps" | "manual">("gps");
   const mapRef = useRef<MapRef>(null);
   const hasFlewToGps = useRef(false);
+  const t = useTranslations("fogOfWarMap");
 
-  // Check dev mode from URL
   useEffect(() => {
     if (typeof window !== "undefined") {
       const params = new URLSearchParams(window.location.search);
       setDevMode(params.has("dev"));
+      const state = getMuseumState();
+      if (state.navigationMode) {
+        setNavMode(state.navigationMode);
+      }
     }
   }, []);
+
+  useEffect(() => {
+    if (navMode === "manual" && gpsPosition) {
+      setManualPosition(gpsPosition);
+    }
+  }, [gpsPosition?.[0], gpsPosition?.[1], navMode]);
 
   useEffect(() => {
     async function init() {
@@ -108,27 +120,22 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
   const targetNodeId = searchParams.get("nodeId");
   const hasFlewToTarget = useRef(false);
 
-  const userPosition = gpsPosition ?? manualPosition;
+  const userPosition = navMode === "manual" 
+    ? (manualPosition ?? gpsPosition) 
+    : (gpsPosition ?? manualPosition);
 
-  // Focus on specific node if passed in URL (from homepage)
   useEffect(() => {
     if (targetNodeId && nodes.length > 0 && mapRef.current && !hasFlewToTarget.current) {
       const targetNode = nodes.find((n) => n.id === targetNodeId);
       if (targetNode && targetNode.coordinates) {
         hasFlewToTarget.current = true;
-        
-        // Use manual flyTo with higher priority than GPS flyTo
         mapRef.current.flyTo({
           center: targetNode.coordinates,
           zoom: 16,
           duration: 3000,
           essential: true
         });
-
-        // Open its HUD after flying
         setHoveredNode(targetNode);
-        
-        // Calculate distance immediately
         if (userPosition) {
           const dist = Math.round(haversineDistance(userPosition, targetNode.coordinates));
           setHoveredDistance(dist);
@@ -137,9 +144,8 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
         }
       }
     }
-  }, [targetNodeId, nodes, userPosition]);
+  }, [targetNodeId, nodes.length, userPosition?.[0], userPosition?.[1]]);
 
-  // Fly to GPS position on first GPS fix (only if no targetNodeId is present)
   useEffect(() => {
     if (!targetNodeId && gpsPosition && !hasFlewToGps.current && mapRef.current) {
       hasFlewToGps.current = true;
@@ -149,23 +155,21 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
         duration: 2000,
       });
     }
-  }, [gpsPosition, targetNodeId]);
+  }, [gpsPosition?.[0], gpsPosition?.[1], targetNodeId]);
 
   const fogGeoJSON = buildFogGeoJSON(nodes, unlockedIds, currentZoom);
 
   const handleMapClick = useCallback(
     (e: MapMouseEvent) => {
-      // In dev mode, clicking sets the fake GPS position
-      if (devMode) {
+      if (devMode || navMode === "manual") {
         setManualPosition([e.lngLat.lng, e.lngLat.lat]);
         return;
       }
-      // Without GPS, allow manual position for demo
       if (!gpsPosition) {
         setManualPosition([e.lngLat.lng, e.lngLat.lat]);
       }
     },
-    [devMode, gpsPosition]
+    [devMode, navMode, gpsPosition]
   );
 
   const handleNodeMarkerClick = useCallback(
@@ -179,8 +183,11 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
   const flyToGps = useCallback(() => {
     if (gpsPosition && mapRef.current) {
       mapRef.current.flyTo({ center: gpsPosition, zoom: 15, duration: 1200 });
+      if (navMode === "manual") {
+        setManualPosition(gpsPosition);
+      }
     }
-  }, [gpsPosition]);
+  }, [gpsPosition, navMode]);
 
   return (
     <div className="relative w-full h-full">
@@ -210,10 +217,13 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
           />
         </Source>
 
-        {/* GPS user location marker — pulsing blue dot */}
+        {/* GPS user location marker - fade if in manual mode */}
         {gpsPosition && (
           <Marker longitude={gpsPosition[0]} latitude={gpsPosition[1]}>
-            <div className="relative flex items-center justify-center">
+            <div className={cn(
+              "relative flex items-center justify-center transition-opacity duration-500",
+              navMode === "manual" ? "opacity-30" : "opacity-100"
+            )}>
               <div className="size-4 rounded-full bg-blue-500 border-2 border-white shadow-lg z-10" />
               <div className="absolute size-4 rounded-full bg-blue-400 animate-ping opacity-60" />
               <div className="absolute size-10 rounded-full bg-blue-300/20" />
@@ -221,10 +231,10 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
           </Marker>
         )}
 
-        {/* Manual/fallback position marker */}
-        {!gpsPosition && manualPosition && (
+        {/* Manual/fallback position marker (The Brown Dot) */}
+        {(navMode === "manual" || !gpsPosition) && manualPosition && (
           <Marker longitude={manualPosition[0]} latitude={manualPosition[1]}>
-            <div className="size-4 rounded-full bg-accent border-2 border-white shadow-lg shadow-accent/50" />
+            <div className="size-5 rounded-full bg-accent border-2 border-white shadow-xl shadow-accent/50 z-20" />
           </Marker>
         )}
 
@@ -269,7 +279,7 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
         <button
           onClick={flyToGps}
           className="absolute bottom-24 md:bottom-8 right-4 size-11 rounded-full bg-background/90 backdrop-blur border border-border shadow-lg flex items-center justify-center text-primary hover:bg-secondary transition-colors"
-          title="Về vị trí của tôi"
+          title={t("myLocation")}
         >
           <Navigation className="size-5" />
         </button>
@@ -279,7 +289,7 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
       {devMode && (
         <div className="absolute top-20 left-1/2 -translate-x-1/2 px-3 py-1.5 rounded-full bg-amber-400/90 text-amber-900 text-xs font-bold flex items-center gap-1.5 shadow">
           <Crosshair className="size-3" />
-          Dev: nhấn bản đồ để đặt vị trí giả
+          {t("devMode")}
         </div>
       )}
 
@@ -287,9 +297,7 @@ export function FogOfWarMap({ nodes, gpsPosition }: FogOfWarMapProps) {
       {!hoveredNode && (
         <div className="absolute bottom-20 md:bottom-4 left-1/2 -translate-x-1/2 pointer-events-none">
           <div className="px-4 py-2 rounded-full bg-background/80 backdrop-blur-sm border border-border/50 text-xs text-muted-foreground font-medium whitespace-nowrap shadow-sm">
-            {gpsPosition
-              ? "Di chuyển đến di sản để mở khóa"
-              : "Chạm vào địa điểm để tiếp cận · Tap a node to approach"}
+            {gpsPosition ? t("moveHint") : t("tapHint")}
           </div>
         </div>
       )}

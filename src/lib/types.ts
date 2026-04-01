@@ -142,4 +142,5 @@ export interface MuseumState {
   unlockedNodeIds: string[];
   collectedItemIds: string[];
   earnedBadgeIds: string[];
+  navigationMode?: "gps" | "manual";
 }

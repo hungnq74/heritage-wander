@@ -1,0 +1,405 @@
+{
+  "common": {
+    "appName": "Heritage Wander",
+    "loading": "Đang tải...",
+    "back": "Quay lại",
+    "next": "Tiếp theo →",
+    "confirm": "Xác nhận",
+    "cancel": "Hủy",
+    "rarity": {
+      "Common": "Phổ thông",
+      "Rare": "Hiếm",
+      "Epic": "Sử thi",
+      "Legendary": "Huyền thoại",
+      "Endangered": "Cực hiếm"
+    }
+  },
+  "navigation": {
+    "explore": "Explore",
+    "museum": "Museum",
+    "create": "Create",
+    "profile": "Profile",
+    "settings": "Cài đặt",
+    "login": "Đăng nhập",
+    "logout": "Đăng xuất",
+    "heritageExplorer": "Heritage Explorer",
+    "heritageMenu": "Heritage Menu",
+    "myProfile": "Của tôi (Profile)",
+    "myProfileLabel": "Hồ sơ"
+  },
+  "home": {
+    "badge": "Heritage Wander — Field Edition",
+    "hero": {
+      "title1": "Khám phá.",
+      "titleHighlight": "Mở khóa.",
+      "title3": "Sưu tầm.",
+      "subtitle": "Khám phá di sản văn hóa phi vật thể Việt Nam. Đến làng nghề, lễ hội, làn điệu dân ca, và tri thức dân gian — mở khóa địa điểm, gặp người giữ di sản AI, và nhận vật phẩm văn hóa hiếm.",
+      "subtitleEn": "Explore Vietnam's intangible cultural heritage. Discover craft villages, ceremonies, folk music, and traditional knowledge — unlock locations, meet AI heritage keepers, and earn rare cultural collectibles.",
+      "ctaExplore": "Bắt đầu khám phá",
+      "ctaCreate": "Chia sẻ di sản"
+    },
+    "stats": {
+      "locations": "Địa điểm di sản",
+      "items": "Vật phẩm",
+      "journeys": "Hành trình"
+    },
+    "howItWorks": {
+      "sectionTitle": "Cách",
+      "sectionHighlight": "hoạt động",
+      "stepBadge": "Bước {step}",
+      "step1Title": "Đến địa điểm",
+      "step1TitleEn": "Go to the Location",
+      "step1Desc": "Mở bản đồ, chạm vào nút sương mù, di chuyển đến làng nghề gần bạn.",
+      "step2Title": "Mở khóa & Khám phá",
+      "step2TitleEn": "Unlock & Discover",
+      "step2Desc": "GPS xác nhận vị trí → xem video → chat với nghệ nhân AI → chụp ảnh thực địa.",
+      "step3Title": "Nhận vật phẩm",
+      "step3TitleEn": "Earn Collectibles",
+      "step3Desc": "Nhận 1–3 vật phẩm văn hóa với độ hiếm khác nhau. Xây dựng bảo tàng cá nhân."
+    },
+    "heritageSection": {
+      "title": "Di sản",
+      "titleHighlight": "khắp Việt Nam",
+      "viewAll": "Xem tất cả →",
+      "itemsCount": "{count} vật phẩm"
+    },
+    "creatorCta": {
+      "title": "Bạn là người giữ di sản?",
+      "desc": "Nghệ nhân, nghệ sĩ, người cao tuổi, người kể chuyện — đăng ký địa điểm và tiếp cận hàng nghìn người trẻ đang khám phá di sản.",
+      "descEn": "Artisan, performer, elder, storyteller — register your heritage site and reach thousands of GenZ explorers.",
+      "cta": "Bắt đầu ngay →"
+    }
+  },
+  "login": {
+    "backToHome": "Quay lại trang chủ",
+    "tagline": "Lưu giữ hành trình khám phá di sản Việt Nam của riêng bạn.",
+    "continueWithGoogle": "Tiếp tục với Google",
+    "since": "Personal Heritage Collection · Since 2026",
+    "footerLeft": "VIETNAM HERITAGE EXPLORER",
+    "footerRight": "AUTHENTICATION SECURED BY GOOGLE"
+  },
+  "explore": {
+    "loadingMap": "Đang tải bản đồ..."
+  },
+  "geolocationGate": {
+    "title": "Khám phá di sản xung quanh bạn",
+    "subtitle": "Như Pokémon GO, Heritage Wander dẫn bạn đến những địa điểm văn hóa trong bán kính hiện tại. Cho phép vị trí để mở khóa trải nghiệm đầy đủ.",
+    "allowLocation": "Cho phép vị trí",
+    "locating": "Đang xác định vị trí…",
+    "skipLocation": "Để sau — dùng chế độ bản đồ thủ công",
+    "denied": "Vị trí bị từ chối. Vào cài đặt trình duyệt để bật lại, hoặc nhấn vào bản đồ để đặt vị trí thủ công."
+  },
+  "fogOfWarMap": {
+    "moveHint": "Di chuyển đến di sản để mở khóa",
+    "tapHint": "Chạm vào địa điểm để tiếp cận · Tap a node to approach",
+    "myLocation": "Về vị trí của tôi",
+    "devMode": "Dev: nhấn bản đồ để đặt vị trí giả"
+  },
+  "proximityHud": {
+    "meters": "mét",
+    "itemsCount": "{count} vật phẩm",
+    "dismiss": "Để sau",
+    "approach": "Tiếp cận →",
+    "getCloser": "Đến gần hơn",
+    "metersAway": "{count}m nữa"
+  },
+  "nodeFlow": {
+    "stepLabels": {
+      "unlock": "Mở Khóa",
+      "blueprint": "Khám Phá",
+      "npc": "Gặp Gỡ",
+      "photo": "Chụp Ảnh",
+      "reward": "Nhận Quà"
+    },
+    "loading": "Đang tải..."
+  },
+  "stepBlueprint": {
+    "sectionLabel": "Khám phá di sản",
+    "badgeLabel": "Bản thiết kế",
+    "verifiedBadge": "Xác minh ✓",
+    "itemsLabel": "Vật phẩm có thể nhận · {count} items",
+    "meetCta": "{role} →"
+  },
+  "stepUnlock": {
+    "unlockedBadge": "Đã Mở Khóa",
+    "vietnam": "Việt Nam",
+    "exploreCta": "Khám phá →"
+  },
+  "stepNpc": {
+    "greeting": "Xin chào! Tôi là {name}, {role} tại {location}. Rất vui được gặp bạn tại đây. Bạn muốn hỏi tôi điều gì?",
+    "askLabel": "Hỏi {role}",
+    "photoChallengeBtn": "Thách thức ảnh thực địa →"
+  },
+  "stepPhoto": {
+    "sectionLabel": "Thách thức ảnh · Field Challenge",
+    "cameraHint": "Chụp ảnh thực địa để xác nhận sự hiện diện",
+    "referenceLabel": "Tham khảo · Reference",
+    "captureBtn": "Chụp ảnh thực địa",
+    "uploadBtn": "Upload từ thiết bị",
+    "confirmBtn": "Xác nhận ảnh",
+    "retakeBtn": "Chụp lại",
+    "receiveItemsBtn": "Nhận vật phẩm →"
+  },
+  "stepReward": {
+    "titlePrefix": "Nhận",
+    "titleHighlight": "Vật Phẩm!",
+    "subtitle": "You've earned cultural collectibles",
+    "xpEarned": "XP Earned",
+    "itemsAdded": "{count} vật phẩm được thêm vào bảo tàng",
+    "collectBtn": "Thu thập vật phẩm",
+    "viewMuseumBtn": "Xem Bảo Tàng",
+    "continueBtn": "Tiếp tục khám phá"
+  },
+  "museum": {
+    "personalMuseum": "Personal Museum",
+    "title": "Bảo Tàng",
+    "titleHighlight": "Của Tôi",
+    "subtitle": "Khám phá di sản văn hóa Việt Nam — di tích, địa danh, và di sản phi vật thể từ khắp đất nước.",
+    "subtitleEn": "Discover heritage sites, landmarks, and intangible culture across Vietnam.",
+    "tabs": {
+      "collection": "Bộ Sưu Tập",
+      "trade": "Trao Đổi"
+    },
+    "trade": {
+      "title": "Trao Đổi Vật Phẩm",
+      "subtitle": "Trao đổi vật phẩm trùng lặp với bạn bè. Tính năng sắp ra mắt.",
+      "subtitleEn": "Trade duplicate items with friends. Coming soon."
+    }
+  },
+  "museumGrid": {
+    "overallProgress": "{unlocked}/{total} di sản",
+    "cityProgress": "{unlocked}/{total} di sản đã khám phá",
+    "completed": "Hoàn thành! ✓"
+  },
+  "heritageDetail": {
+    "notExplored": "Chưa khám phá",
+    "collectibles": "Vật phẩm sưu tầm",
+    "visitCta": "Đến tham quan →"
+  },
+  "badgeCelebration": {
+    "newBadge": "Huy hiệu mới",
+    "viewBadge": "Xem huy hiệu",
+    "continueCta": "Tiếp tục khám phá"
+  },
+  "profile": {
+    "defaultName": "Nhà Khám Phá",
+    "memberRole": "Thành viên lữ hành",
+    "guestRole": "Khách tham quan",
+    "since": "Since 2026",
+    "verifiedBadge": "Verified ✓",
+    "syncedWithGoogle": "Dữ liệu đã được đồng bộ hóa với Google",
+    "loginToSave": "Đăng nhập để lưu tiến trình",
+    "levelLabel": "Cấp độ",
+    "stats": {
+      "locations": "Địa điểm",
+      "items": "Vật phẩm",
+      "legendary": "Huyền thoại",
+      "completion": "Hoàn thành"
+    },
+    "tabs": {
+      "collection": "Bộ sưu tập",
+      "achievements": "Thành tích"
+    },
+    "emptyCollection": {
+      "title": "Chưa có vật phẩm",
+      "subtitle": "Khám phá làng nghề để bắt đầu sưu tầm.",
+      "cta": "Bắt đầu khám phá"
+    },
+    "achievements": {
+      "pioneer": "Người tiên phong",
+      "pioneerEn": "Pioneer",
+      "pioneerDesc": "Mở khóa địa điểm đầu tiên",
+      "collector": "Nhà sưu tập",
+      "collectorEn": "Collector",
+      "collectorDesc": "Thu thập 5 vật phẩm",
+      "legendaryHunter": "Thợ săn huyền thoại",
+      "legendaryHunterEn": "Legendary Hunter",
+      "legendaryHunterDesc": "Tìm được 1 vật phẩm Huyền thoại",
+      "hueWanderer": "Lữ khách Huế",
+      "hueWandererEn": "Hue Wanderer",
+      "hueWandererDesc": "Khám phá 3 làng nghề Huế",
+      "curator": "Nhà bảo tàng",
+      "curatorEn": "Curator",
+      "curatorDesc": "Hoàn thành 50% bộ sưu tập",
+      "achieved": "Đạt được ✓"
+    },
+    "resetDemo": "Reset museum state (demo only)"
+  },
+  "create": {
+    "creatorPlatform": "Creator Platform",
+    "title": "Chia sẻ",
+    "titleHighlight": "di sản",
+    "subtitle": "Bạn là người nắm giữ di sản văn hóa? Chọn vai trò phù hợp và bắt đầu chia sẻ.",
+    "whoCanJoin": "Ai có thể tham gia?",
+    "tiers": {
+      "tier1Title": "Người nắm giữ di sản",
+      "tier1TitleEn": "Heritage Knowledge Holder",
+      "tier1Badge": "Tier 1",
+      "tier1Desc": "Nghệ nhân, nghệ sĩ biểu diễn, người cao tuổi, người kể chuyện, thầy thuốc nam, thầy cúng, người giữ lễ… Đăng ký địa điểm di sản và chia sẻ câu chuyện của bạn.",
+      "tier1DescEn": "Artisan, performer, elder, storyteller, traditional healer, ceremony keeper… Register your heritage site and share your story.",
+      "tier1Earnings": "Nhận phí tham quan + bản quyền kỹ thuật số",
+      "tier1EarningsEn": "Earn visitor fees + digital royalties",
+      "tier1Cta": "Tạo địa điểm di sản",
+      "tier2Title": "Hướng dẫn viên",
+      "tier2TitleEn": "Local Guide",
+      "tier2Badge": "Tier 2",
+      "tier2Desc": "Tạo tuyến hành trình di sản kết nối nhiều địa điểm thành một hành trình có chủ đề.",
+      "tier2DescEn": "Create heritage routes connecting multiple nodes into themed journeys.",
+      "tier2Earnings": "Nhận subscription + tip từ người khám phá",
+      "tier2EarningsEn": "Earn subscription fees + tips from explorers",
+      "tier2Cta": "Tạo tuyến đường",
+      "tier3Title": "Tổ chức văn hóa",
+      "tier3TitleEn": "Cultural Organization",
+      "tier3Badge": "Tier 3 · Xác minh",
+      "tier3Desc": "Sở VHTT, tổ chức UNESCO và NGO văn hóa — thêm lớp di sản chính thức được xác minh.",
+      "tier3DescEn": "Culture departments, UNESCO orgs, cultural NGOs — add official verified heritage layers.",
+      "tier3Earnings": "Hợp tác chính phủ + phí cấp phép du lịch",
+      "tier3EarningsEn": "Government partnerships + tourism licensing fees",
+      "tier3Cta": "Truy cập bảng quản lý"
+    },
+    "roles": {
+      "artisan": "Nghệ nhân thủ công",
+      "performer": "Nghệ sĩ biểu diễn",
+      "elder": "Người cao tuổi / Già làng",
+      "storyteller": "Người kể chuyện",
+      "ceremonyKeeper": "Người giữ lễ / Thầy cúng",
+      "healer": "Thầy thuốc nam",
+      "ritualMaster": "Người truyền dạy nghi lễ"
+    }
+  },
+  "createNode": {
+    "steps": {
+      "location": "Địa điểm",
+      "story": "Câu chuyện",
+      "npc": "Nhân vật AI",
+      "challenge": "Thử thách",
+      "items": "Vật phẩm",
+      "review": "Xem lại"
+    },
+    "location": {
+      "title": "Địa điểm",
+      "titleHighlight": "của bạn",
+      "subtitle": "Làng nghề hoặc địa điểm thủ công bạn muốn đăng ký.",
+      "nameLabel": "Tên địa điểm",
+      "namePlaceholder": "VD: Làng gốm Bát Tràng...",
+      "categoryLabel": "Loại nghề thủ công",
+      "gpsLabel": "Tọa độ GPS",
+      "latPlaceholder": "Vĩ độ (Lat)",
+      "lngPlaceholder": "Kinh độ (Lng)",
+      "gpsNote": "Hoặc chọn trực tiếp trên bản đồ trong phiên bản đầy đủ.",
+      "nextBtn": "Tiếp theo →"
+    },
+    "story": {
+      "title": "Câu chuyện",
+      "titleHighlight": "làng nghề",
+      "subtitle": "Chia sẻ kiến thức và lịch sử nghề thủ công của bạn.",
+      "videoLabel": "Video giới thiệu (2–3 phút)",
+      "videoUpload": "Tải video lên",
+      "summaryLabel": "Tóm tắt kiến thức",
+      "summaryPlaceholder": "Mô tả lịch sử, kỹ thuật, và điều đặc biệt của làng nghề...",
+      "materialsLabel": "Nguyên liệu chính",
+      "materialsPlaceholder": "VD: Gỗ mít, đục chạm...",
+      "backBtn": "Quay lại",
+      "nextBtn": "Tiếp theo →"
+    },
+    "npc": {
+      "title": "Nhân vật",
+      "titleHighlight": "AI",
+      "subtitle": "Định nghĩa 3–5 câu hỏi và câu trả lời cho nhân vật NPC đại diện bạn.",
+      "questionLabel": "Câu {n}",
+      "questionPlaceholder": "Câu hỏi người dùng có thể hỏi...",
+      "answerPlaceholder": "Câu trả lời của nghệ nhân (viết theo ngôi thứ nhất)...",
+      "backBtn": "Quay lại",
+      "nextBtn": "Tiếp theo →"
+    },
+    "challenge": {
+      "title": "Thử thách",
+      "titleHighlight": "ảnh",
+      "subtitle": "Yêu cầu người khám phá chụp ảnh gì để xác nhận sự hiện diện tại địa điểm.",
+      "descLabel": "Mô tả thử thách",
+      "descPlaceholder": "VD: Chụp ảnh giá phơi hương dưới nắng...",
+      "refLabel": "Ảnh tham khảo (1–3 ảnh)",
+      "backBtn": "Quay lại",
+      "nextBtn": "Tiếp theo →"
+    },
+    "items": {
+      "title": "Vật phẩm",
+      "titleHighlight": "sưu tập",
+      "subtitle": "Định nghĩa 2–5 vật phẩm người khám phá có thể nhận được.",
+      "itemLabel": "Vật phẩm {n}",
+      "namePlaceholder": "Tên vật phẩm...",
+      "addItemBtn": "Thêm vật phẩm",
+      "backBtn": "Quay lại",
+      "reviewBtn": "Xem lại →"
+    },
+    "review": {
+      "title": "Sẵn sàng",
+      "titleHighlight": "gửi đi!",
+      "subtitle": "Địa điểm của bạn sẽ được xem xét bởi đội ngũ Heritage Wander và cộng đồng Tier 3 trước khi xuất hiện trên bản đồ.",
+      "checkLocation": "Địa điểm",
+      "checkStory": "Câu chuyện",
+      "checkNpc": "Nhân vật AI",
+      "checkItems": "Vật phẩm",
+      "checkFilled": "✓ Đã điền",
+      "checkQuestions": "✓ 3 câu hỏi",
+      "checkItemsCount": "✓ 2 vật phẩm",
+      "submitBtn": "Gửi để xác minh",
+      "backToCreator": "Quay lại trang Creator"
+    },
+    "crafts": {
+      "carpentry": "Mộc / Carpentry",
+      "incense": "Hương / Incense",
+      "silk": "Lụa / Silk",
+      "pottery": "Gốm / Pottery",
+      "hatMaking": "Nón / Hat-making"
+    }
+  },
+  "admin": {
+    "title": "Verifier",
+    "titleHighlight": "Console",
+    "subtitle": "Quality Control & Community Trust",
+    "pending": "Pending",
+    "trustScore": "Trust Score",
+    "searchPlaceholder": "Search queue...",
+    "selectPrompt": "Select a submission\nto begin review",
+    "mainEvidence": "Main Evidence",
+    "viewSource": "View Source",
+    "partialTranscription": "Partial Transcription",
+    "aiReview": "AI-Structured Data Review",
+    "extractedSummary": "Extracted Summary",
+    "techniqueSteps": "Technique Steps",
+    "confidenceWarning": "Confidence Warning",
+    "confidenceWarningDesc": "Step 03 may be local folklore rather than scientific necessity. Verifier must confirm cultural significance.",
+    "communityProof": "Community Proof",
+    "provenanceVerified": "Provenance verified via Elder Consent ID:",
+    "revisions": "Revisions",
+    "approve": "Approve"
+  },
+  "settings": {
+    "title": "Cài đặt",
+    "subtitle": "Tùy chỉnh trải nghiệm Heritage Wander của bạn",
+    "language": {
+      "sectionTitle": "Ngôn ngữ",
+      "sectionSubtitle": "Chọn ngôn ngữ hiển thị",
+      "vi": "Tiếng Việt",
+      "en": "English",
+      "switching": "Đang chuyển..."
+    },
+    "navigation": {
+      "sectionTitle": "Chế độ Di chuyển",
+      "sectionSubtitle": "Chọn cách bạn khám phá khắp Việt Nam",
+      "gps": {
+        "label": "Vị trí GPS",
+        "description": "Di chuyển đến vị trí thực tế để mở khóa di sản."
+      },
+      "manual": {
+        "label": "Di chuyển bằng Click",
+        "description": "Nhấn vào bản đồ để tiếp cận các địa điểm di sản."
+      }
+    },
+    "about": {
+     "sectionTitle": "Về ứng dụng",
+      "version": "Heritage Wander v1.0"
+    }
+  }
+}

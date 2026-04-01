@@ -7,6 +7,7 @@ import Image from "next/image";
 import type { HeritageNode } from "@/lib/types";
 import { getElementsLabel, getKnowledgeHolderLabel } from "@/lib/ich-utils";
 import { Play, User, Package } from "lucide-react";
+import { useTranslations, useLocale } from "next-intl";
 
 interface StepBlueprintProps {
   node: HeritageNode;
@@ -16,6 +17,8 @@ interface StepBlueprintProps {
 export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
   const elementsLabel = getElementsLabel(node.ichDomain);
   const holderLabel = getKnowledgeHolderLabel(node.ichDomain);
+  const t = useTranslations("stepBlueprint");
+  const locale = useLocale();
 
   return (
     <div className="flex flex-col min-h-screen bg-background max-w-2xl mx-auto">
@@ -35,7 +38,7 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
         </div>
         <div className="absolute bottom-3 left-3">
           <Badge className="bg-background/80 backdrop-blur-sm text-foreground border-0 text-xs font-bold">
-            Bản thiết kế · {node.nameEn}
+            {t("badgeLabel")} · {node.nameEn}
           </Badge>
         </div>
       </div>
@@ -45,7 +48,7 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
         {/* Title */}
         <div>
           <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-1">
-            Khám phá di sản
+            {t("sectionLabel")}
           </p>
           <h2 className="text-2xl font-black">{node.name}</h2>
           <p className="text-sm text-muted-foreground italic mt-0.5">{node.nameEn}</p>
@@ -76,7 +79,7 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
           <div className="flex items-center gap-2 mb-2">
             <Package className="size-4 text-muted-foreground" />
             <span className="text-xs font-black uppercase tracking-widest text-muted-foreground">
-              {elementsLabel.vi} / {elementsLabel.en}
+              {elementsLabel[locale as "vi" | "en"] ?? elementsLabel.vi} / {elementsLabel.en}
             </span>
           </div>
           <div className="flex flex-wrap gap-2">
@@ -107,14 +110,14 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
             </div>
           </div>
           <Badge variant="outline" className="text-xs border-primary/30 text-primary">
-            Xác minh ✓
+            {t("verifiedBadge")}
           </Badge>
         </div>
 
         {/* Items preview */}
         <div>
           <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">
-            Vật phẩm có thể nhận · {node.items.length} items
+            {t("itemsLabel", { count: node.items.length })}
           </p>
           <div className="flex gap-2 overflow-x-auto pb-1">
             {node.items.map((item) => (
@@ -150,7 +153,7 @@ export function StepBlueprint({ node, onNext }: StepBlueprintProps) {
           className="w-full h-14 rounded-full text-base font-black"
           onClick={onNext}
         >
-          {holderLabel.vi} →
+          {t("meetCta", { role: holderLabel[locale as "vi" | "en"] ?? holderLabel.vi })}
         </Button>
       </div>
     </div>

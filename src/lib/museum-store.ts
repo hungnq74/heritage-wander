@@ -7,6 +7,7 @@ const DEFAULT_STATE: MuseumState = {
   unlockedNodeIds: [],
   collectedItemIds: [],
   earnedBadgeIds: [],
+  navigationMode: "gps",
 };
 
 function getUserId(): string | null {
@@ -21,6 +22,7 @@ export function getMuseumState(): MuseumState {
     if (!raw) return DEFAULT_STATE;
     const parsed = JSON.parse(raw) as MuseumState;
     if (!parsed.earnedBadgeIds) parsed.earnedBadgeIds = [];
+    if (!parsed.navigationMode) parsed.navigationMode = "gps";
     return parsed;
   } catch {
     return DEFAULT_STATE;
@@ -54,6 +56,12 @@ export function unlockNode(nodeId: string): void {
     saveState(state);
     syncToCloud("unlockNode", nodeId);
   }
+}
+
+export function setNavigationMode(mode: "gps" | "manual"): void {
+  const state = getMuseumState();
+  state.navigationMode = mode;
+  saveState(state);
 }
 
 export function addItems(itemIds: string[]): void {
