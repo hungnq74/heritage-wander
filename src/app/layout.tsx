@@ -25,6 +25,7 @@ import { BottomTabBar } from "@/components/navigation/bottom-tab-bar";
 import { PageTransition } from "@/components/shared/page-transition";
 import { AuthProvider } from "@/components/providers/session-provider";
 import { auth } from "@/auth";
+import { Analytics } from "@vercel/analytics/react";
 
 export default async function RootLayout({
   children,
@@ -48,6 +49,7 @@ export default async function RootLayout({
           </main>
           <BottomTabBar />
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
